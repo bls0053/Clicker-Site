@@ -1,6 +1,6 @@
 import { readable } from 'svelte/store';
 import { browser } from '$app/environment';
-import { count_time } from '../stores/counters';
+import { count_time } from '../stores/stores';
 
 export const Timer = readable(0, (set) => {
     if (!browser) return;

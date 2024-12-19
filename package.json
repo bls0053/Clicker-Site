@@ -41,6 +41,8 @@
   "type": "module",
   "dependencies": {
     "@floating-ui/dom": "1.6.12",
-    "highlight.js": "11.11.0"
+    "@types/prismjs": "^1.26.5",
+    "highlight.js": "11.11.0",
+    "prismjs": "^1.29.0"
   }
 }

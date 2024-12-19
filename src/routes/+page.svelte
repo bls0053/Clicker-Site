@@ -1,19 +1,40 @@
 <script lang="ts">
+
     import { get, writable } from 'svelte/store';
     import IncrementButton from '$lib/components/buttons/incrementButton.svelte';
     import CounterDisplay from '$lib/components/displays/CounterDisplay.svelte';
-    import { count_a, count_b, count_c, count_time } from '../lib/stores/counters';
-    import { rate_a, rate_b, rate_c } from '../lib/stores/rates';
+    
     import { Timer } from '../lib/util/time';
+	import { onMount } from 'svelte';
+    import CodeDisplay from '$lib/components/displays/CodeDisplay.svelte';
 
-    export const code_count = writable(0);
+    import UpgradeContainer from '$lib/components/displays/UpgradeContainer.svelte';
+
+    import { 
+        rate_char, 
+        rate_b, 
+        rate_c 
+    } from '../lib/stores/rates';
+
+    import { 
+        count_char,
+        count_b, 
+        count_c, 
+        count_time,
+        code_full,
+        code_index,
+        code_line,
+        count_lines
+    } from '../lib/stores/stores';
+	import UpgradeDisplay from '$lib/components/displays/UpgradeDisplay.svelte';
+	import UpgradeButton from '$lib/components/buttons/UpgradeButton.svelte';
 
     let intervalId: NodeJS.Timeout;
 
     const updateCounters = () => {
-        count_a.update((n) => n + get(rate_a));
-        count_b.update((n) => n + get(rate_b));
-        count_c.update((n) => n + get(rate_c));
+        count_char.update((n) => n + get(rate_char));
+        // count_b.update((n) => n + get(rate_b));
+        // count_c.update((n) => n + get(rate_c));
     };
 
     Timer.subscribe((time) => {
@@ -21,48 +42,87 @@
     });
 
 	function formatCount(num: number): number | string {
-		return num.toFixed(3)
+		return num.toFixed(0)
 	}
 
 </script>
 
-<div class="container h-[100vh] w-full m-auto flex justify-center items-center">
-    <div class="flex flex-row gap-6">
 
-        <div class="flex flex-col">
-            <button on:click={() => rate_a.update(n => +(n + 0.001).toFixed(3))} class="outline rounded-md p-2 m-2">+.1/s rate_a</button>
-			<button on:click={() => rate_a.update(n => +(n - 0.001).toFixed(3))} class="outline rounded-md p-2 m-2">-.1/s rate_a</button>
-			<button on:click={() => rate_a.update(n => +(n + 0.01).toFixed(3))} class="outline rounded-md p-2 m-2">+1/s rate_a</button>
-			<button on:click={() => rate_a.update(n => +(n - 0.01).toFixed(3))} class="outline rounded-md p-2 m-2">-1/s rate_a</button>
-			<button on:click={() => rate_a.update(n => +(n + 0.1).toFixed(3))} class="outline rounded-md p-2 m-2">+10/s rate_a</button>
-			<button on:click={() => rate_a.update(n => +(n - 0.1).toFixed(3))} class="outline rounded-md p-2 m-2">-10/s rate_a</button>
-			<button on:click={() => rate_a.update(n => 0)} class="outline rounded-md p-2 m-2">clear rate_a</button>
-			<button on:click={() => count_a.update(n => 0)} class="outline rounded-md p-2 m-2">clear count_a</button>
-            <IncrementButton text="increment a" store={count_a} />
-            <CounterDisplay text="a: " store={$count_a ? formatCount($count_a) : "0"} />
-			<button class="outline rounded-md p-2 m-2">rate_a: {$rate_a}</button>
+
+
+
+
+<div class="flex-row h-[100vh] w-full flex justify-center items-center bg-black">
+    <div class="flex flex-col w-3/4 h-1/2 items-center justify-center p-2 gap-4">
+
+        <div class="outline rounded-md p-4 h-1/2 w-full">
+            <CodeDisplay></CodeDisplay>
         </div>
 
-        <!-- <div class="flex flex-col">
-            <button on:click={() => rate_b.update(n => n + 1)} class="outline rounded-md p-2 m-2">+1/s rate_b</button>
-            <button on:click={() => rate_b.update(n => n - 1)} class="outline rounded-md p-2 m-2">-1/s rate_b</button>
-            <IncrementButton text="increment b" store={count_b} />
-            <CounterDisplay text="b: " store={$count_b ? formatCount($count_b) : "0"} />
-			<button class="outline rounded-md p-2 m-2">rate_b: {$rate_b}</button>
-        </div>
+        <div class="flex flex-row h-1/2 w-full ">
+            <UpgradeContainer>
 
-        <div class="flex flex-col">
-            <button on:click={() => rate_c.update(n => n + 1)} class="outline rounded-md p-2 m-2">+1/s rate_c</button>
-            <button on:click={() => rate_c.update(n => n - 1)} class="outline rounded-md p-2 m-2">-1/s rate_c</button>
-			<button on:click={() => rate_c.update(n => n + 10)} class="outline rounded-md p-2 m-2">+10/s rate_c</button>
-            <button on:click={() => rate_c.update(n => n - 10)} class="outline rounded-md p-2 m-2">-10/s rate_c</button>
-			<button on:click={() => rate_c.update(n => n + 100)} class="outline rounded-md p-2 m-2">+100/s rate_c</button>
-            <button on:click={() => rate_c.update(n => n - 100)} class="outline rounded-md p-2 m-2">-100/s rate_c</button>
-            <IncrementButton text="increment c" store={count_c} />
-            <CounterDisplay text="b: " store={$count_c ? formatCount($count_c) : "0"} />
-			<button class="outline rounded-md p-2 m-2">rate_c: {$rate_c}</button>
-			<div class="mt-12"><CounterDisplay text="b: " store={$count_time ? formatCount($count_time) : "0"} /></div>
+                <UpgradeDisplay>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                </UpgradeDisplay>
+
+                <UpgradeDisplay>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                </UpgradeDisplay>
+
+                <UpgradeDisplay>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                    <UpgradeButton></UpgradeButton>
+                </UpgradeDisplay>
+
+            </UpgradeContainer>
+
+        </div>
+        
+        
+    </div>
+    
+</div>
+
+
+
+
+
+
+<!-- <div class="h-1/2 ">
+            <div class="">const a + b</div>
+            <div class="flex flex-row ">
+                <button on:click={() => rate_char.update(n => +(n + 0.001).toFixed(3))} class="outline rounded-md p-2 m-2">+.1/s rate_char</button>
+                <button on:click={() => rate_char.update(n => +(n - 0.001).toFixed(3))} class="outline rounded-md p-2 m-2">-.1/s rate_char</button>
+                <button on:click={() => rate_char.update(n => +(n + 0.01).toFixed(3))} class="outline rounded-md p-2 m-2">+1/s rate_char</button>
+                <button on:click={() => rate_char.update(n => +(n - 0.01).toFixed(3))} class="outline rounded-md p-2 m-2">-1/s rate_char</button>
+                <button on:click={() => rate_char.update(n => +(n + 0.1).toFixed(3))} class="outline rounded-md p-2 m-2">+10/s rate_char</button>
+                <button on:click={() => rate_char.update(n => +(n - 0.1).toFixed(3))} class="outline rounded-md p-2 m-2">-10/s rate_char</button>
+            </div>
+    
+            <div class="flex flex-row">
+                <button on:click={() => rate_char.update(n => +(n + 1).toFixed(3))} class="outline rounded-md p-2 m-2">+100/s rate_char</button>
+                <button on:click={() => rate_char.update(n => +(n - 1).toFixed(3))} class="outline rounded-md p-2 m-2">-100/s rate_char</button>
+                <button on:click={() => rate_char.set(0)} class="outline rounded-md p-2 m-2">clear rate_char</button>
+                <button on:click={() => count_char.set(0)} class="outline rounded-md p-2 m-2">clear count_char</button>
+                <IncrementButton text="Write some code" store={count_char} />
+                <CounterDisplay text="char: " store={$count_char ? formatCount($count_char) : "0"} />
+                <CounterDisplay text="lines: " store={$count_lines} />
+                <CounterDisplay text="char_rate: " store={$rate_char} />
+                <CounterDisplay text="char_rate: " store={$count_time} />
+            </div>
+    
         </div> -->
 
-    </div>
-</div>
+
+
+
+            
