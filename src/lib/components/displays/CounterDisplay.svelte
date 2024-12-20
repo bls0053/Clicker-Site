@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { writable, type Writable } from 'svelte/store';
 
     export let store: string | number;
     export let text: string;

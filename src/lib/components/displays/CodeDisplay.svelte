@@ -10,13 +10,10 @@
         count_char,
         code_index,
 		code_snippet,
-        count_lines,
-		count_time
+        state
     } from '../../stores/stores';
 
-    import {
-        rate_char
-    } from '../../stores/rates'
+    
 
     let filePath = "src/lib/util/code.txt"; 
     let code_full = "";
@@ -26,7 +23,6 @@
     let char_limit = 1000;
     let code_length = 0;
     let difference = 0;
-    let codeElement: HTMLElement | null = null;
     let highlightedCode = "";
 
     
@@ -56,12 +52,12 @@
     function set_lines() {
         if (difference == 1) {
             if (new_snippet === "\n") {
-                count_lines.update(n => n + 1);
+                $state.lines += 1;
             }
         } 
         else {
-            const newLineCount = new_snippet.split('\n').length - 1;
-            count_lines.update(n => n + newLineCount);
+            const new_line_count = new_snippet.split('\n').length - 1;
+            $state.lines += new_line_count;;
         }
     }
 

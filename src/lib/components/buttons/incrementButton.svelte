@@ -4,10 +4,9 @@
 
     export let store: Writable<number>;
     export let text: string;
-    export let incrementAmount: number = 1;
 
     const increment = (event: KeyboardEvent) => {
-        store.update((n) => n + incrementAmount);
+        store.update((n) => n + 1);
         console.log(text, event.key);
     };
 
