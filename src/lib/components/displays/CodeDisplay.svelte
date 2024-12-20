@@ -82,7 +82,7 @@
 
 
 <div class="h-full overflow-y-hidden flex flex-col-reverse ">
-    <pre class="python"><code class="pixel-font">{@html highlightedCode}</code></pre>
+    <pre class="python pixel-font">{@html highlightedCode}</pre>
    
 </div>
 
