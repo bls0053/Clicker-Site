@@ -2,6 +2,7 @@
 
     import hljs from "highlight.js";
     import python from 'highlight.js/lib/languages/python';
+    
     hljs.registerLanguage('python', python);
 
     import { onMount } from "svelte";
@@ -15,7 +16,7 @@
 
     
 
-    let filePath = "src/lib/util/code.txt"; 
+    let filePath = "/code.txt"; 
     let code_full = "";
     let new_snippet = "";
 
