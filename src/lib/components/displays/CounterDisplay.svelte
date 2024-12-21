@@ -8,6 +8,6 @@
 
 
 
-<div class="rounded-md outline p-2 m-2">
+<div class="rounded-md outline p-1">
     {text}{store}
 </div>

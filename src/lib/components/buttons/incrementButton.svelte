@@ -14,6 +14,6 @@
 
 <button 
     on:keypress={increment} 
-    class="rounded-md outline p-2 m-2">
+        class="rounded-md outline p-2 m-2">
     {text}
 </button>   

@@ -53,12 +53,12 @@
     function set_lines() {
         if (difference == 1) {
             if (new_snippet === "\n") {
-                $state.lines += 1;
+                $state["lines"].amount += 1;
             }
         } 
         else {
             const new_line_count = new_snippet.split('\n').length - 1;
-            $state.lines += new_line_count;;
+            $state["lines"].amount += new_line_count;;
         }
     }
 
@@ -82,7 +82,7 @@
 </script>
 
 
-<div class="h-full overflow-y-hidden flex flex-col-reverse ">
+<div class="h-full overflow-y-hidden flex flex-col-reverse outline rounded-md p-4">
     <pre class="python pixel-font">{@html highlightedCode}</pre>
    
 </div>
