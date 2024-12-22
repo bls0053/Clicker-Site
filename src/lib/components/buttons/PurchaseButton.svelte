@@ -9,6 +9,7 @@
     export let id = "";
     
     let canPurchase = false;
+    let locked = false;
 
     $:  {
         
@@ -19,7 +20,6 @@
                         canPurchase = Object.keys(cost).every((key) => {
                             const typedKey = key as keyof typeof $state;
                             if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
-                                console.log("hello")
                                 return $state[typedKey]?.amount >= cost[typedKey];
                             }       
                         });
@@ -36,6 +36,8 @@
                     if (button.id === id) {
                         
                         const { cost } = button;
+                        console.log(button.type)
+
                         if (canPurchase) {
                             button.amount += 1;
                             // Deduct cost from store
@@ -49,14 +51,21 @@
                                 return currentState;
                             });
 
-                            // Increase cost
-                            Object.keys(cost).forEach((key) => {
-                                const typedKey = key as keyof typeof cost;
-                                if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
-                                    cost[typedKey] = Math.ceil(cost[typedKey] * Math.pow(1.07, button.amount));
-                                }
-                            });
+                            if (button.amount >= button.max && button.max > 0) {
+                                locked = true;
+                            }
 
+                            if (!locked) {
+                            // Increase cost
+                                Object.keys(cost).forEach((key) => {
+                                    const typedKey = key as keyof typeof cost;
+                                    if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
+                                        cost[typedKey] = Math.ceil(cost[typedKey] * Math.pow(1.07, button.amount));
+                                    }
+                                });
+                            }
+
+                            // Apply rate upgrade
                             if (button.type == "rate") {
                                 const resourceKey = Object.keys(button.increase)[0];
                                 const rateval = button.increase[resourceKey];
@@ -65,6 +74,7 @@
                                 }
                             }
 
+                            // Apply mult upgrade
                             if (button.type == "mult") {
                                 const resourceKey = Object.keys(button.increase)[0];
                                 const multval = button.increase[resourceKey];
@@ -73,16 +83,20 @@
                                 }
                             }
 
-                            if (button.unlocks in $unlocked) {
-                                $unlocked[button.unlocks as keyof typeof $unlocked] = true;
-                            }
+                            // Unlock specified id
+                            button.unlocks.forEach(button => {
+                                if (button in $unlocked) {
+                                    $unlocked[button as keyof typeof $unlocked] = true;
+                                }
+                            })
+                                
 
                         }
                     }
-                    return button;
-                });
-                return updated_buttons;
+                return button;
             });
+            return updated_buttons;
+        });
     }
 
 
@@ -95,7 +109,10 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:click={handleClick} 
 class="pixel2 p-1 bg-opacity-20
-{canPurchase ? '!text-green-300' : '!text-red-400 '}">
+{locked ? '' : (canPurchase ? '!text-green-300' : '!text-red-400')}">
     {label}
+    {#if (locked)}
+        MAX
+    {/if}
 </div>
 

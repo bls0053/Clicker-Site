@@ -10,7 +10,7 @@ export const count_time = writable(0);
 
 export const state = writable({
     lines: {
-        amount: 100,
+        amount: 1000000,
         mult: 1,
         rate: 0,
     },
@@ -29,10 +29,14 @@ export const state = writable({
 });
 
 export const unlocked = writable({
-    id1: true,
-    id2: true,
-    id3: false,
-    id4: false,
+    section1: true,
+    section2: false,
+    section3: false,
+    section4: false,
+    section5: false,
     menu_bar: false,
-    resume: false
+    resume: false,
+    email: false,
+    linkedin: false,
+    github: false
 });

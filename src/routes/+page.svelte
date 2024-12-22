@@ -12,16 +12,27 @@
 	import PurchaseButton from '$lib/components/buttons/PurchaseButton.svelte';
 	import { buttons_store } from '$lib/stores/buttons';
     import type { Button } from '$lib/stores/buttons';
-	import IncrementButton from '$lib/components/buttons/incrementButton.svelte';
+	import IncrementButton from '$lib/components/buttons/IncrementButton.svelte';
 	import UpgradeContainer from '$lib/components/containers/UpgradeContainer.svelte';
     import { unlocked } from '../lib/stores/stores';
+	import AppBar from '$lib/components/containers/AppBar.svelte';
 
     
-    type State = {
-        [key: string]: number;
-    };
+    import IconResume from '~icons/pixelarticons/file-alt';
+    import IconEmail from '~icons/pixelarticons/mail';
+    import IconLinkedin from '~icons/pixelarticons/user';
+    import IconGithub from '~icons/pixelarticons/github';
+	import MenuButton from '$lib/components/buttons/MenuButton.svelte';
 
-   
+    
+    // type State = {
+    //     [key: string]: number;
+    // };
+
+    let left_content = [];
+    let right_content = []
+
+    
 
     function canShowButton(button: Button) {
         const { unlockCriteria } = button;
@@ -60,30 +71,36 @@
 
 
 <div class="flex flex-col bg-black h-full w-full">
-    
-
+    {#if ($unlocked.menu_bar)}
+    <AppBar>
+        {#if ($unlocked.resume)}<MenuButton text="Resume" type="link" link="src/public/Resume.pdf"><IconResume class="w-full h-full"/></MenuButton>{/if}
+        {#if ($unlocked.email)}<MenuButton text="Email" type="email" link=""><IconEmail class="w-full h-full"/></MenuButton>{/if}
+        {#if ($unlocked.linkedin)}<MenuButton text="Linkedin" type="link" link="https://www.linkedin.com/in/bensims25/"><IconLinkedin class="w-full h-full"/></MenuButton>{/if}
+        {#if ($unlocked.github)}<MenuButton text="Github" type="link" link="https://github.com/bls0053"><IconGithub class="w-full h-full"/></MenuButton>{/if}
+    </AppBar>
+    {/if}
     <div class="flex flex-col m-auto items-center h-5/6 w-3/4 gap-4 ">
         
-        {#if ($unlocked.id1)}
-            <div class="flex flex-row h-2/3 w-full gap-4">
-                <div class="w-5/6 h-full"><CodeDisplay></CodeDisplay></div>
-                <div class="flex flex-col w-1/6 h-full justify-between ">
-                    <IncrementButton text="write code" store={count_char} />
-                    <CounterDisplay text="char: " store={$count_char ? formatCount($count_char) : "0"} />
-                    <CounterDisplay text="lines: " store={$state["lines"].amount} />
-                    <CounterDisplay text="coffee: " store={$state["coffee"].amount} />
-                    <CounterDisplay text="bencoin: " store={$state["bencoin"].amount} />
-                    <CounterDisplay text="char_base /s: " store={($state["lines"].rate*100).toFixed(1)} />
-                    <CounterDisplay text="char: x" store={(($state["lines"].mult)).toFixed(1)} />
-                    <CounterDisplay text="char /s: " store={(($state["lines"].rate * $state["lines"].mult)*100).toFixed(1)} />
-                    <CounterDisplay text="coffee /s: " store={($state["coffee"].rate*100).toFixed(1)} />
-                    <CounterDisplay text="bencoin /s: " store={($state["bencoin"].rate*100).toFixed(1)} />
-                </div>
-                
+ 
+        <div class="flex flex-row h-2/3 w-full gap-4">
+            <div class="w-5/6 h-full"><CodeDisplay></CodeDisplay></div>
+            <div class="flex flex-col w-1/6 h-full justify-between ">
+                <IncrementButton text="write code" store={count_char} />
+                <CounterDisplay text="char: " store={$count_char ? formatCount($count_char) : "0"} />
+                <CounterDisplay text="lines: " store={$state["lines"].amount} />
+                <CounterDisplay text="coffee: " store={$state["coffee"].amount} />
+                <CounterDisplay text="bencoin: " store={$state["bencoin"].amount} />
+                <CounterDisplay text="char_base /s: " store={($state["lines"].rate*100).toFixed(1)} />
+                <CounterDisplay text="char: x" store={(($state["lines"].mult)).toFixed(1)} />
+                <CounterDisplay text="char /s: " store={(($state["lines"].rate * $state["lines"].mult)*100).toFixed(1)} />
+                <CounterDisplay text="coffee /s: " store={($state["coffee"].rate*100).toFixed(1)} />
+                <CounterDisplay text="bencoin /s: " store={($state["bencoin"].rate*100).toFixed(1)} />
             </div>
-        {/if} 
+            
+        </div>
+
         <div class="flex flex-row h-1/3 gap-4 w-full">
-                    {#if ($unlocked.id2)}
+                    {#if ($unlocked.section1)}
             <Section>
                 {#each $buttons_store as button}
                     {#if button.section == 1 && canShowButton(button)}
@@ -104,7 +121,7 @@
             </Section>
             {/if}
 
-            {#if ($unlocked.id3)}
+            {#if ($unlocked.section2)}
             <Section>
                 {#each $buttons_store as button}
                     {#if button.section == 2 && canShowButton(button)}
@@ -124,20 +141,32 @@
                 {/each}
             </Section>
             {/if}
-            {#if ($unlocked.menu_bar)}
-            <Section>Menu BAr</Section>
-            {/if}
-            {#if ($unlocked.resume)}
-            <Section>resumew</Section>
-            {/if}
+
+            {#if ($unlocked.section3)}
+                <Section>
+                    {#each $buttons_store as button}
+                        {#if button.section == 3 && canShowButton(button)}
+                        <UpgradeContainer>    
+                            {#each Object.keys(button.cost) as key}
+                                {#if button.cost[key] !== undefined}
+                                    <p class="pixel-font">{key}: {button.cost[key]}</p>
+                                {/if}
+                            {/each}
+                            <PurchaseButton 
+                            id = {button.id}
+                            text = "purchase"
+                            label = {button.label}
+                            />
+                        </UpgradeContainer>
+                        {/if}
+                    {/each}
+                </Section>
+            {/if}        
+            
         </div>
    
 
-        {#if ($unlocked.id4)}
-            <div class="">
-
-            </div>
-        {/if}        
+        
     
    </div>
 
