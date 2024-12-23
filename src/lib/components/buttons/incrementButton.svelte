@@ -13,7 +13,8 @@
 </script>
 
 <button 
-    on:keypress={increment} 
-        class="rounded-md outline p-2 m-2">
+    on:click={increment}
+    on:keydown={increment} 
+        class="rounded-md  p-2 m-2 neo">
     {text}
 </button>   

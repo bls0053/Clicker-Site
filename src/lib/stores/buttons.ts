@@ -220,7 +220,7 @@ export const buttons_store = writable<Button[]>([
 
     },
     type: "project",
-    unlocks: [""], 
+    unlocks: ["project1"], 
     amount: 0,
     section: 3,
     unlockCriteria: {
@@ -245,7 +245,7 @@ export const buttons_store = writable<Button[]>([
 
     },
     type: "project",
-    unlocks: [""], 
+    unlocks: ["project2"], 
     amount: 0,
     section: 3,
     unlockCriteria: {
@@ -270,7 +270,7 @@ export const buttons_store = writable<Button[]>([
 
     },
     type: "project",
-    unlocks: [""], 
+    unlocks: ["project3"], 
     amount: 0,
     section: 3,
     unlockCriteria: {
@@ -295,7 +295,7 @@ export const buttons_store = writable<Button[]>([
 
     },
     type: "project",
-    unlocks: [""], 
+    unlocks: ["project4"], 
     amount: 0,
     section: 3,
     unlockCriteria: {

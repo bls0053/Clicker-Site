@@ -6,6 +6,7 @@
     hljs.registerLanguage('python', python);
 
     import { onMount } from "svelte";
+    import { active_tab } from "../../stores/stores";
 
     import { 
         count_char,
@@ -82,7 +83,8 @@
 </script>
 
 
-<div class="h-full overflow-y-hidden flex flex-col-reverse outline rounded-md p-4">
+<div class="h-full overflow-y-hidden flex flex-col-reverse rounded-md p-4
+{$active_tab == "code" ? '' : 'opacity-50'}">
     <pre class="python pixel-font">{@html highlightedCode}</pre>
    
 </div>

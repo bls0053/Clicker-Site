@@ -1,7 +1,8 @@
 <script lang="ts">
     import { 
+	    active_tab,
         count_char,
-        state
+        state,
     } from '../lib/stores/stores';
 
     import { Timer_ms } from '../lib/util/time';
@@ -16,6 +17,7 @@
 	import UpgradeContainer from '$lib/components/containers/UpgradeContainer.svelte';
     import { unlocked } from '../lib/stores/stores';
 	import AppBar from '$lib/components/containers/AppBar.svelte';
+    
 
     
     import IconResume from '~icons/pixelarticons/file-alt';
@@ -23,6 +25,8 @@
     import IconLinkedin from '~icons/pixelarticons/user';
     import IconGithub from '~icons/pixelarticons/github';
 	import MenuButton from '$lib/components/buttons/MenuButton.svelte';
+	import Tab from '$lib/components/containers/Tab.svelte';
+	import ProjectDisplay from '$lib/components/displays/ProjectDisplay.svelte';
 
     
     // type State = {
@@ -31,6 +35,7 @@
 
     let left_content = [];
     let right_content = []
+
 
     
 
@@ -67,10 +72,10 @@
 
 
 
+<!-- background: #e0e0e0; -->
 
 
-
-<div class="flex flex-col bg-black h-full w-full">
+<div class="flex flex-col h-full w-full bg-[#242424]">
     {#if ($unlocked.menu_bar)}
     <AppBar>
         {#if ($unlocked.resume)}<MenuButton text="Resume" type="link" link="src/public/Resume.pdf"><IconResume class="w-full h-full"/></MenuButton>{/if}
@@ -83,7 +88,48 @@
         
  
         <div class="flex flex-row h-2/3 w-full gap-4">
-            <div class="w-5/6 h-full"><CodeDisplay></CodeDisplay></div>
+            <div class="w-5/6 h-full">
+
+                <div class="neo-inset h-full p-4 relative">
+                    <div class="flex flex-row gap-2">
+                            <Tab text="Code-Boy TM" id="code"></Tab>
+                        {#if ($unlocked.project1)}
+                            <Tab text="Project1" id="project1"></Tab>
+                        {/if}
+                        {#if ($unlocked.project2)}
+                            <Tab text="Project2" id="project2"></Tab>
+                        {/if}
+                        {#if ($unlocked.project3)}
+                            <Tab text="Project3" id="project3"></Tab>
+                        {/if}
+                        {#if ($unlocked.project4)}
+                            <Tab text="Project4" id="project4"></Tab>
+                        {/if}
+                        
+                    </div>
+                    
+                    <CodeDisplay></CodeDisplay>
+                    {#if ($active_tab == "project1")}
+                        <ProjectDisplay link="src/public/p1/i1.png"></ProjectDisplay>
+                    {/if}
+                    {#if ($active_tab == "project2")}
+                        <ProjectDisplay link="src/public/p2/i1.png"></ProjectDisplay>
+                    {/if}
+                    {#if ($active_tab == "project3")}
+                        <ProjectDisplay link="src/public/p3/i2.png"></ProjectDisplay>
+                    {/if}
+                    {#if ($active_tab == "project4")}
+                        <ProjectDisplay link="src/public/p4/i1.png"></ProjectDisplay>
+                    {/if}
+                    
+
+                </div>
+                    
+                
+
+
+                    
+            </div>
             <div class="flex flex-col w-1/6 h-full justify-between ">
                 <IncrementButton text="write code" store={count_char} />
                 <CounterDisplay text="char: " store={$count_char ? formatCount($count_char) : "0"} />
@@ -104,18 +150,15 @@
             <Section>
                 {#each $buttons_store as button}
                     {#if button.section == 1 && canShowButton(button)}
-                    <UpgradeContainer>   
-                        {#each Object.keys(button.cost) as key}
-                            {#if button.cost[key] !== undefined}
-                                <p class="pixel-font">{key}: {button.cost[key]}</p>
-                            {/if}
-                        {/each}
+                      
+                        
                         <PurchaseButton 
                         id = {button.id}
                         text = "purchase"
                         label = {button.label}
+                        cost = {button.cost}
                         />
-                    </UpgradeContainer>
+                    
                     {/if}
                 {/each}
             </Section>
@@ -125,18 +168,15 @@
             <Section>
                 {#each $buttons_store as button}
                     {#if button.section == 2 && canShowButton(button)}
-                    <UpgradeContainer>    
-                        {#each Object.keys(button.cost) as key}
-                            {#if button.cost[key] !== undefined}
-                                <p class="pixel-font">{key}: {button.cost[key]}</p>
-                            {/if}
-                        {/each}
+                       
+                        
                         <PurchaseButton 
                         id = {button.id}
                         text = "purchase"
                         label = {button.label}
+                        cost = {button.cost}
                         />
-                    </UpgradeContainer>
+                    
                     {/if}
                 {/each}
             </Section>
@@ -146,18 +186,15 @@
                 <Section>
                     {#each $buttons_store as button}
                         {#if button.section == 3 && canShowButton(button)}
-                        <UpgradeContainer>    
-                            {#each Object.keys(button.cost) as key}
-                                {#if button.cost[key] !== undefined}
-                                    <p class="pixel-font">{key}: {button.cost[key]}</p>
-                                {/if}
-                            {/each}
+                           
+                            
                             <PurchaseButton 
                             id = {button.id}
                             text = "purchase"
                             label = {button.label}
+                            cost = {button.cost}
                             />
-                        </UpgradeContainer>
+                        
                         {/if}
                     {/each}
                 </Section>

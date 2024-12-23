@@ -29,8 +29,8 @@
 
 
 
-<div class="flex flex-row justify-center w-full h-full p-2">
-    <button on:click={handleClick} class="flex flex-col pixel-font items-center transition-transform hover:scale-105">
+<div class="flex flex-row h-full p-2 neo">
+    <button on:click={handleClick} class="flex flex-col pixel-font items-center">
         <slot></slot>
         <p>{text}</p>
     </button>

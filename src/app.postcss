@@ -6,6 +6,7 @@
 html,
 body {
   @apply h-full;
+  
 }
 
 body {
@@ -16,7 +17,41 @@ body {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  
 }
+
+
+.neo {
+  border-radius: 8px;
+  background: #242424;
+  box-shadow:  5px 5px 10px #141414,
+             -5px -5px 10px #343434;
+}
+
+.neo-inactive {
+  border-radius: 8px;
+  background: #242424;
+  box-shadow:  5px 5px 10px #141414,
+             -5px -5px 10px #343434;
+}
+
+.neo:active {
+  border-radius: 8px;
+  background: #242424;
+  box-shadow: inset 5px 5px 10px #141414,
+            inset -5px -5px 10px #343434;
+}
+
+.neo-inset {
+  border-radius: 8px;
+  background: #242424;
+  box-shadow: inset 5px 5px 10px #141414,
+            inset -5px -5px 10px #343434;
+}
+
+
+
+
 
 .pixel, .pixel2 {
   font-size: 25px;

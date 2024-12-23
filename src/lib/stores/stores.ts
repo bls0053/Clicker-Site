@@ -38,5 +38,13 @@ export const unlocked = writable({
     resume: false,
     email: false,
     linkedin: false,
-    github: false
+    github: false,
+    project1: false,
+    project2: false,
+    project3: false,
+    project4: false,
+    
 });
+
+
+export const active_tab = writable("code")

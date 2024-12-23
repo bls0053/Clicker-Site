@@ -2,14 +2,16 @@
 
     import { buttons_store } from "$lib/stores/buttons";
     import { state, unlocked } from "../../stores/stores";
-
+    import type { CostState } from "$lib/stores/buttons";
 
     export let text = "purchase";
     export let label = "";
     export let id = "";
+    export let cost = <CostState>{};
     
     let canPurchase = false;
     let locked = false;
+    
 
     $:  {
         
@@ -108,9 +110,18 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:click={handleClick} 
-class="pixel2 p-1 bg-opacity-20
+class=" p-6 bg-opacity-20 neo hover:rotate-3 transiton-transform duration-200
 {locked ? '' : (canPurchase ? '!text-green-300' : '!text-red-400')}">
+    {#if (!locked)}
+    {#each Object.entries(cost) as [key, value]}
+        {#if value !== undefined}
+            <div>{key}: {value}</div>
+        {/if}
+    {/each}
+    {/if}
+
     {label}
+
     {#if (locked)}
         MAX
     {/if}

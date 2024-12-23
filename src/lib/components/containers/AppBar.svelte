@@ -2,7 +2,7 @@
 
     export let link = "";
 
-    
+
 
 
 
@@ -14,7 +14,7 @@
 
 
 
-<div class="flex flex-row w-full h-24 outline justify-end">
+<div class="flex flex-row w-full h-24 neo-inactive justify-end gap-4 p-4">
 
     <slot>
 
