@@ -4,7 +4,6 @@
     import { state, unlocked } from "../../stores/stores";
     import type { CostState } from "$lib/stores/buttons";
 
-    export let text = "purchase";
     export let label = "";
     export let id = "";
     export let cost = <CostState>{};

@@ -131,7 +131,7 @@
                     
             </div>
             <div class="flex flex-col w-1/6 h-full justify-between ">
-                <IncrementButton text="write code" store={count_char} />
+                <!-- <IncrementButton text="write code" store={count_char} /> -->
                 <CounterDisplay text="char: " store={$count_char ? formatCount($count_char) : "0"} />
                 <CounterDisplay text="lines: " store={$state["lines"].amount} />
                 <CounterDisplay text="coffee: " store={$state["coffee"].amount} />
@@ -154,7 +154,6 @@
                         
                         <PurchaseButton 
                         id = {button.id}
-                        text = "purchase"
                         label = {button.label}
                         cost = {button.cost}
                         />
@@ -172,7 +171,6 @@
                         
                         <PurchaseButton 
                         id = {button.id}
-                        text = "purchase"
                         label = {button.label}
                         cost = {button.cost}
                         />
@@ -190,7 +188,6 @@
                             
                             <PurchaseButton 
                             id = {button.id}
-                            text = "purchase"
                             label = {button.label}
                             cost = {button.cost}
                             />
