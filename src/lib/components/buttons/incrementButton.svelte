@@ -1,20 +1,31 @@
 <script lang="ts">
     import { writable, type Writable } from 'svelte/store';
 
-
     export let store: Writable<number>;
     export let text: string;
 
-    const increment = (event: KeyboardEvent) => {
-        store.update((n) => n + 1);
-        console.log(text, event.key);
+    const pressedKeys = new Set<string>();
+
+    const handleKeydown = (event: KeyboardEvent) => {
+        if (!pressedKeys.has(event.key)) {
+            pressedKeys.add(event.key);
+            store.update((n) => n + 1);
+        }
     };
 
+    const handleKeyup = (event: KeyboardEvent) => {
+        pressedKeys.delete(event.key); 
+    };
+
+    const handleClick = () => {
+        store.update((n) => n + 1);
+    };
 </script>
 
 <button 
-    on:click={increment}
-    on:keydown={increment} 
+    on:click={handleClick}
+    on:keydown={handleKeydown} 
+    on:keyup={handleKeyup} 
         class="rounded-md  p-2 m-2 neo">
     {text}
 </button>   
