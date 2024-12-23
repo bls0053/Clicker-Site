@@ -13,7 +13,7 @@
 	import PurchaseButton from '$lib/components/buttons/PurchaseButton.svelte';
 	import { buttons_store } from '$lib/stores/buttons';
     import type { Button } from '$lib/stores/buttons';
-	import IncrementButton from '$lib/components/buttons/IncrementButton.svelte';
+	// import IncrementButton from '$lib/components/buttons/IncrementButton.svelte';
 	import UpgradeContainer from '$lib/components/containers/UpgradeContainer.svelte';
     import { unlocked } from '../lib/stores/stores';
 	import AppBar from '$lib/components/containers/AppBar.svelte';
