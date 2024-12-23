@@ -37,7 +37,6 @@
                     if (button.id === id) {
                         
                         const { cost } = button;
-                        console.log(button.type)
 
                         if (canPurchase) {
                             button.amount += 1;

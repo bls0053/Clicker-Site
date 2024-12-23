@@ -10,19 +10,19 @@ export const count_time = writable(0);
 
 export const state = writable({
     lines: {
-        amount: 1000000,
+        amount: 1000,
         mult: 1,
         rate: 0,
     },
 
     coffee: {
-        amount: 20,
+        amount: 0,
         mult: 1,
         rate: 0,
     },
 
     bencoin: {
-        amount: 90,
+        amount: 0,
         mult: 1,
         rate: 0,
     },
@@ -43,6 +43,7 @@ export const unlocked = writable({
     project2: false,
     project3: false,
     project4: false,
+    auto_enter: false
     
 });
 

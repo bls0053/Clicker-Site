@@ -13,7 +13,7 @@
 	import PurchaseButton from '$lib/components/buttons/PurchaseButton.svelte';
 	import { buttons_store } from '$lib/stores/buttons';
     import type { Button } from '$lib/stores/buttons';
-	// import IncrementButton from '$lib/components/buttons/IncrementButton.svelte';
+	import IncrementButton from '$lib/components/buttons/IncrementButton.svelte';
 	import UpgradeContainer from '$lib/components/containers/UpgradeContainer.svelte';
     import { unlocked } from '../lib/stores/stores';
 	import AppBar from '$lib/components/containers/AppBar.svelte';
@@ -56,17 +56,13 @@
         return true;
     }
 
-    const update_char = () => {
-        count_char.update((n) => n + ($state["lines"].rate * $state["lines"].mult));
-    };
-
-    Timer_ms.subscribe((time) => {
-            update_char();
-    });
 
 	function formatCount(num: number): number | string {
 		return num.toFixed(0)
 	}
+
+    
+    
 
 </script>
 
@@ -131,7 +127,7 @@
                     
             </div>
             <div class="flex flex-col w-1/6 h-full justify-between ">
-                <!-- <IncrementButton text="write code" store={count_char} /> -->
+                <IncrementButton text="write code" store={count_char} />
                 <CounterDisplay text="char: " store={$count_char ? formatCount($count_char) : "0"} />
                 <CounterDisplay text="lines: " store={$state["lines"].amount} />
                 <CounterDisplay text="coffee: " store={$state["coffee"].amount} />

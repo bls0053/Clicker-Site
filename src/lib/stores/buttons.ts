@@ -32,6 +32,57 @@ export interface Button {
 }
 
 export const buttons_store = writable<Button[]>([
+
+  {
+    id: "btn12",
+    title: "",
+    label: "Unlock Auto-type",
+    max: 1,
+    cost: {
+      lines: 5,
+    },
+    increase: {
+      lines: .1
+    },
+    type: "rate",
+    unlocks: [""], 
+    amount: 0,
+    section: 1,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: [
+        
+      ]
+    }
+  },
+
+  {
+    id: "btn13",
+    title: "",
+    label: "Unlock Auto-enter",
+    max: 1,
+    cost: {
+      lines: 10,
+    },
+    increase: {
+
+    },
+    type: "unlock",
+    unlocks: ["auto_enter"], 
+    amount: 0,
+    section: 1,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: [
+        
+      ]
+    }
+  },
+
   {
     id: "btn1",
     title: "do action",
@@ -52,7 +103,7 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [
-        
+        {id:"btn12", amount: 1}
       ]
     },
 
@@ -78,7 +129,7 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [
-        {id:"btn1", amount: 3}
+        {id:"btn12", amount: 1}
       ]
     }
   },
@@ -307,6 +358,8 @@ export const buttons_store = writable<Button[]>([
       ]
     }
   },
+
+  
 
 ]);
 

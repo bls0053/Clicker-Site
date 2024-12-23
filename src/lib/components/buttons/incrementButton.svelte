@@ -1,5 +1,6 @@
 <script lang="ts">
     import { writable, type Writable } from 'svelte/store';
+    
 
     export let store: Writable<number>;
     export let text: string;
@@ -18,9 +19,18 @@
     };
 
     const handleClick = () => {
-        store.update((n) => n + 1);
+        store.update((n) => n + 1000);
     };
+
+    
+
 </script>
+
+<svelte:window 
+    on:keydown={handleKeydown} 
+    on:keyup={handleKeyup} 
+/>
+
 
 <button 
     on:click={handleClick}
