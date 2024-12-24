@@ -19,7 +19,8 @@
     let new_snippet = "";
     let code_snippet = "";
     let index = 0;
-    let paused = false;
+    export let paused = false;
+    
 
     let prev_count = 0;
     let char_limit = 1000;
@@ -92,11 +93,7 @@
     }
 
     count_char.subscribe((count) => {
-        console.log("prev_count: ", prev_count);
-        console.log("count: ", count);
-        console.log("code_index: ", index)
-        console.log("\n")
-
+     
         if (!paused) {
             difference = Math.floor(count - prev_count);
 
@@ -125,6 +122,7 @@
                     code_snippet += new_snippet;
                     trim_snippet();
                     highlightedCode = hljs.highlight(code_snippet, { language: 'python' }).value;
+                    code_index.set(index);
                     count_char.set(prev_count);
                 }
             }
@@ -165,6 +163,6 @@
 
 <div class="h-full overflow-y-hidden flex flex-col-reverse rounded-md p-4">
     {#if ($active_tab == "code")}
-        <pre class="python pixel-font">{@html highlightedCode}<span class="pixel-font {paused ? 'flashing-text' : ''}"> | </span><span class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
+        <pre class="python pixel-font">{@html highlightedCode}<span class="pixel-font {paused ? 'flashing-text' : ''}">| </span><span class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
     {/if}
 </div>

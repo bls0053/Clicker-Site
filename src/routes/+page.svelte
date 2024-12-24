@@ -14,7 +14,7 @@
 	import PurchaseButton from '$lib/components/buttons/PurchaseButton.svelte';
 	import { buttons_store } from '$lib/stores/buttons';
     import type { Button } from '$lib/stores/buttons';
-	import IncrementButton from '$lib/components/buttons/IncrementButton.svelte';
+	import IncrementButton from '../lib/components/buttons/IncrementButton.svelte';;
 	import UpgradeContainer from '$lib/components/containers/UpgradeContainer.svelte';
     import { unlocked } from '../lib/stores/stores';
 	import AppBar from '$lib/components/containers/AppBar.svelte';
@@ -28,14 +28,14 @@
 	import MenuButton from '$lib/components/buttons/MenuButton.svelte';
 	import Tab from '$lib/components/containers/Tab.svelte';
 	import ProjectDisplay from '$lib/components/displays/ProjectDisplay.svelte';
+    
 
     
     // type State = {
     //     [key: string]: number;
     // };
 
-    let left_content = [];
-    let right_content = []
+    let paused = false;
 
 
     
@@ -105,7 +105,7 @@
                         
                     </div>
                     
-                    <CodeDisplay></CodeDisplay>
+                    <CodeDisplay bind:paused></CodeDisplay>
                     {#if ($active_tab == "project1")}
                         <ProjectDisplay link="src/public/p1/i1.png"></ProjectDisplay>
                     {/if}
@@ -128,7 +128,7 @@
                     
             </div>
             <div class="flex flex-col w-1/6 h-full justify-between ">
-                <IncrementButton text="write code" store={count_char} />
+                <IncrementButton text="write code" paused={paused} store={count_char} />
                 <CounterDisplay text="attempted char: " store={$count_char ? formatCount($count_char) : "0"} />
                 <CounterDisplay text="char: " store={$actual_char ? formatCount($actual_char) : "0"} />
                 <CounterDisplay text="lines: " store={Math.floor($state["lines"].amount)} />

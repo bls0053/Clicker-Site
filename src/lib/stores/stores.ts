@@ -7,11 +7,10 @@ export const code_index = writable(0)
 export const code_full = writable("");
 
 export const count_time = writable(0);
-export const paused = writable(false);
 
 export const state = writable({
     lines: {
-        amount: 1000,
+        amount: 110,
         mult: 1,
         rate: 0,
     },

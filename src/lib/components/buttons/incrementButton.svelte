@@ -1,30 +1,23 @@
 <script lang="ts">
     import { writable, type Writable } from 'svelte/store';
-    import { paused } from '../../stores/stores';
     
     export let store: Writable<number>;
     export let text: string;
+    export let paused: boolean;
 
     const pressedKeys = new Set<string>();
 
-    // const handleKeydown = (event: KeyboardEvent) => {
-    //     if (!$paused && !pressedKeys.has(event.key) && event.key !== "Enter") {
-    //         console.log("inbutton1")
-    //         pressedKeys.add(event.key);
-    //         store.update((n) => n + 1);
-    //     }
-    // };
-
-    // const handleKeyup = (event: KeyboardEvent) => {
-    //     console.log("inbutton2")
-    //     if (event.key !== "Enter") {
-    //         pressedKeys.delete(event.key); 
-    //     }
-    // };
+   
+    const handleKeyup = (event: KeyboardEvent) => {
+        console.log("inbutton2")
+        if (event.key !== "Enter") {
+            pressedKeys.delete(event.key); 
+        }
+    };
 
     const handleClick = () => {
         console.log("inbutton3");
-        if (!$paused) {
+        if (!paused) {
             store.update((n) => n + 100);
         }
     };
@@ -34,11 +27,18 @@
         if (event.key === "Enter") {
             event.preventDefault();
         }
+        else {
+            if (!paused && !pressedKeys.has(event.key) && event.key !== "Enter") {
+            console.log("inbutton1")
+            pressedKeys.add(event.key);
+            store.update((n) => n + 1);
+        }
+        }
     };
 </script>
 
-<!-- 
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} /> -->
+
+<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
 <button tabindex="-1"
     on:click={handleClick}
