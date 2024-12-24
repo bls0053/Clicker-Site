@@ -6,7 +6,7 @@
         actual_char
     } from '$lib/stores/stores';
 
-    import CodeDisplay from '$lib/components/displays/CodeDisplay.svelte';
+    import CodeDisplay2 from '$lib/components/displays/CodeDisplay2.svelte';
 	import Section from '$lib/components/containers/Section.svelte';
 	import CounterDisplay from '$lib/components/displays/CounterDisplay.svelte';
 	import PurchaseButton from '$lib/components/buttons/PurchaseButton.svelte';
@@ -101,7 +101,7 @@
                         
                     </div>
                     
-                    <CodeDisplay bind:paused></CodeDisplay>
+                    <CodeDisplay2 bind:paused></CodeDisplay2>
                     {#if ($active_tab == "project1")}
                         <ProjectDisplay link="/projects/p1/i1.png"></ProjectDisplay>
                     {/if}

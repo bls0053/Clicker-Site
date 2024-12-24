@@ -1,0 +1,10 @@
+<span class="token comment">/* **********************************************
+     Begin prism-core.js
+********************************************** */</span>
+
+<span class="token comment">/// &lt;reference lib="WebWorker"/></span>
+
+<span class="token keyword">var</span> _self <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> window <span class="token operator">!==</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span>
+	<span class="token operator">?</span> window   <span class="token comment">// if in browser</span>
+	<span class="token operator">:</span> <span class="token punctuation">(</span>
+		<span class="token punctuation">(</span><span class="token keyword">typeof</span> WorkerGlobalScope <span class="token operator">!==</span> <span class="token string">'undefined'</span> <span class="token operator">&amp;&amp;</span> sel
