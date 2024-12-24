@@ -13,7 +13,6 @@
     
 
     $:  {
-        
         buttons_store.update((buttons) => {
             const updated_buttons = buttons.map((button) => {
                 if (button.id === id) {
@@ -29,7 +28,7 @@
                 return button;
             });
             return updated_buttons;
-        });
+        })
     }
 
     const handleClick = () => {
