@@ -14,12 +14,11 @@
 	import PurchaseButton from '$lib/components/buttons/PurchaseButton.svelte';
 	import { buttons_store } from '$lib/stores/buttons';
     import type { Button } from '$lib/stores/buttons';
-	import IncrementButton from '../lib/components/buttons/IncrementButton.svelte';;
+	import IncButton from '$lib/components/buttons/IncButton.svelte';
 	import UpgradeContainer from '$lib/components/containers/UpgradeContainer.svelte';
     import { unlocked } from '../lib/stores/stores';
 	import AppBar from '$lib/components/containers/AppBar.svelte';
     
-
     
     import IconResume from '~icons/pixelarticons/file-alt';
     import IconEmail from '~icons/pixelarticons/mail';
@@ -128,7 +127,7 @@
                     
             </div>
             <div class="flex flex-col w-1/6 h-full justify-between ">
-                <IncrementButton text="write code" paused={paused} store={count_char} />
+                <IncButton text="write code" paused={paused} store={count_char} />
                 <CounterDisplay text="attempted char: " store={$count_char ? formatCount($count_char) : "0"} />
                 <CounterDisplay text="char: " store={$actual_char ? formatCount($actual_char) : "0"} />
                 <CounterDisplay text="lines: " store={Math.floor($state["lines"].amount)} />
