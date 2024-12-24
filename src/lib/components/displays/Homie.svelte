@@ -1,9 +1,10 @@
 <script lang="ts">
     let frames = [
-        'src/public/Typing/Typing/Typing_0.png',
-        'src/public/Typing/Typing/Typing_1.png',
-        'src/public/Typing/Typing/Typing_2.png',
-        'src/public/Typing/Typing/Typing_3.png'
+        '/Typing/Typing/Typing_0.png',
+        '/Typing/Typing/Typing_1.png',
+        '/Typing/Typing/Typing_2.png',
+        '/Typing/Typing/Typing_3.png',
+        
     ];
 
     let currentFrameIndex = 0;
@@ -44,7 +45,7 @@
     .sprite {
         width: 32px;
         height: 40px;
-        background-image: url('sprite-sheet.png');
+        /* background-image: url('sprite-sheet.png'); */
         background-position: 0 0;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
