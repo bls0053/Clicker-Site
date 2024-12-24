@@ -1,7 +1,7 @@
 <script lang='ts'>
 
     import { buttons_store } from "$lib/stores/buttons";
-    import { state, unlocked } from "../../stores/stores";
+    import { state, unlocked } from "$lib/stores/stores";
     import type { CostState } from "$lib/stores/buttons";
 
     export let label = "";

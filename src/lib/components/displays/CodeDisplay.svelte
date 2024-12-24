@@ -5,14 +5,14 @@
     hljs.registerLanguage('python', python);
 
     import { onMount } from "svelte";
-    import { active_tab, actual_char, unlocked } from "../../stores/stores";
-    import { Timer_ms } from '../../util/time';
+    import { active_tab, actual_char, unlocked } from "$lib/stores/stores";
+    import { Timer_ms } from '$lib/util/time';
 
     import { 
         count_char,
         code_index,
         state
-    } from '../../stores/stores';
+    } from '$lib/stores/stores';
 
     let filePath = "/code.txt"; 
     let code_full = "";

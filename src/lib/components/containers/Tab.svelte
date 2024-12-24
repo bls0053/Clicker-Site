@@ -1,7 +1,7 @@
 <script lang='ts'>
 
 
-    import { active_tab } from '../../stores/stores';
+    import { active_tab } from '$lib/stores/stores';
 
     export let text = "";
     export let id = "";

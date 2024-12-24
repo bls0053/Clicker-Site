@@ -1,9 +1,8 @@
 import { readable } from 'svelte/store';
-import { browser } from '$app/environment';
-import { count_time } from '../stores/stores';
+import { count_time } from '$lib/stores/stores';
 
 export const Timer_ms = readable(0, (set) => {
-    if (!browser) return;
+    
 
     let start = performance.now();
 

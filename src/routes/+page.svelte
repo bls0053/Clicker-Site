@@ -4,7 +4,7 @@
         count_char,
         state,
         actual_char
-    } from '../lib/stores/stores';
+    } from '$lib/stores/stores';
 
     import CodeDisplay from '$lib/components/displays/CodeDisplay.svelte';
 	import Section from '$lib/components/containers/Section.svelte';
