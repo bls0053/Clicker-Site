@@ -32,7 +32,12 @@
     onMount(async () => {
         const response = await fetch(filePath);
         code_full = (await response.text());
-        code_length = code_full.length;
+        
+        const decoder = new TextDecoder('utf-8');  // Explicit UTF-8 decoder
+        const utf8Text = decoder.decode(new TextEncoder().encode(code_full)); // Ensure encoding is properly handled
+        
+        code_full = utf8Text;  // Set the text content
+        code_length = utf8Text.length;
     });
 
     $: {
