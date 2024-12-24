@@ -120,7 +120,7 @@
                     }
 
                     prev_count += new_snippet.length;
-                    
+
                     index = prev_count
                     code_snippet += new_snippet;
                     trim_snippet();
@@ -165,6 +165,6 @@
 
 <div class="h-full overflow-y-hidden flex flex-col-reverse rounded-md p-4">
     {#if ($active_tab == "code")}
-        <pre class="python pixel-font">{@html highlightedCode}<span class="pixel-font {paused ? 'flashing-text' : ''}">|</span></pre>
+        <pre class="python pixel-font">{@html highlightedCode}<span class="pixel-font {paused ? 'flashing-text' : ''}"> | </span><span class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
     {/if}
 </div>

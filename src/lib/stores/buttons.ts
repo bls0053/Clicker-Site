@@ -42,7 +42,7 @@ export const buttons_store = writable<Button[]>([
       lines: 5,
     },
     increase: {
-      lines: 10
+      lines: .1
     },
     type: "rate",
     unlocks: [""], 
