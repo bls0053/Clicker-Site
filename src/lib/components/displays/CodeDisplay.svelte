@@ -118,6 +118,12 @@
                         console.log(paused);
                     }
 
+                    const newlineIndex2 = new_snippet.indexOf("\n");
+                    if (newlineIndex2 !== -1) {
+                        
+                        console.log("\n");
+                    }
+
                     prev_count += new_snippet.length;
 
                     index = prev_count
