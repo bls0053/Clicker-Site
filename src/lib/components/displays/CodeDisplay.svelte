@@ -110,11 +110,12 @@
                     new_snippet = code_full.slice(index, index + difference);
 
                     const newlineIndex = new_snippet.indexOf("\r");
+                    console.log(newlineIndex)
                     if (newlineIndex !== -1) {
-                            prev_count += 2;
-                            new_snippet = new_snippet.slice(0,newlineIndex);
-                            paused = true;
-                            console.log(paused);
+                        prev_count += 2;
+                        new_snippet = new_snippet.slice(0,newlineIndex);
+                        paused = true;
+                        console.log(paused);
                     }
 
                     prev_count += new_snippet.length;
