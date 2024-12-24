@@ -22,7 +22,8 @@
                             const typedKey = key as keyof typeof $state;
                             if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
                                 return $state[typedKey]?.amount >= cost[typedKey];
-                            }       
+                            }
+                        return false;       
                         });
                 }
                 return button;
