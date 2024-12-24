@@ -6,7 +6,7 @@
     import 'prismjs/components/prism-javascript.min.js';
 
     import { onMount } from "svelte";
-    import { active_tab, actual_char, unlocked } from "$lib/stores/stores";
+    import { active_tab, actual_char, overallRate_ms, unlocked } from "$lib/stores/stores";
     import { Timer_ms } from '$lib/util/time';
 
     import { 
@@ -23,11 +23,10 @@
     
 
     let prev_count = 0;
-    let char_limit = 1000;
+    let char_limit = 2000;
     let code_length = 0;
     let difference = 0;
     let highlightedCode = "";
-    let auto_enter = false;
 
 
     onMount(async () => {
@@ -46,7 +45,7 @@
     }
 
     const update_char = () => {
-        count_char.update((n) => n + ($state["lines"].rate * $state["lines"].mult));
+        count_char.update((n) => n + $overallRate_ms);
     };
 
     Timer_ms.subscribe((time) => {
@@ -60,7 +59,7 @@
             if (paused) {
                 if (code_source[prev_count] !== "\n") {
                     paused = false;
-                    console.log("1")
+                    
                     if ($unlocked.auto_enter) {
                         handleAutoEnter()
                     }
@@ -70,7 +69,7 @@
                     prev_count += 1;
                     index = prev_count;
                     count_char.set(prev_count);
-                    console.log("2")
+                    
                     if ($unlocked.auto_enter) {
                         handleAutoEnter()
                     }
@@ -85,16 +84,23 @@
     }
 
     function handleAutoEnter() {
-    if (paused) {
-        const enterEvent = new KeyboardEvent("keydown", {
-            key: "Enter",
-            keyCode: 13,
-            code: "Enter",
-            which: 13,
-        });
-        window.dispatchEvent(enterEvent);
+        if (paused) {
+            const enterEvent = new KeyboardEvent("keydown", {
+                key: "Enter",
+                keyCode: 13,
+                code: "Enter",
+                which: 13,
+            });
+            window.dispatchEvent(enterEvent);
+        }
     }
-}
+
+    function trim_snippet() {
+        if (code_to_write.length > (1.5 * char_limit)) {
+            let updated_snippet = code_to_write.slice(code_to_write.length - char_limit);
+            code_to_write = (updated_snippet);
+        }
+    }
 
     count_char.subscribe((count) => {
 
@@ -114,7 +120,7 @@
                     new_snippet = new_snippet.slice(0, newLineIndex);
                     prev_count += 1;
                     paused = true; 
-                    console.log("Trimmed new_snippet: ", new_snippet);
+                    
                 }
 
                 if (index >= code_length) {
@@ -123,11 +129,14 @@
                     count_char.set(185);
                 }
 
+                trim_snippet();
+
                 prev_count += new_snippet.length;
                 index = prev_count;
                 code_to_write += new_snippet;
                 highlightedCode = Prism.highlight(code_to_write, Prism.languages.javascript, "javascript");
                 count_char.set(prev_count);
+                actual_char.update((n) => n + new_snippet.length);
 
                 if ($unlocked.auto_enter) {
                     handleAutoEnter();

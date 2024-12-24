@@ -1,4 +1,11 @@
-import { writable } from 'svelte/store';
+import { Timer_ms } from '$lib/util/time';
+import { writable, derived, type Readable } from 'svelte/store';
+
+
+
+
+
+
 
 export const count_char = writable(0);
 export const actual_char = writable(0);
@@ -10,7 +17,7 @@ export const count_time = writable(0);
 
 export const state = writable({
     lines: {
-        amount: 0,
+        amount: 1111111110,
         mult: 1,
         rate: 0,
     },
@@ -27,6 +34,15 @@ export const state = writable({
         rate: 0,
     },
 });
+
+export const overallRate_ms = derived(state, ($state) => {
+    return $state["lines"].rate * $state["lines"].mult;
+});
+
+export const overallRate_s = derived(state, ($state) => {
+    return $state["lines"].rate * $state["lines"].mult*100;
+});
+
 
 export const unlocked = writable({
     section1: true,
@@ -49,3 +65,5 @@ export const unlocked = writable({
 
 
 export const active_tab = writable("code")
+
+

@@ -3,7 +3,9 @@
 	    active_tab,
         count_char,
         state,
-        actual_char
+        actual_char,
+		overallRate_s,
+
     } from '$lib/stores/stores';
 
     import CodeDisplay2 from '$lib/components/displays/CodeDisplay2.svelte';
@@ -24,17 +26,11 @@
 	import MenuButton from '$lib/components/buttons/MenuButton.svelte';
 	import Tab from '$lib/components/containers/Tab.svelte';
 	import ProjectDisplay from '$lib/components/displays/ProjectDisplay.svelte';
+	import Homie from '$lib/components/displays/Homie.svelte';
     
 
-    
-    // type State = {
-    //     [key: string]: number;
-    // };
 
     let paused = false;
-
-
-    
 
     function canShowButton(button: Button) {
         const { unlockCriteria } = button;
@@ -58,7 +54,16 @@
 		return num.toFixed(0)
 	}
 
-    
+
+    let previous_char = 0;
+    let current_char = 0;
+    let total_char = 0;
+
+    setInterval(() => {
+        current_char = $actual_char;
+        total_char = current_char - previous_char;
+        previous_char = current_char;
+    }, 100)
     
 
 </script>
@@ -102,7 +107,8 @@
                     </div>
                     
                     <CodeDisplay2 bind:paused></CodeDisplay2>
-                    
+                    <div class="absolute bottom-24 right-24"><Homie rate={total_char} paused={paused}></Homie></div>
+                
                     {#if ($active_tab == "project1")}
                         <ProjectDisplay link="/projects/p1/i1.png"></ProjectDisplay>
                     {/if}
@@ -133,7 +139,8 @@
                 <CounterDisplay text="bencoin: " store={$state["bencoin"].amount} />
                 <CounterDisplay text="char_base /s: " store={($state["lines"].rate*100).toFixed(1)} />
                 <CounterDisplay text="char: x" store={(($state["lines"].mult)).toFixed(1)} />
-                <CounterDisplay text="char /s: " store={(($state["lines"].rate * $state["lines"].mult)*100).toFixed(1)} />
+                <!-- <CounterDisplay text="real char /s: " store={$rate_per_sec} /> -->
+                <CounterDisplay text="char /s: " store={$overallRate_s.toFixed(1)} />
                 <CounterDisplay text="coffee /s: " store={($state["coffee"].rate*100).toFixed(1)} />
                 <CounterDisplay text="bencoin /s: " store={($state["bencoin"].rate*100).toFixed(1)} />
             </div>

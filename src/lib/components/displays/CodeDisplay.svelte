@@ -122,7 +122,6 @@
                         prev_count += 2;
                         new_snippet = new_snippet.slice(0,newlineIndex);
                         paused = true;
-                        console.log(paused);
                     }
 
                     
@@ -134,7 +133,6 @@
                     trim_snippet();
                     highlightedCode = hljs.highlight(code_snippet, { language: 'python' }).value;
 
-                    console.log(highlightedCode)
 
                     code_index.set(index);
                     count_char.set(prev_count);
@@ -152,7 +150,7 @@
 
                     prev_count = $count_char;
                     highlightedCode = hljs.highlight(code_snippet, { language: 'python' }).value;
-                    console.log(highlightedCode)
+                    
                 }   
             }
         }
