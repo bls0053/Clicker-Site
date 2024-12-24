@@ -22,13 +22,12 @@
                             if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
                                 return $state[typedKey]?.amount >= cost[typedKey];
                             }
-                        return false;       
                         });
                 }
                 return button;
             });
             return updated_buttons;
-        })
+        });
     }
 
     const handleClick = () => {
