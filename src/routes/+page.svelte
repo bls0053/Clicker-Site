@@ -6,17 +6,14 @@
         actual_char
     } from '../lib/stores/stores';
 
-    import { Timer_ms } from '../lib/util/time';
     import CodeDisplay from '$lib/components/displays/CodeDisplay.svelte';
 	import Section from '$lib/components/containers/Section.svelte';
-	import { writable, type Writable } from 'svelte/store';
 	import CounterDisplay from '$lib/components/displays/CounterDisplay.svelte';
 	import PurchaseButton from '$lib/components/buttons/PurchaseButton.svelte';
 	import { buttons_store } from '$lib/stores/buttons';
     import type { Button } from '$lib/stores/buttons';
 	import IncButton from '$lib/components/buttons/IncButton.svelte';
-	import UpgradeContainer from '$lib/components/containers/UpgradeContainer.svelte';
-    import { unlocked } from '../lib/stores/stores';
+    import { unlocked } from '$lib/stores/stores';
 	import AppBar from '$lib/components/containers/AppBar.svelte';
     
     
@@ -106,16 +103,16 @@
                     
                     <CodeDisplay bind:paused></CodeDisplay>
                     {#if ($active_tab == "project1")}
-                        <ProjectDisplay link="src/public/p1/i1.png"></ProjectDisplay>
+                        <ProjectDisplay link="/projects/p1/i1.png"></ProjectDisplay>
                     {/if}
                     {#if ($active_tab == "project2")}
-                        <ProjectDisplay link="src/public/p2/i1.png"></ProjectDisplay>
+                        <ProjectDisplay link="/projects/p2/i1.png"></ProjectDisplay>
                     {/if}
                     {#if ($active_tab == "project3")}
-                        <ProjectDisplay link="src/public/p3/i2.png"></ProjectDisplay>
+                        <ProjectDisplay link="/projects/p3/i2.png"></ProjectDisplay>
                     {/if}
                     {#if ($active_tab == "project4")}
-                        <ProjectDisplay link="src/public/p4/i1.png"></ProjectDisplay>
+                        <ProjectDisplay link="/projects/p4/i1.png"></ProjectDisplay>
                     {/if}
                     
 
