@@ -102,6 +102,7 @@
                     </div>
                     
                     <CodeDisplay2 bind:paused></CodeDisplay2>
+                    
                     {#if ($active_tab == "project1")}
                         <ProjectDisplay link="/projects/p1/i1.png"></ProjectDisplay>
                     {/if}

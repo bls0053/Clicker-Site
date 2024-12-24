@@ -27,6 +27,7 @@
     let code_length = 0;
     let difference = 0;
     let highlightedCode = "";
+    let auto_enter = false;
 
 
     onMount(async () => {
@@ -44,8 +45,6 @@
         }
     }
 
-    
-
     const update_char = () => {
         count_char.update((n) => n + ($state["lines"].rate * $state["lines"].mult));
     };
@@ -61,13 +60,23 @@
             if (paused) {
                 if (code_source[prev_count] !== "\n") {
                     paused = false;
+                    console.log("1")
+                    if ($unlocked.auto_enter) {
+                        handleAutoEnter()
+                    }
                 }
+
                 else {
                     prev_count += 1;
                     index = prev_count;
                     count_char.set(prev_count);
+                    console.log("2")
+                    if ($unlocked.auto_enter) {
+                        handleAutoEnter()
+                    }
                 }
                 code_to_write += "\n";
+                $state["lines"].amount += 1;
                 highlightedCode = Prism.highlight(code_to_write, Prism.languages.javascript, "javascript");
             }
             else {
@@ -75,23 +84,22 @@
         }
     }
 
-    
+    function handleAutoEnter() {
+    if (paused) {
+        const enterEvent = new KeyboardEvent("keydown", {
+            key: "Enter",
+            keyCode: 13,
+            code: "Enter",
+            which: 13,
+        });
+        window.dispatchEvent(enterEvent);
+    }
+}
 
     count_char.subscribe((count) => {
 
-
-        console.log("index: ", index)
-        console.log("prev_count: ", prev_count)
-        console.log("count: ", Math.floor(count))
-        console.log("paused: ", paused)
-        
-
-     
         if (!paused) {
             difference = Math.floor(count - prev_count);
-            
-
-
             if (difference > 0) {
 
                 new_snippet = code_source.slice(index, index + difference);
@@ -109,14 +117,21 @@
                     console.log("Trimmed new_snippet: ", new_snippet);
                 }
 
+                if (index >= code_length) {
+                    index = 185;
+                    prev_count = 185;
+                    count_char.set(185);
+                }
+
                 prev_count += new_snippet.length;
                 index = prev_count;
-
                 code_to_write += new_snippet;
-                
                 highlightedCode = Prism.highlight(code_to_write, Prism.languages.javascript, "javascript");
+                count_char.set(prev_count);
 
-                count_char.set(prev_count)
+                if ($unlocked.auto_enter) {
+                    handleAutoEnter();
+                }
                     
             }
         }
