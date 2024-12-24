@@ -106,6 +106,7 @@
             if (!$unlocked.auto_enter) {  
                 
                 if (difference > 0) {
+                    console.log("!$unlocked.auto_enter: ", !$unlocked.auto_enter)
                     new_snippet = code_full.slice(index, index + difference);
 
                     const newlineIndex = new_snippet.indexOf("\r");
