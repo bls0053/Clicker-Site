@@ -42,7 +42,7 @@ export const buttons_store = writable<Button[]>([
       lines: 5,
     },
     increase: {
-      lines: .1
+      lines: 10
     },
     type: "rate",
     unlocks: [""], 
@@ -89,7 +89,7 @@ export const buttons_store = writable<Button[]>([
     label: "Purchase +.1 C/s",
     max: 1000,
     cost: {
-      lines: 1,
+      lines: .1,
     },
     increase: {
       lines: .01

@@ -1,26 +1,24 @@
 <script lang="ts">
-
     import hljs from "highlight.js";
     import python from 'highlight.js/lib/languages/python';
     
     hljs.registerLanguage('python', python);
 
     import { onMount } from "svelte";
-    import { active_tab, unlocked } from "../../stores/stores";
+    import { active_tab, actual_char, unlocked } from "../../stores/stores";
     import { Timer_ms } from '../../util/time';
 
     import { 
         count_char,
         code_index,
-		code_snippet,
         state
     } from '../../stores/stores';
-
-    
 
     let filePath = "/code.txt"; 
     let code_full = "";
     let new_snippet = "";
+    let code_snippet = "";
+    let index = 0;
     let paused = false;
 
     let prev_count = 0;
@@ -29,47 +27,55 @@
     let difference = 0;
     let highlightedCode = "";
 
-    
+
     onMount(async () => {
         const response = await fetch(filePath);
         code_full = (await response.text());
         code_length = code_full.length;
-
     });
+
+    $: {
+        if ($unlocked.auto_enter) {
+            paused = false;
+        }
+    }
 
     const update_char = () => {
         count_char.update((n) => n + ($state["lines"].rate * $state["lines"].mult));
     };
 
     Timer_ms.subscribe((time) => {
-        if (paused == false) {
+        if (!paused) {
             update_char();
         }
     });
 
-
     function handleKeydown(event: KeyboardEvent) {
         if (event.key === "Enter") {
             if (paused) {
-                paused = false;
+                
+                code_snippet += "\r\n";
                 $state["lines"].amount += 1;
-                code_snippet.update(n => n + "\n");
+                paused = false;
+                count_char.update((n) => n + 1);
+                
+            }
+            else {
             }
         }
     }
 
     function trim_snippet() {
-        if ($code_snippet.length > (1.5 * char_limit)) {
-            let updated_snippet = $code_snippet.slice($code_snippet.length - char_limit);
-            code_snippet.set(updated_snippet);
+        if (code_snippet.length > (1.5 * char_limit)) {
+            let updated_snippet = code_snippet.slice(code_snippet.length - char_limit);
+            code_snippet = (updated_snippet);
         }
     }
-    
+
     function set_index() {
         if ($code_index < code_length) {
             code_index.update(n => n + difference);
-        }
-        else {
+        } else {
             code_index.set(0);
         }
     }
@@ -79,60 +85,86 @@
             if (new_snippet === "\n") {
                 $state["lines"].amount += 1;
             }
-        } 
-        else {
+        } else {
             const new_line_count = new_snippet.split('\n').length - 1;
             $state["lines"].amount += new_line_count;
         }
     }
 
     count_char.subscribe((count) => {
-
+        console.log("prev_count: ", prev_count);
+        console.log("count: ", count);
+        console.log("code_index: ", index)
+        console.log("\n")
 
         if (!paused) {
-            difference = Math.floor(count) - prev_count;
-            if (difference > 0) {
+            difference = Math.floor(count - prev_count);
 
-                new_snippet = code_full.slice($code_index, $code_index + difference);
-
-                if (!$unlocked.auto_enter) {
-                    
-                    const newlineIndex = new_snippet.indexOf("\n");
-                    if (newlineIndex !== -1) {
-                        if (new_snippet === "\n") {
-                            
-                        }
-                        else {
-                            new_snippet = new_snippet.slice(0, newlineIndex-1)
-
-                        }
-                        prev_count = prev_count += new_snippet.length;
-                        paused = true;
-                            
-                    }
-                }
-
+            if (index >= code_length) {
+                prev_count = 0;
+                index = 0;
+                count_char.set(0);
+            }
+            
+            if (!$unlocked.auto_enter) {  
                 
-                code_snippet.update(n => n + new_snippet);
-                // trim_snippet();
-                set_index();
-                // set_lines();
+                if (difference > 0) {
+                    new_snippet = code_full.slice(index, index + difference);
 
-                highlightedCode = hljs.highlight($code_snippet,{ language: 'python' }).value
+                    const newlineIndex = new_snippet.indexOf("\r");
+                    if (newlineIndex !== -1) {
+                            prev_count += 2;
+                            new_snippet = new_snippet.slice(0,newlineIndex);
+                            paused = true;
+                            console.log(paused);
+                    }
+
+                    prev_count += new_snippet.length;
+                    
+                    index = prev_count
+                    code_snippet += new_snippet;
+                    trim_snippet();
+                    highlightedCode = hljs.highlight(code_snippet, { language: 'python' }).value;
+                    count_char.set(prev_count);
+                }
+            }
+
+            else {
+                if (difference > 0) {
+                    new_snippet = code_full.slice($code_index, $code_index + difference);
+                    code_snippet += new_snippet;
+                    
+                    trim_snippet();
+                    set_index();
+                    set_lines();
+
+                    prev_count = $count_char;
+                    highlightedCode = hljs.highlight(code_snippet, { language: 'python' }).value;
+                }   
             }
         }
-
-        
     });
-
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="h-full overflow-y-hidden flex flex-col-reverse rounded-md p-4">
-{#if ($active_tab == "code")}
-    <pre class="python pixel-font">{@html highlightedCode}|</pre>
-{/if}
-   
-</div>
+<style>
+    @keyframes flash {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
 
+    .flashing-text {
+        animation: flash .75s infinite;
+    }
+</style>
+
+<div class="h-full overflow-y-hidden flex flex-col-reverse rounded-md p-4">
+    {#if ($active_tab == "code")}
+        <pre class="python pixel-font">{@html highlightedCode}<span class="pixel-font {paused ? 'flashing-text' : ''}">|</span></pre>
+    {/if}
+</div>

@@ -3,6 +3,7 @@
 	    active_tab,
         count_char,
         state,
+        actual_char
     } from '../lib/stores/stores';
 
     import { Timer_ms } from '../lib/util/time';
@@ -128,8 +129,9 @@
             </div>
             <div class="flex flex-col w-1/6 h-full justify-between ">
                 <IncrementButton text="write code" store={count_char} />
-                <CounterDisplay text="char: " store={$count_char ? formatCount($count_char) : "0"} />
-                <CounterDisplay text="lines: " store={$state["lines"].amount} />
+                <CounterDisplay text="attempted char: " store={$count_char ? formatCount($count_char) : "0"} />
+                <CounterDisplay text="char: " store={$actual_char ? formatCount($actual_char) : "0"} />
+                <CounterDisplay text="lines: " store={Math.floor($state["lines"].amount)} />
                 <CounterDisplay text="coffee: " store={$state["coffee"].amount} />
                 <CounterDisplay text="bencoin: " store={$state["bencoin"].amount} />
                 <CounterDisplay text="char_base /s: " store={($state["lines"].rate*100).toFixed(1)} />

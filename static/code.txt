@@ -1,134 +1,134 @@
-# Sample Python file for visual purposes
+​# Sample Python file for visual purposes
 
-import random
-import math
-from typing import List, Dict, Tuple
+​import random
+​import math
+​from typing import List, Dict, Tuple
 
-# Constants
-PI = 3.14159
-EULER = 2.71828
+​# Constants
+​PI = 3.14159
+​EULER = 2.71828
 
-# Utility functions
-def generate_random_numbers(count: int, min_val: int, max_val: int) -> List[int]:
-    """Generate a list of random numbers."""
-    return [random.randint(min_val, max_val) for _ in range(count)]
+​# Utility functions
+​def generate_random_numbers(count: int, min_val: int, max_val: int) -> List[int]:
+​    """Generate a list of random numbers."""
+​    return [random.randint(min_val, max_val) for _ in range(count)]
 
-def calculate_circle_area(radius: float) -> float:
-    """Calculate the area of a circle given the radius."""
-    return PI * (radius ** 2)
+​def calculate_circle_area(radius: float) -> float:
+​    """Calculate the area of a circle given the radius."""
+​    return PI * (radius ** 2)
 
-def factorial(n: int) -> int:
-    """Calculate the factorial of a number."""
-    if n == 0 or n == 1:
-        return 1
-    return n * factorial(n - 1)
+​def factorial(n: int) -> int:
+​    """Calculate the factorial of a number."""
+​    if n == 0 or n == 1:
+​        return 1
+​    return n * factorial(n - 1)
 
-# Classes
-class Person:
-    """A class representing a person."""
-    def __init__(self, name: str, age: int):
-        self.name = name
-        self.age = age
+​# Classes
+​class Person:
+​    """A class representing a person."""
+​    def __init__(self, name: str, age: int):
+​        self.name = name
+​        self.age = age
 
-    def greet(self) -> str:
-        """Return a greeting message."""
-        return f"Hello, my name is {self.name} and I am {self.age} years old."
+​    def greet(self) -> str:
+​        """Return a greeting message."""
+​        return f"Hello, my name is {self.name} and I am {self.age} years old."
 
-class Shape:
-    """Base class for geometric shapes."""
-    def area(self) -> float:
-        """Calculate the area of the shape."""
-        raise NotImplementedError("This method should be implemented by subclasses.")
+​class Shape:
+​    """Base class for geometric shapes."""
+​    def area(self) -> float:
+​        """Calculate the area of the shape."""
+​        raise NotImplementedError("This method should be implemented by subclasses.")
 
-class Rectangle(Shape):
-    """A rectangle shape."""
-    def __init__(self, width: float, height: float):
-        self.width = width
-        self.height = height
+​class Rectangle(Shape):
+​    """A rectangle shape."""
+​    def __init__(self, width: float, height: float):
+​        self.width = width
+​        self.height = height
 
-    def area(self) -> float:
-        return self.width * self.height
+​    def area(self) -> float:
+​        return self.width * self.height
 
-class Circle(Shape):
-    """A circle shape."""
-    def __init__(self, radius: float):
-        self.radius = radius
+​class Circle(Shape):
+​    """A circle shape."""
+​    def __init__(self, radius: float):
+​        self.radius = radius
 
-    def area(self) -> float:
-        return calculate_circle_area(self.radius)
+​    def area(self) -> float:
+​        return calculate_circle_area(self.radius)
 
-# Simulation of data
-class DataSimulator:
-    """Simulates data for a given model."""
-    def __init__(self, seed: int = None):
-        self.seed = seed
-        if seed is not None:
-            random.seed(seed)
+​# Simulation of data
+​class DataSimulator:
+​    """Simulates data for a given model."""
+​    def __init__(self, seed: int = None):
+​        self.seed = seed
+​        if seed is not None:
+​            random.seed(seed)
 
-    def simulate_data(self, n: int) -> List[Dict[str, float]]:
-        """Simulate a dataset of n points."""
-        return [
-            {
-                "x": random.uniform(0, 10),
-                "y": random.uniform(0, 10),
-                "z": random.uniform(0, 10),
-            }
-            for _ in range(n)
-        ]
+​    def simulate_data(self, n: int) -> List[Dict[str, float]]:
+​        """Simulate a dataset of n points."""
+​        return [
+​            {
+​                "x": random.uniform(0, 10),
+​                "y": random.uniform(0, 10),
+​                "z": random.uniform(0, 10),
+​            }
+​            for _ in range(n)
+​        ]
 
-# Algorithms
-def bubble_sort(arr: List[int]) -> List[int]:
-    """Sort a list using bubble sort algorithm."""
-    n = len(arr)
-    for i in range(n):
-        for j in range(0, n - i - 1):
-            if arr[j] > arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
-    return arr
+​# Algorithms
+​def bubble_sort(arr: List[int]) -> List[int]:
+​    """Sort a list using bubble sort algorithm."""
+​    n = len(arr)
+​    for i in range(n):
+​        for j in range(0, n - i - 1):
+​            if arr[j] > arr[j + 1]:
+​                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+​    return arr
 
-def binary_search(arr: List[int], target: int) -> int:
-    """Perform binary search on a sorted list."""
-    low, high = 0, len(arr) - 1
-    while low <= high:
-        mid = (low + high) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            low = mid + 1
-        else:
-            high = mid - 1
-    return -1
+​def binary_search(arr: List[int], target: int) -> int:
+​    """Perform binary search on a sorted list."""
+​    low, high = 0, len(arr) - 1
+​    while low <= high:
+​        mid = (low + high) // 2
+​        if arr[mid] == target:
+​            return mid
+​        elif arr[mid] < target:
+​            low = mid + 1
+​        else:
+​            high = mid - 1
+​    return -1
 
-# Main simulation
-if __name__ == "__main__":
-    # Generate random numbers
-    numbers = generate_random_numbers(10, 1, 100)
-    print("Generated numbers:", numbers)
+​# Main simulation
+​if __name__ == "__main__":
+​    # Generate random numbers
+​    numbers = generate_random_numbers(10, 1, 100)
+​    print("Generated numbers:", numbers)
 
-    # Sort numbers
-    sorted_numbers = bubble_sort(numbers)
-    print("Sorted numbers:", sorted_numbers)
+​    # Sort numbers
+​    sorted_numbers = bubble_sort(numbers)
+​    print("Sorted numbers:", sorted_numbers)
 
-    # Search for a number
-    target = 42
-    index = binary_search(sorted_numbers, target)
-    if index != -1:
-        print(f"Found {target} at index {index}.")
-    else:
-        print(f"{target} not found in the list.")
+​    # Search for a number
+​    target = 42
+​    index = binary_search(sorted_numbers, target)
+​    if index != -1:
+​        print(f"Found {target} at index {index}.")
+​    else:
+​        print(f"{target} not found in the list.")
 
-    # Simulate data
-    simulator = DataSimulator(seed=123)
-    data = simulator.simulate_data(5)
-    print("Simulated data:", data)
+​    # Simulate data
+​    simulator = DataSimulator(seed=123)
+​    data = simulator.simulate_data(5)
+​    print("Simulated data:", data)
 
-    # Create shapes
-    rect = Rectangle(10, 5)
-    circle = Circle(7)
+​    # Create shapes
+​    rect = Rectangle(10, 5)
+​    circle = Circle(7)
 
-    print(f"Rectangle area: {rect.area()}")
-    print(f"Circle area: {circle.area()}")
+​    print(f"Rectangle area: {rect.area()}")
+​    print(f"Circle area: {circle.area()}")
 
-    # Create and greet a person
-    person = Person("Alice", 30)
-    print(person.greet())
+​    # Create and greet a person
+​    person = Person("Alice", 30)
+​    print(person.greet())

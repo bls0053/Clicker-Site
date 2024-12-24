@@ -1,12 +1,13 @@
 import { writable } from 'svelte/store';
 
 export const count_char = writable(0);
+export const actual_char = writable(0);
 
 export const code_index = writable(0)
 export const code_full = writable("");
-export const code_snippet = writable<string>("");
 
 export const count_time = writable(0);
+export const paused = writable(false);
 
 export const state = writable({
     lines: {
