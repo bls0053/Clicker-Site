@@ -115,7 +115,7 @@
                     new_snippet = code_full.slice(index, index + difference);
 
 
-                    if (new_snippet === "\n" || new_snippet === "\r") {
+                    if (new_snippet === "\r") {
                         console.log("ALERT ALERT ALERT")
                     }
 
