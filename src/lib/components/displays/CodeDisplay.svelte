@@ -33,10 +33,10 @@
         const response = await fetch(filePath);
         code_full = (await response.text());
         
-        const decoder = new TextDecoder('utf-8');  // Explicit UTF-8 decoder
-        const utf8Text = decoder.decode(new TextEncoder().encode(code_full)); // Ensure encoding is properly handled
+        const decoder = new TextDecoder('utf-8');
+        const utf8Text = decoder.decode(new TextEncoder().encode(code_full));
         
-        code_full = utf8Text;  // Set the text content
+        code_full = utf8Text;
         code_length = utf8Text.length;
     });
 
@@ -113,6 +113,11 @@
                 if (difference > 0) {
                     console.log("!$unlocked.auto_enter: ", !$unlocked.auto_enter)
                     new_snippet = code_full.slice(index, index + difference);
+
+
+                    if (new_snippet === "\n" || new_snippet === "\r") {
+                        console.log("ALERT ALERT ALERT")
+                    }
 
                     const newlineIndex = new_snippet.indexOf("\r");
                     console.log(newlineIndex)
