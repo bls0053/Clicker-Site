@@ -21,10 +21,10 @@
             animationSpeed = 100000;
         }
         else if (rate > 0 && rate <= 150) {
-            animationSpeed = 100;
+            animationSpeed = 200;
         } 
         else {
-            animationSpeed = 50;
+            animationSpeed = 100;
         }
 
         if (interval) {
