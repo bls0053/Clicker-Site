@@ -20,7 +20,7 @@
         if (rate === 0) {
             animationSpeed = 100000;
         }
-        else if (rate > 0 && rate < 150) {
+        else if (rate > 0 && rate <= 150) {
             animationSpeed = 100;
         } 
         else {
