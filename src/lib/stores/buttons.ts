@@ -64,7 +64,7 @@ export const buttons_store = writable<Button[]>([
     label: "Unlock Auto-enter",
     max: 1,
     cost: {
-      lines: 5,
+      lines: 10,
     },
     increase: {
 
