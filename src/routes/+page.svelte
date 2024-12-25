@@ -63,7 +63,7 @@
         current_char = $actual_char;
         total_char = current_char - previous_char;
         previous_char = current_char;
-    }, 100)
+    }, 1000)
     
 
 </script>
@@ -139,7 +139,7 @@
                 <CounterDisplay text="bencoin: " store={$state["bencoin"].amount} />
                 <CounterDisplay text="char_base /s: " store={($state["lines"].rate*100).toFixed(1)} />
                 <CounterDisplay text="char: x" store={(($state["lines"].mult)).toFixed(1)} />
-                <!-- <CounterDisplay text="real char /s: " store={$rate_per_sec} /> -->
+                <CounterDisplay text="real char /s: " store={total_char} />
                 <CounterDisplay text="char /s: " store={$overallRate_s.toFixed(1)} />
                 <CounterDisplay text="coffee /s: " store={($state["coffee"].rate*100).toFixed(1)} />
                 <CounterDisplay text="bencoin /s: " store={($state["bencoin"].rate*100).toFixed(1)} />
