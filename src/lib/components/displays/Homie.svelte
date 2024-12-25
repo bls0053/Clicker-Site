@@ -10,25 +10,27 @@
     let currentFrameIndex = 0;
 
     let interval: any;
-    let animationSpeed = 0;
+    let animationSpeed: number = 100000;
     export let paused: boolean;
     export let rate: number;
 
     import { onMount, onDestroy } from 'svelte';
 
     $: {
-        if (interval) clearInterval(interval);
-        
-        if (rate === 0 || paused) {
+        if (paused || rate === 0) {
             animationSpeed = 100000;
         }
-        else if (rate > 0 && rate < 300) {
-            1000
-        }
+        else if (rate > 0 && rate < 150) {
+            animationSpeed = 100;
+        } 
         else {
-            100
+            animationSpeed = 50;
         }
-        
+
+        if (interval) {
+            clearInterval(interval);
+        }
+
         interval = setInterval(() => {
             currentFrameIndex = (currentFrameIndex + 1) % frames.length;
         }, animationSpeed);

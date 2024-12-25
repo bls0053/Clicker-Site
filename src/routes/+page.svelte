@@ -61,7 +61,7 @@
 
     setInterval(() => {
         current_char = $actual_char;
-        total_char = (current_char - previous_char) * 2;
+        total_char = (current_char - previous_char);
         previous_char = current_char;
     }, 1000)
     
