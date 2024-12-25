@@ -17,7 +17,7 @@ export const count_time = writable(0);
 
 export const state = writable({
     lines: {
-        amount: 1111111110,
+        amount: 0,
         mult: 1,
         rate: 0,
     },
