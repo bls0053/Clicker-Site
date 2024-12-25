@@ -17,7 +17,7 @@ export const count_time = writable(0);
 
 export const state = writable({
     lines: {
-        amount: 0,
+        amount: 10000,
         mult: 1,
         rate: 0,
     },
@@ -29,7 +29,7 @@ export const state = writable({
     },
 
     bencoin: {
-        amount: 0,
+        amount: 10,
         mult: 1,
         rate: 0,
     },
@@ -59,7 +59,9 @@ export const unlocked = writable({
     project2: false,
     project3: false,
     project4: false,
-    auto_enter: false
+    auto_enter: false,
+    ben_coin: true,
+
     
 });
 
@@ -67,3 +69,11 @@ export const unlocked = writable({
 export const active_tab = writable("code")
 
 
+export const windows = writable([
+    { row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) },
+    
+])
+
+export const nodes = writable([
+    { row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) },
+]);

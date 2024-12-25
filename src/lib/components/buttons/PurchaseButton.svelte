@@ -1,7 +1,7 @@
 <script lang='ts'>
 
     import { buttons_store } from "$lib/stores/buttons";
-    import { state, unlocked } from "$lib/stores/stores";
+    import { nodes, state, unlocked, windows } from "$lib/stores/stores";
     import type { CostState } from "$lib/stores/buttons";
 
     export let label = "";
@@ -88,7 +88,31 @@
                                     $unlocked[button as keyof typeof $unlocked] = true;
                                 }
                             })
+
+                            // Unlock windows for coindisplay
+                            if (button.id === "btn14") {
+                                windows.update((currentWindows: any) => {
+                                    const newWindow = {
+                                    row: Math.floor(Math.random() * 4),
+                                    col: Math.floor(Math.random() * 4)
+                                    };
+                                return [...currentWindows, newWindow];
+                                });
+                            }
                                 
+                            // Unlock nodes for coindisplay
+                            if (button.id === "btn15") {
+                                nodes.update((currentWindows: any) => {
+                                    const newNode = {
+                                    row: Math.floor(Math.random() * 4),
+                                    col: Math.floor(Math.random() * 4)
+                                    };
+                                return [...currentWindows, newNode];
+                                });
+                            }
+
+
+                            
 
                         }
                     }
@@ -107,7 +131,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:click={handleClick} 
-class=" p-6 bg-opacity-20 neo hover:rotate-3 transiton-transform duration-200
+class=" p-6 bg-opacity-20 neo hover:rotate-3 transiton-transform duration-200 pixel-font
 {locked ? '' : (canPurchase ? '!text-green-300' : '!text-red-400')}">
     {#if (!locked)}
     {#each Object.entries(cost) as [key, value]}

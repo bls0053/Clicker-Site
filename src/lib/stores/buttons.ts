@@ -359,7 +359,80 @@ export const buttons_store = writable<Button[]>([
     }
   },
 
-  
+  {
+    id: "btn14",
+    title: "",
+    label: "Increase Calculations",
+    max: 5,
+    cost: {
+      bencoin: 1,
+    },
+    increase: {
+
+    },
+    type: "",
+    unlocks: [], 
+    amount: 0,
+    section: 4,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: [
+      
+      ]
+    }
+  },
+
+  {
+    id: "btn15",
+    title: "",
+    label: "Multi-thread",
+    max: 2,
+    cost: {
+      bencoin: 10,
+    },
+    increase: {
+
+    },
+    type: "",
+    unlocks: [], 
+    amount: 0,
+    section: 4,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: [
+        {id:"btn14", amount: 1}
+      ]
+    }
+  },
+
+  {
+    id: "btn16",
+    title: "",
+    label: "Smarter Calculations",
+    max: 1,
+    cost: {
+      bencoin: 10,
+    },
+    increase: {
+
+    },
+    type: "",
+    unlocks: [], 
+    amount: 0,
+    section: 4,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 10,
+      prereqs: [
+        {id:"btn14", amount: 1}
+      ]
+    }
+  },
 
 ]);
 

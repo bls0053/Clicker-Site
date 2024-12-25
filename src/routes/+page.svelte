@@ -27,6 +27,7 @@
 	import Tab from '$lib/components/containers/Tab.svelte';
 	import ProjectDisplay from '$lib/components/displays/ProjectDisplay.svelte';
 	import Homie from '$lib/components/displays/Homie.svelte';
+	import CoinDisplay from '$lib/components/displays/CoinDisplay.svelte';
     
 
 
@@ -186,7 +187,6 @@
                 <Section>
                     {#each $buttons_store as button}
                         {#if button.section == 3 && canShowButton(button)}
-                           
                             
                             <PurchaseButton 
                             id = {button.id}
@@ -197,7 +197,27 @@
                         {/if}
                     {/each}
                 </Section>
-            {/if}        
+            {/if}     
+            
+            {#if ($unlocked.ben_coin)} 
+
+                <div class="flex flex-row">
+                    <Section><CoinDisplay></CoinDisplay></Section>
+                    <Section>
+                        {#each $buttons_store as button}
+                            {#if button.section == 4 && canShowButton(button)}
+                                <PurchaseButton 
+                                id = {button.id}
+                                label = {button.label}
+                                cost = {button.cost}
+                                />
+                            {/if}
+                        {/each}
+                    </Section>
+                </div>
+
+            {/if}
+
             
         </div>
     
