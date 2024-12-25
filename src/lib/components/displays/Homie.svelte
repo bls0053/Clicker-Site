@@ -22,7 +22,13 @@
         if (rate === 0 || paused) {
             animationSpeed = 100000;
         }
-        else {animationSpeed = Math.max(40, (100)/(rate));}
+        else if (rate > 0 && rate < 300) {
+            1000
+        }
+        else {
+            100
+        }
+        
         interval = setInterval(() => {
             currentFrameIndex = (currentFrameIndex + 1) % frames.length;
         }, animationSpeed);
