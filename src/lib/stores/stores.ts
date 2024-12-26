@@ -17,7 +17,7 @@ export const count_time = writable(0);
 
 export const state = writable({
     lines: {
-        amount: 10000,
+        amount: 0,
         mult: 1,
         rate: 0,
     },
@@ -29,10 +29,10 @@ export const state = writable({
     },
 
     bencoin: {
-        amount: 1000,
+        amount: 10000,
         windows: 1,
         nodes: 1,
-        current_nodes: 0,
+        current_windows: 1,
         speed: 0
     },
 });
@@ -71,13 +71,15 @@ export const unlocked = writable({
 export const active_tab = writable("code")
 
 
-export const windows = writable([
-    { row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) },
-    
+export interface GridItem {
+    row: number;
+    col: number;
+}
+
+export const windows = writable<GridItem[]>([
 ])
 
-export const nodes = writable([
-    { row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) },
+export const nodes = writable<GridItem[]>([
 ]);
 
 

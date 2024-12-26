@@ -86,7 +86,7 @@
     <div class="flex flex-col m-auto items-center h-5/6 w-3/4 gap-4 ">
         
  
-        <div class="flex flex-row h-2/3 w-full gap-4">
+        <div class="flex flex-row h-1/2 w-full gap-4">
             <div class="w-5/6 h-full">
 
                 <div class="neo-inset h-full p-4 relative">
@@ -146,7 +146,7 @@
             
         </div>
 
-        <div class="flex flex-row h-1/3 gap-4 w-full">
+        <div class="flex flex-row h-1/2 gap-4 w-full">
                     {#if ($unlocked.section1)}
             <Section>
                 {#each $buttons_store as button}

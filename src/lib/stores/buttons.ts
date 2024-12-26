@@ -236,10 +236,10 @@ export const buttons_store = writable<Button[]>([
 
   { id: "btn14",
     label: "Increase Calculations",
-    max: 5,
+    max: 8,
     cost: { bencoin: 1 },
     type: { bencoin: { type: "windows", amount: 1 } },
-    amount: 0,
+    amount: 1,
     section: 4,
     unlockCriteria: {
       lines: 0,

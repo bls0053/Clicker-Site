@@ -3,9 +3,19 @@
 	import { onMount } from 'svelte';
 
     import IconCoin from '~icons/pixelarticons/bitcoin';
+    import { modeCurrent, RangeSlider } from '@skeletonlabs/skeleton';
 
     let timeout: number;
     let interval: number;
+
+    let topleft: boolean = false;
+    let topright: boolean = false;
+    let bottomleft: boolean = false;
+    let bottomright: boolean = false;
+
+    let isProcessing: boolean = false;
+    let isSliderUpdate: boolean = false;
+    let nodeProcessing: { [nodeIndex: number]: boolean } = {};
 
     // Any: { row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) }
     // Top Left: { row: Math.floor(Math.random() * 2), col: Math.floor(Math.random() * 2) }
@@ -14,21 +24,42 @@
     // Bottom Right: { row: Math.floor((Math.random()*2) * 2), col: Math.floor((Math.random()*2) * 2) }
 
 
-
+    function handleClick(clicked: string) {
+        topleft = false;
+        topright = false;
+        bottomleft = false;
+        bottomright = false;
+        if (clicked === "topleft") topleft = true;
+        if (clicked === "topright") topright = true;
+        if (clicked === "bottomleft") bottomleft = true;
+        if (clicked === "bottomright") bottomright = true;
+    }
 
     $: {
     state.subscribe(($state) => {
-        const requiredWindows = $state.bencoin.windows;
+        const requiredWindows = $state.bencoin.current_windows;
+        
         windows.update(($windows) => {
+            isSliderUpdate = true;
             while ($windows.length < requiredWindows) {
-                $windows.push({ row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) });
+                let num =  Math.floor(Math.random() * 2);
+                if (num == 1) {
+                    $windows.push({ row: Math.floor(Math.random() * 4), col: Math.floor(4) });
+                }
+                else {
+                    $windows.push({ row: Math.floor(4), col: Math.floor(Math.random() * 4) });
+                }
+                
             }
             while ($windows.length > requiredWindows) {
                 $windows.pop();
             }
             return [...$windows];
             });
+            
         });
+        console.log(isSliderUpdate)
+        isSliderUpdate = false; 
     }
 
     $: {
@@ -46,34 +77,51 @@
         });
     }
 
+    function deductPrice(windows: number) {
+        if (($state["lines"].amount - (windows)*(1)) > 0) {
+            $state["lines"].amount -= (windows)*(1);
+        }
+    }
+
     function moveWindows() {
         windows.update((currentWindows) =>
             currentWindows.map((window) => {
                 let newPosition: { row: any; col: any; };
-                do {
-                    newPosition = {
-                    row: Math.floor(Math.random() * 4),
-                    col: Math.floor(Math.random() * 4),
-                    };
-                } 
-                while (
-                    currentWindows.some(
-                        (other) => other !== window && other.row === newPosition.row && other.col === newPosition.col
-                    )
-                );
+                // do {
+                newPosition = { row: Math.floor((Math.random()) * 4), col: Math.floor((Math.random()) * 4),}
+                if (topleft) { newPosition = { row: Math.floor((Math.random())*2), col: Math.floor((Math.random())*2),}};
+                if (topright) { newPosition = { row: Math.floor((Math.random())*2), col: Math.floor((Math.random()*2)+2),}};
+                if (bottomleft) { newPosition = { row: Math.floor((Math.random()*2)+2), col: Math.floor((Math.random())*2),}};
+                if (bottomright) { newPosition = { row: Math.floor((Math.random()*2)+2), col: Math.floor((Math.random()*2)+2),}};
+
+                // } 
+                // while (
+                //     currentWindows.some(
+                //         (other) => other !== window && other.row === newPosition.row && other.col === newPosition.col
+                //     )
+                // );
+                
                 return newPosition;
             })
         );
+        deductPrice($windows.length)
     }
   
     $: {
-        $windows;
         $nodes;
+        $windows;
         $window_speed;
 
         $windows.forEach((window) => {
             $nodes.forEach((node, nodeIndex) => {
                 if (node.row === window.row && node.col === window.col) {
+
+                    if (nodeProcessing[nodeIndex]) {
+                        return; 
+                    }
+
+                    nodeProcessing[nodeIndex] = true;
+
                     timeout = setTimeout(() => {
                         let newPosition: { row: any; col: any; };
 
@@ -82,10 +130,10 @@
                                 row: Math.floor(Math.random() * 4),
                                 col: Math.floor(Math.random() * 4),
                             };
-                        } 
-                        while (
+                        } while (
                             $windows.some((w) => w.row === newPosition.row && w.col === newPosition.col) ||
-                            $nodes.some((n) => n.row === newPosition.row && n.col === newPosition.col));
+                            $nodes.some((n) => n.row === newPosition.row && n.col === newPosition.col)
+                        );
 
                         nodes.update((currentNodes) => {
                             currentNodes[nodeIndex] = { ...node, ...newPosition };
@@ -93,7 +141,8 @@
                         });
 
                         $state["bencoin"].amount += 1;
-                    }, ($window_speed));
+                        nodeProcessing[nodeIndex] = false;
+                    }, $window_speed);
                 }
             });
         });
@@ -112,11 +161,11 @@
 <style>
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
       
-      width: 200px;
-      height: 200px;
+      width: 250px;
+      height: 250px;
     }
   
     .cell {
@@ -125,7 +174,27 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        align-items: center;
+        justify-content: center;
         position: relative;
+    }
+
+    .cell-row {
+        grid-row: 5 / 6;
+        grid-column: 1 / span 4;
+        display: flex;
+        position: relative;
+        width: 190px;
+        height: 40px;
+    }
+
+    .cell-col {
+        grid-column: 5 / 6;
+        grid-row: 1 / span 4;
+        display: flex;
+        position: relative;
+        width: 40px;
+        height: 190px;
     }
 
     .node {
@@ -161,25 +230,54 @@
 
 </style>
   
-<div class="grid">
-    {#each Array(4) as _, rowIndex}
-        {#each Array(4) as _, colIndex}
-            <div class="cell neo-inset">
-                {#each $nodes as node}
-                    {#if node.row === rowIndex && node.col === colIndex}
-                        <div class="node !bg-red-400"></div>
-                    {/if}
-                {/each}
-            </div>
-        {/each}
-    {/each}
+<div class="flex flex-row gap-6 w-full">
+    <div class="flex flex-col gap-4">
 
-    {#each $windows as window}
-        <div
-        class="window duration-[]"
-        style={`transform: translate(${window.col * 50 + 5}px, ${window.row * 50 + 5}px); 
-        transition: transform ${$window_speed / 1000}s ease-in-out;`}
-        ></div>
-    {/each}
+        <div class="flex flex-row gap-4 w-full">
+            <button class="pixel-font neo aspect-square flex flex-grow justify-center items-center p-4" onclick={() => handleClick("topleft")}>Top<br>Left</button>
+            <button class="pixel-font neo aspect-square flex flex-grow justify-center items-center p-4" onclick={() => handleClick("topright")}>Top<br>Right</button>
+
+        </div>
+        
+        <div class="flex flex-row gap-4 w-full">
+            <button class="pixel-font neo aspect-square flex flex-grow justify-center items-center p-4" onclick={() => handleClick("bottomleft")}>Bottom<br>Left</button>
+            <button class="pixel-font neo aspect-square flex flex-grow justify-center items-center p-4" onclick={() => handleClick("bottomright")}>Bottom<br>Right</button>
+        </div>
+        
+        <button class="pixel-font neo" onclick={() => handleClick("any")}>any</button>
+        <RangeSlider name="range-slider" bind:value={$state.bencoin.current_windows} bind:max={$state.bencoin.windows} step={1}>
+            <div class="flex justify-between items-center pixel-font">
+                <div class="">Active Windows</div>
+                <div class="text-xs">{$state.bencoin.current_windows} / {$state.bencoin.windows}</div>
+            </div>
+        </RangeSlider>
+
+    </div>
+
+
+    <div class="grid">
+        {#each Array(4) as _, rowIndex}
+            {#each Array(4) as _, colIndex}
+                <div class="cell neo-inset">
+                    {#each $nodes as node}
+                        {#if node.row === rowIndex && node.col === colIndex}
+                            <div class="node !bg-red-400"></div>
+                        {/if}
+                    {/each}
+                </div>
+            {/each}
+        {/each}
+
+        {#each $windows as window}
+            <div
+            class="window duration-[]"
+            style={`transform: translate(${window.col * 50 + 5}px, ${window.row * 50 + 5}px); 
+            transition: transform ${$window_speed / 1000}s ease-in-out;`}
+            ></div>
+        {/each}
+
+        <div class="neo-inset cell-row"></div>
+        <div class="neo-inset cell-col"></div>
+    </div>
+    
 </div>
-  

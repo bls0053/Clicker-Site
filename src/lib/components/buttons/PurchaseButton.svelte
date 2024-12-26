@@ -32,7 +32,7 @@
     }
 
     const handleClick = () => {
-        if (isCooldown) { return };
+        if (isCooldown || locked) { return };
         buttons_store.update((buttons) => {
             const updated_buttons = buttons.map((button) => {
                 if (button.id === id) {
