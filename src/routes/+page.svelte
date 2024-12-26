@@ -142,8 +142,6 @@
                 <CounterDisplay text="char: x" store={(($state["lines"].mult)).toFixed(1)} />
                 <CounterDisplay text="real char /s: " store={total_char} />
                 <CounterDisplay text="char /s: " store={$overallRate_s.toFixed(1)} />
-                <CounterDisplay text="coffee /s: " store={($state["coffee"].rate*100).toFixed(1)} />
-                <CounterDisplay text="bencoin /s: " store={($state["bencoin"].rate*100).toFixed(1)} />
             </div>
             
         </div>

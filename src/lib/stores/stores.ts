@@ -29,9 +29,11 @@ export const state = writable({
     },
 
     bencoin: {
-        amount: 10,
-        mult: 1,
-        rate: 0,
+        amount: 1000,
+        windows: 1,
+        nodes: 1,
+        current_nodes: 0,
+        speed: 0
     },
 });
 
@@ -77,3 +79,12 @@ export const windows = writable([
 export const nodes = writable([
     { row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) },
 ]);
+
+
+export const window_speed = derived(state, ($state) => {
+    const maximum = 50;
+    const minimum = 1000;
+    const max_upgrades = 10;
+    let progress = minimum - (minimum - maximum)* (Math.pow(($state["bencoin"].speed/max_upgrades), .5))
+    return progress;
+});

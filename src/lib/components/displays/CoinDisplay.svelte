@@ -1,14 +1,55 @@
-<script>
-	import { state, windows, nodes } from '$lib/stores/stores';
-    import { writable } from 'svelte/store';
+<script lang='ts'>
+	import { state, windows, nodes, window_speed } from '$lib/stores/stores';
+	import { onMount } from 'svelte';
+
     import IconCoin from '~icons/pixelarticons/bitcoin';
 
-    const score = writable(0);
-  
+    let timeout: number;
+    let interval: number;
+
+    // Any: { row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) }
+    // Top Left: { row: Math.floor(Math.random() * 2), col: Math.floor(Math.random() * 2) }
+    // Top Right: { row: Math.floor(Math.random() * 4), col: Math.floor((Math.random() + 2) * 2) }
+    // Bottom Left: { row: Math.floor((Math.random()*2) * 2), col: Math.floor(Math.random() * 4) }
+    // Bottom Right: { row: Math.floor((Math.random()*2) * 2), col: Math.floor((Math.random()*2) * 2) }
+
+
+
+
+    $: {
+    state.subscribe(($state) => {
+        const requiredWindows = $state.bencoin.windows;
+        windows.update(($windows) => {
+            while ($windows.length < requiredWindows) {
+                $windows.push({ row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) });
+            }
+            while ($windows.length > requiredWindows) {
+                $windows.pop();
+            }
+            return [...$windows];
+            });
+        });
+    }
+
+    $: {
+        state.subscribe(($state) => {
+            const requiredNodes = $state.bencoin.nodes;
+            nodes.update(($nodes) => {
+                while ($nodes.length < requiredNodes) {
+                    $nodes.push({ row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) });
+                }
+                while ($nodes.length > requiredNodes) {
+                    $nodes.pop();
+                }
+                return [...$nodes];
+            });
+        });
+    }
+
     function moveWindows() {
         windows.update((currentWindows) =>
             currentWindows.map((window) => {
-                let newPosition;
+                let newPosition: { row: any; col: any; };
                 do {
                     newPosition = {
                     row: Math.floor(Math.random() * 4),
@@ -28,37 +69,47 @@
     $: {
         $windows;
         $nodes;
+        $window_speed;
 
         $windows.forEach((window) => {
-        $nodes.forEach((node, nodeIndex) => {
-            if (node.row === window.row && node.col === window.col) {
-            console.log("match");
-            setTimeout(() => {
-                let newPosition;
-                do {
-                newPosition = {
-                    row: Math.floor(Math.random() * 4),
-                    col: Math.floor(Math.random() * 4),
-                };
-                } while ($windows.some((w) => w.row === newPosition.row && w.col === newPosition.col));
+            $nodes.forEach((node, nodeIndex) => {
+                if (node.row === window.row && node.col === window.col) {
+                    timeout = setTimeout(() => {
+                        let newPosition: { row: any; col: any; };
 
-                nodes.update((currentNodes) => {
-                currentNodes[nodeIndex] = { ...node, ...newPosition };
-                return [...currentNodes];
-                });
+                        do {
+                            newPosition = {
+                                row: Math.floor(Math.random() * 4),
+                                col: Math.floor(Math.random() * 4),
+                            };
+                        } 
+                        while (
+                            $windows.some((w) => w.row === newPosition.row && w.col === newPosition.col) ||
+                            $nodes.some((n) => n.row === newPosition.row && n.col === newPosition.col));
 
-                $state["bencoin"].amount += 1;
-            }, 1000);
-            }
-        });
+                        nodes.update((currentNodes) => {
+                            currentNodes[nodeIndex] = { ...node, ...newPosition };
+                            return [...currentNodes];
+                        });
+
+                        $state["bencoin"].amount += 1;
+                    }, ($window_speed));
+                }
+            });
         });
     }
 
-    setInterval(moveWindows, 100);
+    $: {
+        console.log($window_speed)
+        clearInterval(interval);
+        interval = setInterval(moveWindows, $window_speed);
+    }
+
     
-    </script>
+    
+</script>
   
-    <style>
+<style>
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -91,7 +142,6 @@
         z-index: 1;
         border-radius: 8px;
         transform: translate(0px, 0px);
-        transition: transform .1s ease-in-out;
     }
 
     .window::before {
@@ -109,26 +159,27 @@
         box-sizing: border-box;
     }
 
-    </style>
+</style>
   
-    <div class="grid">
-        {#each Array(4) as _, rowIndex}
-            {#each Array(4) as _, colIndex}
-                <div class="cell neo-inset">
-                    {#each $nodes as node}
-                        {#if node.row === rowIndex && node.col === colIndex}
-                            <div class="node !bg-red-400"></div>
-                        {/if}
-                    {/each}
-                </div>
-            {/each}
+<div class="grid">
+    {#each Array(4) as _, rowIndex}
+        {#each Array(4) as _, colIndex}
+            <div class="cell neo-inset">
+                {#each $nodes as node}
+                    {#if node.row === rowIndex && node.col === colIndex}
+                        <div class="node !bg-red-400"></div>
+                    {/if}
+                {/each}
+            </div>
         {/each}
-    
-        {#each $windows as window}
-            <div
-            class="window"
-            style={`transform: translate(${window.col * 50 + 5}px, ${window.row * 50 + 5}px);`}
-            ></div>
-        {/each}
-    </div>
+    {/each}
+
+    {#each $windows as window}
+        <div
+        class="window duration-[]"
+        style={`transform: translate(${window.col * 50 + 5}px, ${window.row * 50 + 5}px); 
+        transition: transform ${$window_speed / 1000}s ease-in-out;`}
+        ></div>
+    {/each}
+</div>
   

@@ -10,6 +10,7 @@
     
     let canPurchase = false;
     let locked = false;
+    let isCooldown = false;
     
 
     $:  {
@@ -31,95 +32,109 @@
     }
 
     const handleClick = () => {
-            buttons_store.update((buttons) => {
-                const updated_buttons = buttons.map((button) => {
-                    if (button.id === id) {
-                        
-                        const { cost } = button;
+        if (isCooldown) { return };
+        buttons_store.update((buttons) => {
+            const updated_buttons = buttons.map((button) => {
+                if (button.id === id) {
+                    
+                    const { cost } = button;
 
-                        if (canPurchase) {
-                            button.amount += 1;
-                            // Deduct cost from store
-                            state.update((currentState) => {
-                                Object.keys(cost).forEach((key) => {
-                                const typedKey = key as keyof typeof currentState;
-                                if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
-                                    currentState[typedKey].amount -= cost[typedKey];
-                                }
-                                });
-                                return currentState;
+                    if (canPurchase) {
+                        button.amount += 1;
+                        // Deduct cost from store
+                        state.update((currentState) => {
+                            Object.keys(cost).forEach((key) => {
+                            const typedKey = key as keyof typeof currentState;
+                            if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
+                                currentState[typedKey].amount -= cost[typedKey];
+                            }
                             });
+                            return currentState;
+                        });
 
-                            if (button.amount >= button.max && button.max > 0) {
-                                locked = true;
-                            }
+                        if (button.amount >= button.max && button.max > 0) {
+                            locked = true;
+                        }
 
-                            if (!locked) {
-                            // Increase cost
-                                Object.keys(cost).forEach((key) => {
-                                    const typedKey = key as keyof typeof cost;
-                                    if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
-                                        cost[typedKey] = Math.ceil(cost[typedKey] * Math.pow(1.07, button.amount));
-                                    }
-                                });
-                            }
+                        if (!locked) {
+                        // Increase cost
+                            Object.keys(cost).forEach((key) => {
+                                const typedKey = key as keyof typeof cost;
+                                if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
+                                    cost[typedKey] = Math.ceil(cost[typedKey] * Math.pow(1.07, button.amount));
+                                }
+                            });
+                        }
 
-                            // Apply rate upgrade
-                            if (button.type == "rate") {
-                                const resourceKey = Object.keys(button.increase)[0];
-                                const rateval = button.increase[resourceKey];
-                                if (rateval) {
-                                    $state[resourceKey as keyof typeof $state].rate += rateval;
+
+                        const button_keys = Object.keys(button.type);
+                        
+                        button_keys.forEach(key => {
+
+                            const button_type = key;
+                            const { type, amount } = button.type[button_type];
+
+                            if (button_type === "lines") {
+                                if (type === "rate") {
+                                    if (!amount) {return}
+                                    $state["lines"].rate += amount;
+                                }
+
+                                else if (type === "mult") {
+                                    if (!amount) {return}
+                                    $state["lines"].mult += amount;
                                 }
                             }
-
-                            // Apply mult upgrade
-                            if (button.type == "mult") {
-                                const resourceKey = Object.keys(button.increase)[0];
-                                const multval = button.increase[resourceKey];
-                                if (multval) {
-                                    $state[resourceKey as keyof typeof $state].mult += multval;
-                                }
-                            }
-
-                            // Unlock specified id
-                            button.unlocks.forEach(button => {
-                                if (button in $unlocked) {
-                                    $unlocked[button as keyof typeof $unlocked] = true;
-                                }
-                            })
-
-                            // Unlock windows for coindisplay
-                            if (button.id === "btn14") {
-                                windows.update((currentWindows: any) => {
-                                    const newWindow = {
-                                    row: Math.floor(Math.random() * 4),
-                                    col: Math.floor(Math.random() * 4)
-                                    };
-                                return [...currentWindows, newWindow];
-                                });
-                            }
-                                
-                            // Unlock nodes for coindisplay
-                            if (button.id === "btn15") {
-                                nodes.update((currentWindows: any) => {
-                                    const newNode = {
-                                    row: Math.floor(Math.random() * 4),
-                                    col: Math.floor(Math.random() * 4)
-                                    };
-                                return [...currentWindows, newNode];
-                                });
-                            }
-
 
                             
+                            else if (button_type === "bencoin") {
+                                if (type === "windows") {
+                                    if (!amount) {return}
+                                    $state["bencoin"].windows += amount;
+                                    console.log($state["bencoin"].windows)
+                                }
 
-                        }
+                                else if (type === "nodes") {
+                                    if (!amount) {return}
+                                    $state["bencoin"].nodes += amount;
+                                    console.log($state["bencoin"].nodes)
+                                }
+
+                                else if (type === "speed") {
+                                    if (!amount) {return}
+                                    $state["bencoin"].speed += amount;
+                                    console.log($state["bencoin"].speed)
+                                }
+                            }
+
+                            else if (button_type === "coffee") {
+
+                            }   
+
+                            if (button_type.includes("unlock")) {
+                                console.log(type)
+                                console.log($unlocked)
+                                if (type in $unlocked) {
+                                    $unlocked[type as keyof typeof $unlocked] = true;
+                                    console.log($unlocked)
+                                }
+                            }
+
+                            if (button.cooldown > 0) {
+                                console.log("timeout")
+                                isCooldown = true;
+                                setTimeout(() => {     
+                                    isCooldown = false;
+                                }, button.cooldown*1000);
+                            }
+
+                        });
                     }
-                return button;
-            });
-            return updated_buttons;
+                }
+            return button;
         });
+        return updated_buttons;
+    });
     }
 
 

@@ -13,89 +13,66 @@ export interface CostState {
   [key: string]: number | undefined;
 }
 
-export interface RateState {
-  [key: string]: number | undefined;
+
+
+interface UnlockType {
+  [key: string]: {
+    type: string;
+    amount?: number;
+  };
 }
+
+
 
 export interface Button {
   id: string;
-  title: string;
   label: string;
   max: number;
-  unlocks: string[];
   amount: number;
   section: number;
   unlockCriteria: UnlockCriteria;
   cost: CostState;
-  increase: RateState;
-  type: string;
+  type: UnlockType;
+  cooldown: number
 }
 
 export const buttons_store = writable<Button[]>([
 
-  {
-    id: "btn12",
-    title: "",
+  { id: "btn12",
     label: "Unlock Auto-type",
     max: 1,
-    cost: {
-      lines: 1,
-    },
-    increase: {
-      lines: .01
-    },
-    type: "rate",
-    unlocks: [""], 
+    cost: { lines: 1 },
+    type: { lines: { type: "rate", amount: .01 } },
     amount: 0,
     section: 1,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        
-      ]
-    }
-  },
+      prereqs: []},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn13",
-    title: "",
+  { id: "btn13",
     label: "Unlock Auto-enter",
     max: 1,
-    cost: {
-      lines: 10,
-    },
-    increase: {
-
-    },
-    type: "unlock",
-    unlocks: ["auto_enter"], 
+    cost: { lines: 10 },
+    type: { unlock: { type: "auto_enter" } },
     amount: 0,
     section: 1,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        
-      ]
-    }
-  },
+      prereqs: []},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn1",
-    title: "do action",
+  { id: "btn1",
     label: "Purchase +.1 C/s",
     max: 1000,
-    cost: {
-      lines: .1,
-    },
-    increase: {
-      lines: .01
-    },
-    type: "rate",
-    unlocks: [""],
+    cost: { lines: .1 },
+    type: { lines: { type: "rate", amount: .1 } },
     amount: 0,
     section: 1,
     unlockCriteria: {
@@ -103,336 +80,204 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [
-        {id:"btn12", amount: 1}
-      ]
-    },
+        {id:"btn12", amount: 1} ]}
+ ,     cooldown: 0 },
+    
 
-  },
-
-  {
-    id: "btn2",
-    title: "do action",
+  { id: "btn2",
     label: "Purchase +1x C/s",
     max: 1000,
-    cost: {
-      lines: 10,
-    },
-    increase: {
-      lines: 1
-    },
-    type: "mult",
-    unlocks: ["section2"],
+    cost: { lines: 10 },
+    type: { lines: { type: "mult", amount: 1 }, unlock: {type: "section2", amount: 3} },
     amount: 0,
     section: 1,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn12", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn1", amount: 3} ]},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn3",
-    title: "do action",
+  { id: "btn3",
     label: "Unlock Menu Bar",
     max: 1,
-    cost: {
-      lines: 10,
-    },
-    increase: {
-    
-    },
-    type: "unlock",
-    unlocks: ["menu_bar"],
+    cost: { lines: 10 },
+    type: { unlock: { type: "menu_bar" } },
     amount: 0,
     section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-    
-      ]
-    }
-  },
+      prereqs: [] },
+    cooldown: 0 },
 
-  {
-    id: "btn4",
-    title: "Unlock Resume",
+  { id: "btn4",
     label: "Unlock Resume",
     max: 1,
-    cost: {
-      lines: 15,
-    },
-    increase: {
-
-    },
-    type: "unlock",
-    unlocks: ["resume"],
+    cost: { lines: 15 },
+    type: { unlock: { type: "resume" },
+            unlock2: { type: "section3" } },
     amount: 0,
     section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn3", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn3", amount: 1} ]},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn5",
-    title: "Unlock Email",
+  { id: "btn5",
     label: "Unlock Email",
     max: 1,
-    cost: {
-      lines: 15,
-    },
-    increase: {
-
-    },
-    type: "unlock",
-    unlocks: ["email"],
+    cost: { lines: 15 },
+    type: { unlock: { type: "email" } },
     amount: 0,
     section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn4", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn4", amount: 1} ]},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn6",
-    title: "Unlock Linkedin",
+  { id: "btn6",
     label: "Unlock Linkedin",
     max: 1,
-    cost: {
-      lines: 15,
-    },
-    increase: {
-
-    },
-    type: "unlock",
-    unlocks: ["linkedin"],
+    cost: { lines: 15 },
+    type: { unlock: { type: "linkedin" } },
     amount: 0,
     section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn5", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn5", amount: 1} ]},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn7",
-    title: "Unlock Github",
-    label: "Unlock Github",
+  { id: "btn7",
+    label: "Unlock github",
     max: 1,
-    cost: {
-      lines: 15,
-    },
-    increase: {
-
-    },
-    type: "",
-    unlocks: ["github", "section3"], 
+    cost: { lines: 15 },
+    type: { unlock: { type: "github" } },
     amount: 0,
     section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn6", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn6", amount: 1} ]},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn8",
-    title: "",
-    label: "Unlock Project 1",
+  { id: "btn8",
+    label: "Unlock project1",
     max: 1,
-    cost: {
-      lines: 15,
-    },
-    increase: {
-
-    },
-    type: "project",
-    unlocks: ["project1"], 
+    cost: { lines: 15 },
+    type: { unlock: { type: "project1" } },
     amount: 0,
     section: 3,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn7", amount: 1}
-      ]
-    }
-  },
+      prereqs: []},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn9",
-    title: "",
-    label: "Unlock Project 2",
+  { id: "btn9",
+    label: "Unlock project2",
     max: 1,
-    cost: {
-      lines: 15,
-    },
-    increase: {
-
-    },
-    type: "project",
-    unlocks: ["project2"], 
+    cost: { lines: 15 },
+    type: { unlock: { type: "project2" } },
     amount: 0,
     section: 3,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn8", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn8", amount: 1} ]},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn10",
-    title: "",
-    label: "Unlock Project 3",
+  { id: "btn10",
+    label: "Unlock project3",
     max: 1,
-    cost: {
-      lines: 15,
-    },
-    increase: {
-
-    },
-    type: "project",
-    unlocks: ["project3"], 
+    cost: { lines: 15 },
+    type: { unlock: { type: "project3" } },
     amount: 0,
     section: 3,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn9", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn9", amount: 1} ]},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn11",
-    title: "",
-    label: "Unlock Project 4",
+  { id: "btn11",
+    label: "Unlock project4",
     max: 1,
-    cost: {
-      lines: 15,
-    },
-    increase: {
-
-    },
-    type: "project",
-    unlocks: ["project4"], 
+    cost: { lines: 15 },
+    type: { unlock: { type: "project4" } },
     amount: 0,
     section: 3,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn10", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn10", amount: 1} ]},
+    cooldown: 0 },
+  
 
-  {
-    id: "btn14",
-    title: "",
+  { id: "btn14",
     label: "Increase Calculations",
     max: 5,
-    cost: {
-      bencoin: 1,
-    },
-    increase: {
-
-    },
-    type: "",
-    unlocks: [], 
+    cost: { bencoin: 1 },
+    type: { bencoin: { type: "windows", amount: 1 } },
     amount: 0,
     section: 4,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-      
-      ]
-    }
-  },
+      prereqs: []},
+    cooldown: 1 },
+  
 
-  {
-    id: "btn15",
-    title: "",
+  { id: "btn15",
     label: "Multi-thread",
     max: 2,
-    cost: {
-      bencoin: 10,
-    },
-    increase: {
-
-    },
-    type: "",
-    unlocks: [], 
+    cost: { bencoin: 10 },
+    type: { bencoin: { type: "nodes", amount: 1 } },
     amount: 0,
     section: 4,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [
-        {id:"btn14", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn14", amount: 1} ]},
+    cooldown: 1 },
+  
 
-  {
-    id: "btn16",
-    title: "",
+  { id: "btn16",
     label: "Smarter Calculations",
-    max: 1,
-    cost: {
-      bencoin: 10,
-    },
-    increase: {
-
-    },
-    type: "",
-    unlocks: [], 
+    max: 10,
+    cost: { bencoin: 10 },
+    type: { bencoin: { type: "speed", amount: 1 } },
     amount: 0,
     section: 4,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 10,
-      prereqs: [
-        {id:"btn14", amount: 1}
-      ]
-    }
-  },
+      prereqs: [ {id:"btn14", amount: 1} ]},
+    cooldown: 1 },
+    
 
 ]);
 
