@@ -31,6 +31,26 @@
         });
     }
 
+    setInterval(() => {
+        buttons_store.update((buttons) => {
+            const updated_buttons = buttons.map((button) => {
+                if (button.id === id) {
+                    const { costScale } = button;
+                    if (costScale === "rand") {
+                        Object.keys(cost).forEach((key) => {
+                            const typedKey = key as keyof typeof cost;
+                            if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
+                                cost[typedKey] = Math.floor(Math.random() * 24) + 1;
+                            }
+                        });
+                    }    
+                }
+                return button;
+            });
+            return updated_buttons;
+        });
+    },5000)
+
     const handleClick = () => {
         if (isCooldown || locked) { return };
         buttons_store.update((buttons) => {
@@ -41,7 +61,7 @@
 
                     if (canPurchase) {
                         button.amount += 1;
-                        // Deduct cost from store
+                        
                         state.update((currentState) => {
                             Object.keys(cost).forEach((key) => {
                             const typedKey = key as keyof typeof currentState;
@@ -56,8 +76,8 @@
                             locked = true;
                         }
 
-                        if (!locked) {
-                        // Increase cost
+                        if (!locked && button.costScale === "exp") {
+                            
                             Object.keys(cost).forEach((key) => {
                                 const typedKey = key as keyof typeof cost;
                                 if (typedKey !== undefined && typeof cost[typedKey] === 'number') {
@@ -77,12 +97,12 @@
                             if (button_type === "lines") {
                                 if (type === "rate") {
                                     if (!amount) {return}
-                                    $state["lines"].rate += amount;
+                                    $state.lines.rate += amount;
                                 }
 
                                 else if (type === "mult") {
                                     if (!amount) {return}
-                                    $state["lines"].mult += amount;
+                                    $state.lines.mult += amount;
                                 }
                             }
 
@@ -90,20 +110,17 @@
                             else if (button_type === "bencoin") {
                                 if (type === "windows") {
                                     if (!amount) {return}
-                                    $state["bencoin"].windows += amount;
-                                    console.log($state["bencoin"].windows)
+                                    $state.bencoin.windows += amount;
                                 }
 
                                 else if (type === "nodes") {
                                     if (!amount) {return}
-                                    $state["bencoin"].nodes += amount;
-                                    console.log($state["bencoin"].nodes)
+                                    $state.bencoin.nodes += amount;
                                 }
 
                                 else if (type === "speed") {
                                     if (!amount) {return}
-                                    $state["bencoin"].speed += amount;
-                                    console.log($state["bencoin"].speed)
+                                    $state.bencoin.speed += amount;
                                 }
                             }
 
@@ -111,17 +128,29 @@
 
                             }   
 
+                            else if (button_type === "water") {
+                                if (type === "pour") {
+                                    if (!amount) {return}
+                                    $state.water.pour += amount;
+                                }
+                                else if (type === "speed") {
+                                    if (!amount) {return}
+                                    $state.water.speed += amount;
+                                }
+                            }
+
+                            if (button_type === "beans") {
+                                if (!amount) {return}
+                                $state.beans.amount += amount;
+                            }
+
                             if (button_type.includes("unlock")) {
-                                console.log(type)
-                                console.log($unlocked)
                                 if (type in $unlocked) {
                                     $unlocked[type as keyof typeof $unlocked] = true;
-                                    console.log($unlocked)
                                 }
                             }
 
                             if (button.cooldown > 0) {
-                                console.log("timeout")
                                 isCooldown = true;
                                 setTimeout(() => {     
                                     isCooldown = false;
@@ -137,8 +166,6 @@
     });
     }
 
-
-
 </script>
 
 
@@ -146,8 +173,10 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:click={handleClick} 
-class=" p-6 bg-opacity-20 neo hover:rotate-3 transiton-transform duration-200 pixel-font
+id="{id}"
+class=" p-6 bg-opacity-20 neo hover:rotate-3 transiton-transform duration-200 pixel-font select-none
 {locked ? '' : (canPurchase ? '!text-green-300' : '!text-red-400')}">
+    <p>{label}</p>  
     {#if (!locked)}
     {#each Object.entries(cost) as [key, value]}
         {#if value !== undefined}
@@ -155,9 +184,6 @@ class=" p-6 bg-opacity-20 neo hover:rotate-3 transiton-transform duration-200 pi
         {/if}
     {/each}
     {/if}
-
-    {label}
-
     {#if (locked)}
         MAX
     {/if}

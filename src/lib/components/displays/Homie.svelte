@@ -11,7 +11,6 @@
 
     let interval: any;
     let animationSpeed: number = 100000;
-    export let paused: boolean;
     export let rate: number;
 
     import { onMount, onDestroy } from 'svelte';

@@ -40,7 +40,6 @@
 
     $: {
         if ($unlocked.auto_enter) {
-            handleAutoEnter();
             paused = false;
         }
     }
@@ -60,20 +59,12 @@
             if (paused) {
                 if (code_source[prev_count] !== "\n") {
                     paused = false;
-                    
-                    if ($unlocked.auto_enter) {
-                        handleAutoEnter()
-                    }
                 }
 
                 else {
                     prev_count += 1;
                     index = prev_count;
                     count_char.set(prev_count);
-                    
-                    if ($unlocked.auto_enter) {
-                        handleAutoEnter()
-                    }
                 }
                 code_to_write += "\n";
                 $state["lines"].amount += 1;
@@ -84,27 +75,11 @@
         }
     }
 
-    function handleAutoEnter() {
-        if (paused) {
-            const enterEvent = new KeyboardEvent("keydown", {
-                key: "Enter",
-                keyCode: 13,
-                code: "Enter",
-                which: 13,
-            });
-            window.dispatchEvent(enterEvent);
-        }
-    }
-
     function trim_snippet() {
         if (code_to_write.length > (1.5 * char_limit)) {
             let updated_snippet = code_to_write.slice(code_to_write.length - char_limit);
             code_to_write = (updated_snippet);
         }
-    }
-
-    function count_lines() {
-        $state.lines.amount += (new_snippet.match(/\n/g) || []).length
     }
 
     count_char.subscribe((count) => {
@@ -114,15 +89,14 @@
             if (difference > 0) {
 
                 new_snippet = code_source.slice(index, index + difference);
-                console.log(new_snippet)
                 
-
+                if (code_source[prev_count+1] === "\n") {
+                    prev_count += 1;
+                    paused = true;
+                    console.log("paused")
+                }
+                
                 if (!$unlocked.auto_enter) {
-                    if (code_source[prev_count+1] === "\n") {
-                        prev_count += 1;
-                        paused = true;
-                    }
-
                     const newLineIndex = new_snippet.indexOf("\n");
                     if (newLineIndex !== -1) {
                         new_snippet = new_snippet.slice(0, newLineIndex);
@@ -130,12 +104,7 @@
                         paused = true; 
                     }
                 }
-
-                else {
-                    count_lines();
-                }
                 
-
                 if (index >= code_length) {
                     index = 185;
                     prev_count = 185;
@@ -143,7 +112,7 @@
                 }
 
                 trim_snippet();
-                console.log(new_snippet)
+
                 prev_count += new_snippet.length;
                 index = prev_count;
                 code_to_write += new_snippet;
@@ -151,9 +120,6 @@
                 count_char.set(prev_count);
                 actual_char.update((n) => n + new_snippet.length);
 
-                // if ($unlocked.auto_enter) {
-                //     handleAutoEnter();
-                // }
                     
             }
         }

@@ -3,7 +3,9 @@
 	import { onMount } from 'svelte';
 
     import IconCoin from '~icons/pixelarticons/bitcoin';
-    import { modeCurrent, RangeSlider } from '@skeletonlabs/skeleton';
+    import { RangeSlider } from '@skeletonlabs/skeleton';
+	import Slider from '../buttons/SliderY.svelte';
+	import SliderX from '../buttons/SliderX.svelte';
 
     let timeout: number;
     let interval: number;
@@ -13,16 +15,18 @@
     let bottomleft: boolean = false;
     let bottomright: boolean = false;
 
-    let isProcessing: boolean = false;
-    let isSliderUpdate: boolean = false;
     let nodeProcessing: { [nodeIndex: number]: boolean } = {};
-
-    // Any: { row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) }
-    // Top Left: { row: Math.floor(Math.random() * 2), col: Math.floor(Math.random() * 2) }
-    // Top Right: { row: Math.floor(Math.random() * 4), col: Math.floor((Math.random() + 2) * 2) }
-    // Bottom Left: { row: Math.floor((Math.random()*2) * 2), col: Math.floor(Math.random() * 4) }
-    // Bottom Right: { row: Math.floor((Math.random()*2) * 2), col: Math.floor((Math.random()*2) * 2) }
-
+    let windowBool: { [nodeIndex: number]: boolean } = {};
+    let locations = [
+        {row:0,col:4},
+        {row:1,col:4},
+        {row:2,col:4},
+        {row:3,col:4},
+        {row:4,col:3},
+        {row:4,col:2},
+        {row:4,col:1},
+        {row:4,col:0}]
+   
 
     function handleClick(clicked: string) {
         topleft = false;
@@ -35,32 +39,61 @@
         if (clicked === "bottomright") bottomright = true;
     }
 
-    $: {
-    state.subscribe(($state) => {
-        const requiredWindows = $state.bencoin.current_windows;
+    // $: {
+    //     state.subscribe(($state) => {
+    //     const requiredWindows = $state.bencoin.current_windows;
         
-        windows.update(($windows) => {
-            isSliderUpdate = true;
-            while ($windows.length < requiredWindows) {
-                let num =  Math.floor(Math.random() * 2);
-                if (num == 1) {
-                    $windows.push({ row: Math.floor(Math.random() * 4), col: Math.floor(4) });
+    //         windows.update(($windows) => {
+    //             while ($windows.length < requiredWindows) {
+    //                 let num =  Math.floor(Math.random() * 2);
+    //                 if (num == 1) {
+    //                     $windows.push({ row: Math.floor(Math.random() * 4), col: Math.floor(4) });
+    //                 }
+    //                 else {
+    //                     $windows.push({ row: Math.floor(4), col: Math.floor(Math.random() * 4) });
+    //                 }
+                    
+    //             }
+    //             while ($windows.length > requiredWindows) {
+    //                 $windows.pop();
+    //             }
+    //             return [...$windows];
+    //         });
+    //     });
+    // }
+
+    $: {
+        state.subscribe(($state) => {
+            const requiredWindows = $state.bencoin.windows;
+            const index = $windows.length;
+            windows.update(($windows) => {
+                if ($windows.length < requiredWindows) {
+                    windowBool[index] = true;
+                    $windows.push({ row: locations[index].row, col: locations[index].col });
                 }
-                else {
-                    $windows.push({ row: Math.floor(4), col: Math.floor(Math.random() * 4) });
-                }
-                
-            }
-            while ($windows.length > requiredWindows) {
-                $windows.pop();
-            }
-            return [...$windows];
-            });
-            
-        });
-        console.log(isSliderUpdate)
-        isSliderUpdate = false; 
+                return [...$windows]
+            })
+
+        })
     }
+
+    $: {
+        state.subscribe(($state) => {
+            const requiredWindows = $state.bencoin.current_windows;
+            windows.update(($windows) => {
+                $windows.forEach((window, index) => {
+                    if (index < $windows.length - requiredWindows) {
+                        windowBool[index] = true;
+                    }
+                    else {
+                        windowBool[index] = false;
+                    }
+                });
+                return [...$windows];
+            });
+        });
+    }
+
 
     $: {
         state.subscribe(($state) => {
@@ -78,14 +111,15 @@
     }
 
     function deductPrice(windows: number) {
-        if (($state["lines"].amount - (windows)*(1)) > 0) {
-            $state["lines"].amount -= (windows)*(1);
+        if (($state.lines.amount - (windows)*(1)) > 0) {
+            $state.lines.amount -= (windows)*(1);
         }
     }
 
     function moveWindows() {
         windows.update((currentWindows) =>
-            currentWindows.map((window) => {
+            currentWindows.map((window, index) => {
+                if (windowBool[index]) { return locations[index] }
                 let newPosition: { row: any; col: any; };
                 // do {
                 newPosition = { row: Math.floor((Math.random()) * 4), col: Math.floor((Math.random()) * 4),}
@@ -104,7 +138,7 @@
                 return newPosition;
             })
         );
-        deductPrice($windows.length)
+        
     }
   
     $: {
@@ -154,6 +188,10 @@
         interval = setInterval(moveWindows, $window_speed);
     }
 
+
+    setInterval(() => {
+        deductPrice($state.bencoin.current_windows)
+    }, 1000)
     
     
 </script>
@@ -245,12 +283,14 @@
         </div>
         
         <button class="pixel-font neo" onclick={() => handleClick("any")}>any</button>
-        <RangeSlider name="range-slider" bind:value={$state.bencoin.current_windows} bind:max={$state.bencoin.windows} step={1}>
-            <div class="flex justify-between items-center pixel-font">
-                <div class="">Active Windows</div>
-                <div class="text-xs">{$state.bencoin.current_windows} / {$state.bencoin.windows}</div>
-            </div>
-        </RangeSlider>
+        <div class="flex justify-between items-center pixel-font">
+            <div class="">Active Windows</div>
+            <div class="text-xs">{$state.bencoin.current_windows} / {$state.bencoin.windows}</div>
+        </div>
+        <SliderX bind:value={$state.bencoin.current_windows} bind:max={$state.bencoin.windows}/>
+            
+        
+        
 
     </div>
 
@@ -261,7 +301,7 @@
                 <div class="cell neo-inset">
                     {#each $nodes as node}
                         {#if node.row === rowIndex && node.col === colIndex}
-                            <div class="node !bg-red-400"></div>
+                            <div class="node !bg-yellow-600"><IconCoin class="text-yellow-200"></IconCoin></div>
                         {/if}
                     {/each}
                 </div>
@@ -270,7 +310,7 @@
 
         {#each $windows as window}
             <div
-            class="window duration-[]"
+            class="window"
             style={`transform: translate(${window.col * 50 + 5}px, ${window.row * 50 + 5}px); 
             transition: transform ${$window_speed / 1000}s ease-in-out;`}
             ></div>

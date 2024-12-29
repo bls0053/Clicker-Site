@@ -33,7 +33,8 @@ export interface Button {
   unlockCriteria: UnlockCriteria;
   cost: CostState;
   type: UnlockType;
-  cooldown: number
+  cooldown: number;
+  costScale: string;
 }
 
 export const buttons_store = writable<Button[]>([
@@ -50,7 +51,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: []},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn13",
@@ -65,7 +67,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: []},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn1",
@@ -80,8 +83,9 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [
-        {id:"btn12", amount: 1} ]}
- ,     cooldown: 0 },
+        {id:"btn12", amount: 1} ]},
+      cooldown: 0 ,
+      costScale: "exp" },
     
 
   { id: "btn2",
@@ -96,7 +100,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn1", amount: 3} ]},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn3",
@@ -111,14 +116,16 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [] },
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
 
   { id: "btn4",
     label: "Unlock Resume",
     max: 1,
     cost: { lines: 15 },
     type: { unlock: { type: "resume" },
-            unlock2: { type: "section3" } },
+            unlock2: { type: "section3" },
+            unlock3: { type: "ben_coin"} },
     amount: 0,
     section: 2,
     unlockCriteria: {
@@ -126,7 +133,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn3", amount: 1} ]},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn5",
@@ -141,7 +149,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn4", amount: 1} ]},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn6",
@@ -156,7 +165,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn5", amount: 1} ]},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn7",
@@ -171,7 +181,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn6", amount: 1} ]},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn8",
@@ -186,7 +197,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: []},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn9",
@@ -201,7 +213,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn8", amount: 1} ]},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn10",
@@ -216,7 +229,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn9", amount: 1} ]},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn11",
@@ -231,7 +245,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn10", amount: 1} ]},
-    cooldown: 0 },
+    cooldown: 0 ,
+    costScale: "exp" },
   
 
   { id: "btn14",
@@ -246,12 +261,13 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: []},
-    cooldown: 1 },
+    cooldown: 1 ,
+    costScale: "exp" },
   
 
   { id: "btn15",
     label: "Multi-thread",
-    max: 2,
+    max: 6,
     cost: { bencoin: 10 },
     type: { bencoin: { type: "nodes", amount: 1 } },
     amount: 0,
@@ -261,7 +277,8 @@ export const buttons_store = writable<Button[]>([
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn14", amount: 1} ]},
-    cooldown: 1 },
+    cooldown: 1 ,
+    costScale: "exp" },
   
 
   { id: "btn16",
@@ -274,10 +291,87 @@ export const buttons_store = writable<Button[]>([
     unlockCriteria: {
       lines: 0,
       coffee: 0,
-      bencoin: 10,
+      bencoin: 0,
       prereqs: [ {id:"btn14", amount: 1} ]},
-    cooldown: 1 },
+    cooldown: 1 ,
+    costScale: "exp" },
+
+    { id: "btn17",
+    label: "Quality Pour",
+    max: 100,
+    cost: { bencoin: 10 },
+    type: { water: { type: "pour", amount: 10 } },
+    amount: 0,
+    section: 5,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: []},
+    cooldown: 0 ,
+    costScale: "exp" },
+
+    { id: "btn18",
+    label: "Auto-Pour",
+    max: 1,
+    cost: { bencoin: 10 },
+    type: { unlock: { type: "auto_water" } },
+    amount: 0,
+    section: 5,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: []},
+    cooldown: 0 ,
+    costScale: "exp" },
+
+    { id: "btn19",
+    label: "Auto-Pour +",
+    max: 9,
+    cost: { bencoin: 10 },
+    type: { water: { type: "speed", amount: 1 } },
+    amount: 0,
+    section: 5,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: []},
+    cooldown: 0 ,
+    costScale: "exp" },
     
+    { id: "btn20",
+    label: "Buy Beans",
+    max: 10000,
+    cost: { bencoin: 50 },
+    type: { beans: { type: "beans", amount: 1 } },
+    amount: 0,
+    section: 6,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: []},
+    cooldown: 0 ,
+    costScale: "rand" },
+    
+    { id: "btn21",
+    label: "Auto-Bean",
+    max: 1,
+    cost: { bencoin: 10 },
+    type: { unlock: { type: "auto_bean" } },
+    amount: 0,
+    section: 6,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: [  ]},
+    cooldown: 0 ,
+    costScale: "exp" },
+    
+
 
 ]);
 

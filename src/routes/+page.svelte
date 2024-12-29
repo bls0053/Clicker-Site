@@ -8,7 +8,7 @@
 
     } from '$lib/stores/stores';
 
-    import CodeDisplay2 from '$lib/components/displays/CodeDisplay2.svelte';
+    import CodeDisplay3 from '$lib/components/displays/CodeDisplay2.svelte';
 	import Section from '$lib/components/containers/Section.svelte';
 	import CounterDisplay from '$lib/components/displays/CounterDisplay.svelte';
 	import PurchaseButton from '$lib/components/buttons/PurchaseButton.svelte';
@@ -28,37 +28,22 @@
 	import ProjectDisplay from '$lib/components/displays/ProjectDisplay.svelte';
 	import Homie from '$lib/components/displays/Homie.svelte';
 	import CoinDisplay from '$lib/components/displays/CoinDisplay.svelte';
-    
+	import CoffeeDisplay from '$lib/components/displays/WaterDisplay.svelte';
+	import WaterDisplay from '$lib/components/displays/WaterDisplay.svelte';
+	import GrinderDisplay from '$lib/components/displays/GrinderDisplay.svelte';
+	import BeanDisplay from '$lib/components/displays/BeanDisplay.svelte';
+    import { canShowButton } from '$lib/util/prereq';
 
 
     let paused = false;
-
-    function canShowButton(button: Button) {
-        const { unlockCriteria } = button;
-        if ($state["lines"].amount < unlockCriteria.lines ||
-            $state["coffee"].amount < unlockCriteria.coffee ||
-            $state["bencoin"].amount < unlockCriteria.bencoin) {
-            return false; 
-        }
-
-        for (const prereq of unlockCriteria.prereqs) {
-            const prereqButton = $buttons_store.find((b) => b.id === prereq.id);
-            if (prereqButton && prereqButton.amount < prereq.amount) {
-                return false;
-            }
-        }
-        return true;
-    }
-
+    let previous_char = 0;
+    let current_char = 0;
+    let total_char = 0;
+    let intervalId: number | undefined;
 
 	function formatCount(num: number): number | string {
 		return num.toFixed(0)
 	}
-
-
-    let previous_char = 0;
-    let current_char = 0;
-    let total_char = 0;
 
     setInterval(() => {
         current_char = $actual_char;
@@ -66,6 +51,24 @@
         previous_char = current_char;
     }, 1000)
     
+    $: {
+        $state.coffee;
+        if ($state.coffee.amount > 0 && intervalId === undefined) {
+            console.log("jhskdbf")
+            intervalId = setInterval(() => {
+                if ($state.coffee.amount > 0) {
+                    $state.coffee.amount -= 1;
+                }
+                else {
+                    clearInterval(intervalId);
+                    intervalId = undefined;
+                    console.log(intervalId)
+                }
+            }, 1000);
+        }
+    }
+
+
 
 </script>
 
@@ -83,7 +86,7 @@
         {#if ($unlocked.github)}<MenuButton text="Github" type="link" link="https://github.com/bls0053"><IconGithub class="w-full h-full"/></MenuButton>{/if}
     </AppBar>
     {/if}
-    <div class="flex flex-col m-auto items-center h-5/6 w-3/4 gap-4 ">
+    <div class="flex flex-col m-auto items-center h-5/6 w-11/12 gap-4 ">
         
  
         <div class="flex flex-row h-1/2 w-full gap-4">
@@ -107,8 +110,8 @@
                         
                     </div>
                     
-                    <CodeDisplay2 bind:paused></CodeDisplay2>
-                    <div class="absolute bottom-24 right-24"><Homie rate={total_char} paused={paused}></Homie></div>
+                    <CodeDisplay3 bind:paused></CodeDisplay3>
+                    <div class="absolute bottom-24 right-24"><Homie rate={total_char}></Homie></div>
                 
                     {#if ($active_tab == "project1")}
                         <ProjectDisplay link="/projects/p1/i1.png"></ProjectDisplay>
@@ -126,28 +129,27 @@
 
                 </div>
                     
-                
-
-
-                    
             </div>
+            
             <div class="flex flex-col w-1/6 h-full justify-between ">
                 <IncButton text="write code" paused={paused} store={count_char} />
                 <CounterDisplay text="attempted char: " store={$count_char ? formatCount($count_char) : "0"} />
                 <CounterDisplay text="char: " store={$actual_char ? formatCount($actual_char) : "0"} />
-                <CounterDisplay text="lines: " store={Math.floor($state["lines"].amount)} />
-                <CounterDisplay text="coffee: " store={$state["coffee"].amount} />
+                <CounterDisplay text="lines: " store={Math.floor($state.lines.amount)} />
+                <CounterDisplay text="coffee: " store={$state.coffee.amount} />
                 <CounterDisplay text="bencoin: " store={$state["bencoin"].amount} />
-                <CounterDisplay text="char_base /s: " store={($state["lines"].rate*100).toFixed(1)} />
-                <CounterDisplay text="char: x" store={(($state["lines"].mult)).toFixed(1)} />
+                <CounterDisplay text="char_base /s: " store={($state.lines.rate*100).toFixed(1)} />
+                <CounterDisplay text="char: x" store={(($state.lines.mult)).toFixed(1)} />
                 <CounterDisplay text="real char /s: " store={total_char} />
                 <CounterDisplay text="char /s: " store={$overallRate_s.toFixed(1)} />
+                <CounterDisplay text="water: oz " store={Math.floor($state.water.amount/2)} />
+                <CounterDisplay text="beans: " store={$state.beans.amount} />
             </div>
             
         </div>
 
         <div class="flex flex-row h-1/2 gap-4 w-full">
-                    {#if ($unlocked.section1)}
+            {#if ($unlocked.section1)}
             <Section>
                 {#each $buttons_store as button}
                     {#if button.section == 1 && canShowButton(button)}
@@ -216,11 +218,41 @@
 
             {/if}
 
+
+            {#if ($unlocked.coffee)} 
+                
+                <div class="flex flex-row gap-4">
+                    <Section>
+                        {#each $buttons_store as button}
+                            {#if button.section == 5 && canShowButton(button)}
+                                <PurchaseButton 
+                                id = {button.id}
+                                label = {button.label}
+                                cost = {button.cost}
+                                />
+                            {/if}
+                        {/each}
+                    </Section>
+
+                    <Section>
+
+                        <div class="flex flex-row w-full gap-4">
+                            <WaterDisplay/>
+                            <div class="flex flex-col w-full justify-between">
+                                <GrinderDisplay/>
+                                <BeanDisplay/>
+                                
+                            </div>
+                        </div>
+                        
+                        
+                    </Section>
+                </div>
+
+            {/if}
             
         </div>
-    
-   </div>
-
+    </div>
 </div>
 
 

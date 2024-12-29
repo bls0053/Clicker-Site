@@ -1,12 +1,6 @@
 import { Timer_ms } from '$lib/util/time';
 import { writable, derived, type Readable } from 'svelte/store';
 
-
-
-
-
-
-
 export const count_char = writable(0);
 export const actual_char = writable(0);
 
@@ -17,32 +11,42 @@ export const count_time = writable(0);
 
 export const state = writable({
     lines: {
-        amount: 0,
+        amount: 1110,
         mult: 1,
         rate: 0,
     },
 
     coffee: {
-        amount: 0,
-        mult: 1,
-        rate: 0,
+        amount: 0
     },
 
     bencoin: {
-        amount: 10000,
+        amount: 10009,
         windows: 1,
         nodes: 1,
-        current_windows: 1,
+        current_windows: 0,
         speed: 0
     },
+
+    beans: {
+        amount: 0
+    },
+
+    water: {
+        amount: 0,
+        pour: 60,
+        speed: 1
+
+
+    }
 });
 
 export const overallRate_ms = derived(state, ($state) => {
-    return $state["lines"].rate * $state["lines"].mult;
+    return $state.lines.rate * $state.lines.mult * (Math.pow(1.5, ($state.coffee.amount)));
 });
 
 export const overallRate_s = derived(state, ($state) => {
-    return $state["lines"].rate * $state["lines"].mult*100;
+    return $state.lines.rate * $state.lines.mult * (Math.pow(1.1, ($state.coffee.amount))) * 100;
 });
 
 
@@ -63,8 +67,10 @@ export const unlocked = writable({
     project4: false,
     auto_enter: false,
     ben_coin: true,
+    coffee: true,
+    auto_water: false,
+    auto_bean: false
 
-    
 });
 
 

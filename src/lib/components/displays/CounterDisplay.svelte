@@ -8,6 +8,6 @@
 
 
 
-<div class="rounded-md p-2 neo-inset pixel-font">
+<div class="rounded-md p-2 neo-inset pixel-font min-w-8 h-full">
     {text}{store}
 </div>
