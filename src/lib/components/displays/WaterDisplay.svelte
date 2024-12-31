@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { state, unlocked } from "$lib/stores/stores";
+	import { can_brew, is_brewing, state, unlocked } from "$lib/stores/stores";
 	import { Timer_ms } from "$lib/util/time";
+	import { onMount } from "svelte";
 
 
     export let min: number = -150;
@@ -14,7 +15,7 @@
     let height: number = 300;
     let window = {y:0}
     let jump_count = 0;
-    let jump_amount = 17;
+    let jump_amount = 10;
     let auto_water = false;
     let ease_amount = .1;
     let window_height: number;
@@ -22,6 +23,7 @@
     let bean_count: number;
     let bean_bool: boolean = false;
     let brew_count: number;
+    let offset: number = 0;
 
     let paused = false;
     let user_click = false;
@@ -45,7 +47,7 @@
 
         if (high_jump) {
             if (jump_count < Math.floor(jump_amount) && window.y >= min+5) {
-                window.y -= 10;
+                window.y -= 5;
                 jump_count += 1; }
             else {
                 high_jump = false;
@@ -53,7 +55,7 @@
 
         if (low_jump) {
             if (jump_count < jump_amount && window.y <= max-5) {
-                window.y += 10;
+                window.y += 5;
                 jump_count += 1; }
             else {
                 low_jump = false;
@@ -89,7 +91,7 @@
     }
 
     Timer_ms.subscribe((time) => {
-        if (!paused && time > 1000 - (node_speed*100)) {
+        if (!paused && time > 1000 - (node_speed*100) && !user_click) {
             handle_node();
         }
     });
@@ -106,22 +108,23 @@
         if ($state.water.amount >= 150) {
             paused = true;
             ease_amount = 2;
-            window.y = max;
+            window.y = max - window_height/2 + 10;
         }
 
         if (paused && $state.beans.amount >= 5) { 
             if (!bean_bool) {
                 bean_count = $state.beans.amount - ($state.beans.amount % 5);
                 brew_count = bean_count / 5;
-                console.log(bean_count)
-                console.log(brew_count)
+
             }
+            is_brewing.set(true);
             bean_bool = true;
             $state.water.amount -= 1; 
         }
 
         if ($state.water.amount == 0) { 
             bean_bool = false
+            is_brewing.set(false);
             
             if (paused) {
                 $state.beans.amount -= bean_count;
@@ -131,8 +134,9 @@
             ease_amount = .1;
         }
 
-        }, 50)
+    }, 50)
 
+   
     $: {
         if ( value < (window.y + (window_height/2) + 10) && value > (window.y - (window_height/2) + 10)) {
             insidebool = true 
@@ -141,15 +145,30 @@
     }
 
     $: {
-        window_height = $state.water.pour;
-        node_speed = $state.water.speed;
+        if (window.y - $state.water.pour/2 < min) {
+            const diff = (window.y - ($state.water.pour / 2)) - min;
+            offset = diff/2+10;
+            window_height = $state.water.pour + diff;
+        }
 
+        else if  (window.y + $state.water.pour/2 > max) {
+            const diff = (window.y + ($state.water.pour / 2)) - max;
+            offset = diff/2-10;
+            window_height = $state.water.pour - diff;
+        }
+
+        else {
+            window_height = $state.water.pour;
+        }
+
+        node_speed = $state.water.speed;
         if ($unlocked.auto_water) {
             $unlocked.auto_water = true;
             auto_water = true;
         }
     }
-    
+
+ 
 </script>
 
 <style>
@@ -220,12 +239,12 @@
 
 
 
-<div class="flex flex-row gap-4">
+<div class="flex flex-row gap-4 overflow-hidden p-4">
     
-    <div class="flex flex-row relative justify-center items-center p-2">
+    <div class="flex flex-row relative justify-center items-center">
         <div
-            class="window overflow-hidden"
-            style={`transform: translate(0px, ${window.y}px); 
+            class="window"
+            style={`transform: translate(0px, ${window.y - offset}px); 
             transition: transform ${ease_amount}s ease-in-out;
             height: ${window_height}px;`}
         ></div>

@@ -8,6 +8,8 @@ export const code_index = writable(0)
 export const code_full = writable("");
 
 export const count_time = writable(0);
+export const is_brewing = writable(false);
+export const can_brew = writable(false);
 
 export const state = writable({
     lines: {
@@ -41,12 +43,13 @@ export const state = writable({
     }
 });
 
+
 export const overallRate_ms = derived(state, ($state) => {
-    return $state.lines.rate * $state.lines.mult * (Math.pow(1.5, ($state.coffee.amount)));
+    return $state.lines.rate * $state.lines.mult * Math.pow(1.5, Math.sqrt($state.coffee.amount));
 });
 
 export const overallRate_s = derived(state, ($state) => {
-    return $state.lines.rate * $state.lines.mult * (Math.pow(1.1, ($state.coffee.amount))) * 100;
+    return $state.lines.rate * $state.lines.mult * Math.pow(1.5, Math.sqrt($state.coffee.amount)) * 100;
 });
 
 
@@ -66,8 +69,8 @@ export const unlocked = writable({
     project3: false,
     project4: false,
     auto_enter: false,
-    ben_coin: true,
-    coffee: true,
+    ben_coin: false,
+    coffee: false,
     auto_water: false,
     auto_bean: false
 

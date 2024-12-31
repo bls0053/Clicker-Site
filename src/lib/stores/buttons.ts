@@ -267,7 +267,7 @@ export const buttons_store = writable<Button[]>([
 
   { id: "btn15",
     label: "Multi-thread",
-    max: 6,
+    max: 2,
     cost: { bencoin: 10 },
     type: { bencoin: { type: "nodes", amount: 1 } },
     amount: 0,
@@ -347,7 +347,7 @@ export const buttons_store = writable<Button[]>([
     cost: { bencoin: 50 },
     type: { beans: { type: "beans", amount: 1 } },
     amount: 0,
-    section: 6,
+    section: 5,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
@@ -362,7 +362,7 @@ export const buttons_store = writable<Button[]>([
     cost: { bencoin: 10 },
     type: { unlock: { type: "auto_bean" } },
     amount: 0,
-    section: 6,
+    section: 5,
     unlockCriteria: {
       lines: 0,
       coffee: 0,

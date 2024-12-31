@@ -17,17 +17,17 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 8px; /* Adjust the height of the container */
+        height: 8px;
     }
 
     .slider {
         -webkit-appearance: none;
-        width: 100%; /* Set the width of the slider to be horizontal */
-        height: 10px; /* Adjust height for horizontal orientation */
+        width: 100%;
+        height: 10px;
         border-radius: 5px;
         outline: none;
-        background: #ddd; /* Default track color */
-        transition: background 0.3s ease-in-out; /* Smooth transition */
+        background: #ddd;
+        transition: background 0.3s ease-in-out;
     }
 
     .slider::-webkit-slider-thumb {

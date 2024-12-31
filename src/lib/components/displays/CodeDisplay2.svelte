@@ -112,9 +112,8 @@
         if (!paused) {
             difference = Math.floor(count - prev_count);
             if (difference > 0) {
-
+                
                 new_snippet = code_source.slice(index, index + difference);
-                console.log(new_snippet)
                 
 
                 if (!$unlocked.auto_enter) {
@@ -143,7 +142,6 @@
                 }
 
                 trim_snippet();
-                console.log(new_snippet)
                 prev_count += new_snippet.length;
                 index = prev_count;
                 code_to_write += new_snippet;

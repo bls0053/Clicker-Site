@@ -7,7 +7,6 @@
 
     import IconRight from '~icons/pixelarticons/arrow-right';
     import IconLeft from '~icons/pixelarticons/arrow-left';
-    import { SlideToggle } from '@skeletonlabs/skeleton';
 
     let coin_thresh = 0;
     let bean_thresh = 0;
@@ -96,7 +95,7 @@
 </script>
 
 <div class="flex flex-col w-full h-full gap-4 p-2">
-    {#each $buttons_store as button}
+    <!-- {#each $buttons_store as button}
         {#if button.id === "btn20" && canShowButton(button)}
             <PurchaseButton 
                 id={button.id}
@@ -111,12 +110,8 @@
                 cost={button.cost}
             />
         {/if}
-    {/each}
+    {/each} -->
     {#if ($unlocked.auto_bean)}
-        <div class="flex flex-row w-full gap-4">
-            <SlideToggle name="slider-large" checked active="bg-primary-500" size="sm" />
-            <SlideToggle name="slider-large" checked active="bg-primary-500" size="sm" />
-        </div>
 
         <div class="flex flex-row w-full justify-evenly items-center gap-2">
             <div class="neo-inset pixel-font p-2">If Beans</div>

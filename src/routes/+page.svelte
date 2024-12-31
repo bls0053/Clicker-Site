@@ -28,10 +28,7 @@
 	import ProjectDisplay from '$lib/components/displays/ProjectDisplay.svelte';
 	import Homie from '$lib/components/displays/Homie.svelte';
 	import CoinDisplay from '$lib/components/displays/CoinDisplay.svelte';
-	import CoffeeDisplay from '$lib/components/displays/WaterDisplay.svelte';
-	import WaterDisplay from '$lib/components/displays/WaterDisplay.svelte';
-	import GrinderDisplay from '$lib/components/displays/GrinderDisplay.svelte';
-	import BeanDisplay from '$lib/components/displays/BeanDisplay.svelte';
+	import CoffeeDisplay from '$lib/components/displays/CoffeeDisplay.svelte';
     import { canShowButton } from '$lib/util/prereq';
 
 
@@ -54,7 +51,6 @@
     $: {
         $state.coffee;
         if ($state.coffee.amount > 0 && intervalId === undefined) {
-            console.log("jhskdbf")
             intervalId = setInterval(() => {
                 if ($state.coffee.amount > 0) {
                     $state.coffee.amount -= 1;
@@ -77,7 +73,7 @@
 <!-- background: #e0e0e0; -->
 
 
-<div class="flex flex-col h-full w-full bg-[#242424]">
+<div class="flex flex-col h-full w-full">
     {#if ($unlocked.menu_bar)}
     <AppBar>
         {#if ($unlocked.resume)}<MenuButton text="Resume" type="link" link="src/public/Resume.pdf"><IconResume class="w-full h-full"/></MenuButton>{/if}
@@ -220,35 +216,7 @@
 
 
             {#if ($unlocked.coffee)} 
-                
-                <div class="flex flex-row gap-4">
-                    <Section>
-                        {#each $buttons_store as button}
-                            {#if button.section == 5 && canShowButton(button)}
-                                <PurchaseButton 
-                                id = {button.id}
-                                label = {button.label}
-                                cost = {button.cost}
-                                />
-                            {/if}
-                        {/each}
-                    </Section>
-
-                    <Section>
-
-                        <div class="flex flex-row w-full gap-4">
-                            <WaterDisplay/>
-                            <div class="flex flex-col w-full justify-between">
-                                <GrinderDisplay/>
-                                <BeanDisplay/>
-                                
-                            </div>
-                        </div>
-                        
-                        
-                    </Section>
-                </div>
-
+                <CoffeeDisplay></CoffeeDisplay>
             {/if}
             
         </div>
