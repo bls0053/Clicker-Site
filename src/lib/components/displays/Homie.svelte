@@ -52,11 +52,9 @@
     .sprite {
         width: 32px;
         height: 40px;
-        /* background-image: url('sprite-sheet.png'); */
-        background-position: 0 0;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        transform: scale(5);
+        transform: scale(5) translate(-50%, -50%);;
         transform-origin: top left;
     }
 </style>

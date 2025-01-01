@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 
     import IconCoin from '~icons/pixelarticons/bitcoin';
-    import { RangeSlider } from '@skeletonlabs/skeleton';
 	import Slider from '../buttons/SliderY.svelte';
 	import SliderX from '../buttons/SliderX.svelte';
 

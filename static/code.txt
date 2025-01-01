@@ -1,7 +1,11 @@
 Welcome.
+
 This is my interactive portfolio website.
+
 If you would like to skip the game and see my info now,
+
 Press the button at the bottom left of the screen.
+
 Otherwise, have fun!
 
 /* **********************************************

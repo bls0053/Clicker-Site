@@ -11,6 +11,18 @@ export const count_time = writable(0);
 export const is_brewing = writable(false);
 export const can_brew = writable(false);
 
+
+const defaultTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') || 'light' : 'light';
+export const theme = writable(defaultTheme);
+
+theme.subscribe((value) => {
+    if (typeof window !== 'undefined') {
+        document.documentElement.setAttribute('data-theme', value);
+        localStorage.setItem('theme', value);
+        console.log(value)
+    }
+});
+
 export const state = writable({
     lines: {
         amount: 1110,
@@ -54,7 +66,7 @@ export const overallRate_s = derived(state, ($state) => {
 
 
 export const unlocked = writable({
-    section1: true,
+    section1: false,
     section2: false,
     section3: false,
     section4: false,
@@ -99,3 +111,4 @@ export const window_speed = derived(state, ($state) => {
     let progress = minimum - (minimum - maximum)* (Math.pow(($state["bencoin"].speed/max_upgrades), .5))
     return progress;
 });
+

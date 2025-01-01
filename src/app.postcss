@@ -10,14 +10,30 @@ body {
 }
 
 body {
-.container {
-  margin: 50px;
-  display: block;
-  width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
+
+:root {
+  --background-color: #fffdd0;
+  --text-color: black;
+}
+
+[data-theme="dark"] {
+  --background-color: black;
+  --text-color: white;
+}
+
+[data-theme="blue"] {
+  --background-color: #007bff;
+  --text-color: white;
+}
+
+[data-theme="green"] {
+  --background-color: #28a745;
+  --text-color: white;
+}
+
 
 .neo {
   border-radius: 8px;
@@ -46,10 +62,6 @@ body {
   box-shadow: inset 5px 5px 10px #141414,
             inset -5px -5px 10px #343434;
 }
-
-
-
-
 
 .pixel, .pixel2 {
   font-size: 25px;
@@ -134,7 +146,6 @@ body {
 .pixel-font {
   font-size: 20px;
   font-family: 'VT323';
-
 }
 
 .pixel2::before {
@@ -169,10 +180,6 @@ body {
   z-index: 2;
 }
 
-
-
-
-
 /* PRISM HIGHLIGHTING */
 
   /* Keywords */
@@ -194,11 +201,3 @@ body {
   .hljs-tag { 
     color: #d4d4d4; 
   }
-
-
-
-
-
-  
-}
-

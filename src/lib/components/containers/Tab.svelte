@@ -27,7 +27,7 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div on:click={handleClick} class="flex flex-row h-1/12 w-full z-10 p-1 pl-4 pixel-font
+<div on:click={handleClick} class="flex flex-row h-1/12 w-full z-10 p-1 pl-4 pixel-font absolute
 {isActive ? 'neo-active' : 'neo-inactive'}">
     {text} 
 </div>
