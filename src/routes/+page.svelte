@@ -127,10 +127,10 @@
     {/if}
 
     <!-- Body Container -->
-    <div class="flex flex-col m-auto items-center h-5/6 w-11/12 bg-green-200"> 
+    <div class="flex flex-col m-auto items-center h-5/6 w-11/12 "> 
 
         <!-- Monitor Container -->
-        <div id="div1" style="aspect-ratio: 2;" class="flex flex-row mx-auto max-w-[90%] h-full  max-h-[60%] sm:max-h-[70%] overflow-hidden bg-red-200 p-2">
+        <div id="div1" style="aspect-ratio: 2;" class="flex flex-row mx-auto max-w-[90%] h-full  max-h-[60%] overflow-hidden p-2">
             <div style="border-radius: 10%; z-index: 1" class="w-full h-full relative bg-cyan-100">
 
                 <!-- <div class="flex flex-row gap-2">
@@ -152,8 +152,6 @@
                 <!-- Code Display -->
                 
                 <CodeDisplay2 bind:paused></CodeDisplay2>
-                
-                
                 <Monitor/>
                 
     
@@ -177,10 +175,16 @@
             </div>
         </div>
         
-        <div id="div2" class="flex flex-col p-2 bg-orange-400 h-[40%] sm:h-[30%] w-full ">
-                <Keyboard></Keyboard>
+        <div id="div2" class="flex flex-row w-full  h-[40%]  p-2">
+            <div class="flex flex-col p-2 w-1/2 sm:w-1/3 h-full  items-center">
+                <Keyboard paused={paused} store={count_char}></Keyboard>
                 <Enter></Enter>
+            </div>
+            <div class="flex w-1/2 sm:w-1/3 justify-center ">
+                
+            </div>
         </div>
+        
 
         <div class="flex flex-row-reverse gap-4 w-full">
 

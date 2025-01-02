@@ -41,20 +41,17 @@
 </script>
 
 <img
-    class="sprite m-16"
+    class="sprite h-[50%] sm:h-[100%]"
     src={frames[currentFrameIndex]}
-    width="32"
-    height="40"
     alt="Animated Sprite"
 />
 
 <style>
     .sprite {
-        width: 32px;
-        height: 40px;
+        width: auto;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        transform: scale(5) translate(-50%, -50%);;
-        transform-origin: top left;
+        transform: translate(0%, 0%);
+        object-fit: contain;
     }
 </style>

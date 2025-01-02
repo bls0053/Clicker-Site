@@ -187,7 +187,7 @@
     }
 </style>
 
-<div class="mx-auto flex flex-col-reverse rounded-md h-5/6 w-5/6">
+<div class="overflow-y-hidden mx-auto flex flex-col-reverse rounded-md h-5/6 w-5/6">
     {#if ($active_tab == "code")}
         <pre style="font-size: 24px" class="python pixel-font whitespace-pre-wrap break-words">{@html highlightedCode}<span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : ''}">&gt </span><span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
     {/if}
