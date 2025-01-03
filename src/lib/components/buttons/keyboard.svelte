@@ -16,9 +16,8 @@
     };
 
     const handleClick = () => {
-        console.log("click")
         if (!paused) {
-            store.update((n) => n + 1);
+            store.update((n) => n + 1000);
             
             
         }
@@ -39,6 +38,7 @@
 
 </script>
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
 <style>
@@ -50,15 +50,32 @@
         height: auto;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        transform: translate(-50%, -55%);
+        transform: translate(-50%, -60%);
         aspect-ratio: 1;
         object-fit: contain;
     }
   </style>
 
-<button on:click={handleClick} on:touchend={handleClick} style="aspect-ratio: 2" class="flex w-full  p-2 relative select-none">
-    <img src="/keyboard.png" alt="" class="sprite "  />
-</button>
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div on:click={handleClick} on:touchend={handleClick} style="aspect-ratio: 2" class="flex w-full p-2 relative select-none cursor-pointer">
+    <img src="/keyboard.png" alt="" class="sprite pointer-events-none" draggable="false" />
+</div>
 
 
 
+<!-- 
+
+    actual_char per sec
+    lines
+    coffee
+    bencoin
+    char?
+
+
+
+
+
+
+
+ -->

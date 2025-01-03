@@ -33,7 +33,7 @@
 <button
     on:click={handleClick}
     style="aspect-ratio: 4"
-    class="flex h-1/3 w-full p-2 relative select-none"
+    class="flex h-1/3 w-full p-2 relative select-none "
 >
-    <img src="/enter.png" alt="Enter Button" class="sprite" />
+    <img src="/enter.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
 </button>

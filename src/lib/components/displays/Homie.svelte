@@ -40,18 +40,21 @@
     });
 </script>
 
+<style>
+    .sprite {
+        width: auto;
+        height: 100%;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        transform: translate(0%, -0%);
+        aspect-ratio: 32/48;
+        object-fit: contain;
+    }
+  </style>
+
 <img
     class="sprite h-[50%] sm:h-[100%]"
     src={frames[currentFrameIndex]}
     alt="Animated Sprite"
 />
 
-<style>
-    .sprite {
-        width: auto;
-        image-rendering: pixelated;
-        image-rendering: crisp-edges;
-        transform: translate(0%, 0%);
-        object-fit: contain;
-    }
-</style>

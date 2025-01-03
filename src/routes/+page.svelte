@@ -37,6 +37,9 @@
 	import Keyboard from '$lib/components/buttons/keyboard.svelte';
 	import Enter from '$lib/components/buttons/Enter.svelte';
 	import { onMount } from 'svelte';
+	import NumDisplay from '$lib/components/displays/NumDisplay.svelte';
+	import Monitor2 from '$lib/components/displays/Monitor2.svelte';
+	import Monitor3 from '$lib/components/displays/Monitor3.svelte';
 
     const pressedKeys = new Set<string>();
 
@@ -98,7 +101,10 @@
         }
     }
         
+   
+
     onMount(() => {
+        handleResize();
         handleResize();
     })
     
@@ -114,8 +120,7 @@
 <!-- background: #e0e0e0; -->
 
 
-<div class="flex flex-col h-full w-full">
-
+<div class="flex flex-col h-[200vh] w-full">
     <!-- Menu Bar -->
     {#if ($unlocked.menu_bar)}
     <AppBar>
@@ -125,73 +130,75 @@
         {#if ($unlocked.github)}<MenuButton text="Github" type="link" link="https://github.com/bls0053"><IconGithub class="w-full h-full"/></MenuButton>{/if}
     </AppBar>
     {/if}
-
+    <div class="h-[100px]"></div>
     <!-- Body Container -->
-    <div class="flex flex-col m-auto items-center h-5/6 w-11/12 "> 
+    <div class="flex flex-row-reverse h-2/5 w-11/12 mx-auto justify-center items-center">
 
-        <!-- Monitor Container -->
-        <div id="div1" style="aspect-ratio: 2;" class="flex flex-row mx-auto max-w-[90%] h-full  max-h-[60%] overflow-hidden p-2">
-            <div style="border-radius: 10%; z-index: 1" class="w-full h-full relative bg-cyan-100">
+        <div class="flex flex-col w-auto h-full bg-yellow-200">
+            upgrade section
+        </div>
 
-                <!-- <div class="flex flex-row gap-2">
-                    <Tab text="Code-Boy TM" id="code"></Tab>
-                    {#if ($unlocked.project1)}
-                        <Tab text="Project1" id="project1"></Tab>
+        <div class="flex flex-col items-center w-full h-full"> 
+            <!-- Monitor Container -->
+            <div id="div1" style="aspect-ratio: 2;" class="flex flex-row mx-auto max-w-[100%] h-full max-h-[60%] overflow-hidden p-2 ">
+                <div style="border-radius: 10%; z-index: 1" class="w-full h-full relative bg-cyan-100">
+
+                   
+                    <!-- Code Display -->
+                    
+                    <CodeDisplay2 bind:paused></CodeDisplay2>
+                    <Monitor/>
+                    
+        
+                    <!-- Avatar -->
+                    <!-- <Homie rate={total_char}></Homie> -->
+                    
+                
+                    <!-- Projects -->
+                    {#if ($active_tab == "project1")}
+                        <ProjectDisplay link="/projects/p1/i1.png"></ProjectDisplay>
                     {/if}
-                    {#if ($unlocked.project2)}
-                        <Tab text="Project2" id="project2"></Tab>
+                    {#if ($active_tab == "project2")}
+                        <ProjectDisplay link="/projects/p2/i1.png"></ProjectDisplay>
                     {/if}
-                    {#if ($unlocked.project3)}
-                        <Tab text="Project3" id="project3"></Tab>
+                    {#if ($active_tab == "project3")}
+                        <ProjectDisplay link="/projects/p3/i2.png"></ProjectDisplay>
                     {/if}
-                    {#if ($unlocked.project4)}
-                        <Tab text="Project4" id="project4"></Tab>
+                    {#if ($active_tab == "project4")}
+                        <ProjectDisplay link="/projects/p4/i1.png"></ProjectDisplay>
                     {/if}
+                </div>
+            </div>
+            
+            <div id="div2" class="flex flex-row w-full h-auto gap-6 mt-6">
+                <div class="flex flex-col p-2 w-1/3 h-full justify-between">
+                    <Keyboard paused={paused} store={count_char}></Keyboard>
+                    <Enter></Enter>
+                </div>
+
+                <div style="z-index: 5;" class="flex flex-row w-2/3 justify-center items-center m-4 p-2 bg-gray-400">
+                    <Homie rate={total_char}></Homie>
+                </div>
+                
+                <!-- <div class="hidden lg:flex flex-row w-0 lg:w-1/3 items-center">
+                    <div style="border-radius: 20%" class="flex flex-col  w-full h-[90%] relative bg-purple-50 ">
+                        <Monitor2></Monitor2>
+                        <div class="flex flex-col h-3/4 w-5/6 m-auto  items-center justify-center ">
+                            <CounterDisplay text="Lines" store={$state.lines.amount}/>
+                            <CounterDisplay text="Bencoin" store={$state.bencoin.amount}/>
+                            <CounterDisplay text="Coffee" store={$state.coffee.amount}/>
+                            <CounterDisplay text="Beans" store={$state.beans.amount}/>
+                        </div>
+                    </div>
                 </div> -->
-                
-                <!-- Code Display -->
-                
-                <CodeDisplay2 bind:paused></CodeDisplay2>
-                <Monitor/>
-                
-    
-                <!-- Avatar -->
-                <!-- <Homie rate={total_char}></Homie> -->
-                
-            
-                <!-- Projects -->
-                {#if ($active_tab == "project1")}
-                    <ProjectDisplay link="/projects/p1/i1.png"></ProjectDisplay>
-                {/if}
-                {#if ($active_tab == "project2")}
-                    <ProjectDisplay link="/projects/p2/i1.png"></ProjectDisplay>
-                {/if}
-                {#if ($active_tab == "project3")}
-                    <ProjectDisplay link="/projects/p3/i2.png"></ProjectDisplay>
-                {/if}
-                {#if ($active_tab == "project4")}
-                    <ProjectDisplay link="/projects/p4/i1.png"></ProjectDisplay>
-                {/if}
             </div>
         </div>
         
-        <div id="div2" class="flex flex-row w-full  h-[40%]  p-2">
-            <div class="flex flex-col p-2 w-1/2 sm:w-1/3 h-full  items-center">
-                <Keyboard paused={paused} store={count_char}></Keyboard>
-                <Enter></Enter>
-            </div>
-            <div class="flex w-1/2 sm:w-1/3 justify-center ">
-                
-            </div>
-        </div>
-        
+       
 
-        <div class="flex flex-row-reverse gap-4 w-full">
-
-            
-
+        <!-- <div class="flex flex-row-reverse gap-4 w-full">
             {#if ($unlocked.section1)}
-            <!-- <IncButton text="write code" paused={paused} store={count_char} /> -->
+            
             <Section>
                 {#each $buttons_store as button}
                     {#if button.section == 1 && canShowButton(button)}
@@ -262,11 +269,10 @@
                 <CoffeeDisplay></CoffeeDisplay>
             {/if}
             
-        </div>
+        </div> -->
     </div>
 </div>
 
-<div class="h-[2000px]"></div>
 
 
 
@@ -327,5 +333,11 @@
                 <CounterDisplay text="char /s: " store={$overallRate_s.toFixed(1)} />
                 <CounterDisplay text="water: oz " store={Math.floor($state.water.amount/2)} />
                 <CounterDisplay text="beans: " store={$state.beans.amount} />
+
+
+                char
+
             </div> -->
             
+
+
