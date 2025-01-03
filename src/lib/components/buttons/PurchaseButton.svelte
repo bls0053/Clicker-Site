@@ -7,6 +7,7 @@
     export let label = "";
     export let id = "";
     export let cost = <CostState>{};
+    export let modalOpen: boolean = false;
     
     let canPurchase = false;
     let locked = false;
@@ -174,18 +175,20 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:click={handleClick} 
 id="{id}"
-class=" p-6 bg-opacity-20 neo hover:rotate-3 transiton-transform duration-200 pixel-font select-none
-{locked ? '' : (canPurchase ? '!text-green-300' : '!text-red-400')}">
-    <p>{label}</p>  
-    {#if (!locked)}
-    {#each Object.entries(cost) as [key, value]}
-        {#if value !== undefined}
-            <div>{key}: {value}</div>
+class=" p-6 bg-opacity-20 hover:rotate-3 transiton-transform duration-200 pixel-font select-none bg-green-500
+{locked ? '' : (canPurchase ? '!text-green-900' : '!text-red-400')}">
+
+        {label}
+        {#if (!locked)}
+            {#each Object.entries(cost) as [key, value]}
+                {#if value !== undefined}
+                    <span>{key}: {value}</span>
+                {/if}
+            {/each}
         {/if}
-    {/each}
-    {/if}
-    {#if (locked)}
-        MAX
-    {/if}
+        {#if (locked)}
+            MAX
+        {/if}
+    
 </div>
 

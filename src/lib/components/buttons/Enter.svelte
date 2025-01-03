@@ -17,14 +17,10 @@
 
 <style>
     .sprite {
-        position: absolute;
-        top: 50%;
-        left: 50%;
         width: 100%;
-        height: auto;
+        height: 100%;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        transform: translate(-50%, -50%);
         aspect-ratio: 4;
         object-fit: contain;
     }
@@ -33,7 +29,7 @@
 <button
     on:click={handleClick}
     style="aspect-ratio: 4"
-    class="flex h-1/3 w-full p-2 relative select-none "
+    class="flex w-full h-full select-none "
 >
     <img src="/enter.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
 </button>

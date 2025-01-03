@@ -27,7 +27,7 @@ export const state = writable({
     lines: {
         amount: 1110,
         mult: 1,
-        rate: 0,
+        rate: .01,
     },
 
     coffee: {
@@ -80,7 +80,7 @@ export const unlocked = writable({
     project2: false,
     project3: false,
     project4: false,
-    auto_enter: false,
+    auto_enter: true,
     ben_coin: false,
     coffee: false,
     auto_water: false,

@@ -2,8 +2,6 @@
 </script>
 
 <style>
-  
-
   .sprite {
     position: absolute;
     top: 50%;

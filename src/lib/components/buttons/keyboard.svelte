@@ -17,7 +17,7 @@
 
     const handleClick = () => {
         if (!paused) {
-            store.update((n) => n + 1000);
+            store.update((n) => n + 1);
             
             
         }
@@ -39,26 +39,20 @@
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
 <style>
     .sprite {
-        position: absolute;
-        top: 0%;
-        left: 50%;
         width: 100%;
-        height: auto;
+        height: 100%;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        transform: translate(-50%, -60%);
-        aspect-ratio: 1;
         object-fit: contain;
     }
   </style>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div on:click={handleClick} on:touchend={handleClick} style="aspect-ratio: 2" class="flex w-full p-2 relative select-none cursor-pointer">
+<div on:click={handleClick} on:touchend={handleClick} style="" class="flex w-full h-full relative select-none cursor-pointer">
     <img src="/keyboard.png" alt="" class="sprite pointer-events-none" draggable="false" />
 </div>
 

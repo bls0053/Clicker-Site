@@ -19,7 +19,7 @@
     const handleClick = () => {
 
         if (!paused) {
-            store.update((n) => n + 111);
+            store.update((n) => n + 1);
             
         }
     };
@@ -39,7 +39,6 @@
 </script>
 
 
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
 <button tabindex="-1"
     on:click={handleClick}
