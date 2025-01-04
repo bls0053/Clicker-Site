@@ -53,23 +53,8 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div on:click={handleClick} on:touchend={handleClick} style="" class="flex w-full h-full relative select-none cursor-pointer">
-    <img src="/keyboard.png" alt="" class="sprite pointer-events-none" draggable="false" />
+    <img src="/keyarea.png" alt="" class="sprite pointer-events-none" draggable="false" />
 </div>
 
 
 
-<!-- 
-
-    actual_char per sec
-    lines
-    coffee
-    bencoin
-    char?
-
-
-
-
-
-
-
- -->
