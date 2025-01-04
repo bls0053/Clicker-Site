@@ -2,6 +2,7 @@
 </script>
 
 <style>
+
   .sprite {
     position: absolute;
     top: 50%;
@@ -12,7 +13,8 @@
     image-rendering: pixelated;
     z-index: 5;
   }
+
 </style>
 
-<img src="/Monitor/monitor_whole.png" alt="Monitor" class="sprite" />
+<img src="/Monitor/monitor_whole.png" alt="Monitor" class="sprite pointer-events-none select-none" />
 

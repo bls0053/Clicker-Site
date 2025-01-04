@@ -136,10 +136,10 @@
 
 
 
-    <div class="grid grid-cols-12 grid-rows-12 h-3/4 bg-green-100 w-5/6 mx-auto">
+    <div class="grid grid-cols-12 grid-rows-12 h-3/4 w-5/6 mx-auto ">
 
 
-        <div class="col-span-12 lg:col-span-9 row-span-4 bg-red-200 relative">
+        <div class="col-span-12 lg:col-span-9 row-span-4 relative bg-slate-0">
             <div style="border-radius: 10%" class="w-full h-full max-h-[90%] bg-cyan-100">
                 <div class="flex flex-row w-[90%] ml-auto h-[90%] ">
                     <CodeDisplay2/>
@@ -150,38 +150,31 @@
             
         </div>
 
-        <div class="col-span-5 lg:col-span-2 row-span-1 bg-yellow-200 relative">
+        <div class="col-span-5 lg:col-span-2 row-span-1 relative bg-slate-0">
             <Keyboard paused={paused} store={count_char}></Keyboard>
         </div>
 
-        <div class="col-span-5 lg:col-start-3 lg:col-span-2 row-start-6 lg:row-start-5 row-span-1 bg-amber-300">
+        <div class="col-span-5 lg:col-start-3 lg:col-span-2 row-start-6 lg:row-start-5 row-span-1 bg-slate-0">
             <Enter ></Enter>
         </div>
 
-        <div class="col-start-6 lg:col-start-5 col-span-7 lg:col-span-5 row-span-2 bg-cyan-200">
+        <div class="col-start-6 lg:col-start-5 col-span-7 lg:col-span-5 row-span-2 bg-slate-0">
             homie
         </div>
 
-        <div class="hidden lg:block col-start-10 col-span-3 row-start-1 row-span-6 bg-blue-200">
+        <div class="hidden lg:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-0">
             <div class="flex flex-col h-full w-full overflow-y-auto overflow-x-hidden gap-2">
-                <!-- {#each $buttons_store as button}
-                    <PurchaseButton 
-                    id={button.id}
-                    label={button.label}
-                    cost={button.cost}
-                />
-                {/each} -->
                 <Upgrades></Upgrades>
             </div>
         </div>
 
-        <div class="col-start-1 col-span-6 row-start-7 row-span-6 bg-purple-200">
+        <div class="col-start-1 col-span-6 row-start-7 row-span-6 bg-slate-0">
             
         </div>
 
-        <!-- <div class="col-start-7 col-span-6 row-start-7 row-span-6 bg-green-200">
+        <div class="col-start-7 col-span-6 row-start-7 row-span-6 bg-slate-0">
             
-        </div> -->
+        </div>
     </div>
 
     

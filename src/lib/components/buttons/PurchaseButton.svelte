@@ -7,7 +7,6 @@
     export let label = "";
     export let id = "";
     export let cost = <CostState>{};
-    export let modalOpen: boolean = false;
     
     let canPurchase = false;
     let locked = false;
@@ -169,26 +168,37 @@
 
 </script>
 
+<style>
 
+    .button-bg {
+        background-image: url('/upgrade_header.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+    }
+
+</style>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:click={handleClick} 
 id="{id}"
-class=" p-6 bg-opacity-20 hover:rotate-3 transiton-transform duration-200 pixel-font select-none bg-green-500
+class="flex hover:rotate-3 pr-6 pl-6 transiton-transform duration-200 pixel-font select-none button-bg w-11/12
 {locked ? '' : (canPurchase ? '!text-green-900' : '!text-red-400')}">
 
-        {label}
-        {#if (!locked)}
-            {#each Object.entries(cost) as [key, value]}
-                {#if value !== undefined}
-                    <span>{key}: {value}</span>
-                {/if}
-            {/each}
-        {/if}
-        {#if (locked)}
-            MAX
-        {/if}
+    {label}
+    {#if (!locked)}
+        {#each Object.entries(cost) as [key, value]}
+            {#if value !== undefined}
+                <span>{key}: {value}</span>
+            {/if}
+        {/each}
+    {/if}
+    {#if (locked)}
+        MAX
+    {/if}
     
 </div>
 
