@@ -34,7 +34,6 @@
 	import Monitor from '$lib/components/style/Monitor.svelte';
 	import MonitorLeft from '$lib/components/style/MonitorLeft.svelte';
 	import MonitorRight from '$lib/components/style/MonitorRight.svelte';
-	import Keyboard from '$lib/components/buttons/Keyboard.svelte';
 	import Enter from '$lib/components/buttons/Enter.svelte';
 	import { onMount } from 'svelte';
 	import NumDisplay from '$lib/components/displays/NumDisplay.svelte';
@@ -151,7 +150,6 @@
         </div>
 
         <div class="col-span-5 lg:col-span-2 row-span-1 relative bg-slate-0">
-            <Keyboard paused={paused} store={count_char}></Keyboard>
         </div>
 
         <div class="col-span-5 lg:col-start-3 lg:col-span-2 row-start-6 lg:row-start-5 row-span-1 bg-slate-0">
@@ -183,44 +181,3 @@
 </div>
 
 
-
-
-
-
-
-
-
-<!-- <div id="div2" class="flex flex-row w-full h-auto gap-6 mt-6">
-                <div class="flex flex-col p-2 w-1/2 lg:w-1/3 h-full justify-between">
-                    <Keyboard paused={paused} store={count_char}></Keyboard>
-                    <Enter></Enter>
-                </div>
-
-                <div style="z-index: 5;" class="flex flex-row w-1/2 lg:w-2/3 justify-center items-center m-4 p-2 bg-gray-400">
-                    <Homie rate={total_char}></Homie>
-                </div>
-            
-            </div> -->
-
-<!-- Menu Bar -->
-    <!-- {#if ($unlocked.menu_bar)}
-    <AppBar>
-        {#if ($unlocked.resume)}<MenuButton text="Resume" type="link" link="src/public/Resume.pdf"><IconResume class="w-full h-full"/></MenuButton>{/if}
-        {#if ($unlocked.email)}<MenuButton text="Email" type="email" link=""><IconEmail class="w-full h-full"/></MenuButton>{/if}
-        {#if ($unlocked.linkedin)}<MenuButton text="Linkedin" type="link" link="https://www.linkedin.com/in/bensims25/"><IconLinkedin class="w-full h-full"/></MenuButton>{/if}
-        {#if ($unlocked.github)}<MenuButton text="Github" type="link" link="https://github.com/bls0053"><IconGithub class="w-full h-full"/></MenuButton>{/if}
-    </AppBar>
-    {/if} -->
-
-
-    <!-- <div class="h-[100px] bg-green-200"></div>
-    <div class="flex flex-row-reverse h-[1000px] w-11/12 mx-auto bg-red-200">
-        <div class="flex flex-col items-center w-full lg:w-4/5 h-full lg:justify-between"> 
-            <div id="div1" style="aspect-ratio: 2;" class="flex flex-row max-w-[100%] h-full max-h-[60%] overflow-hidden p-2 ">
-                <div style="border-radius: 10%; z-index: 1" class="w-full h-full relative bg-cyan-100">
-                    <CodeDisplay2 bind:paused></CodeDisplay2>
-                    <Monitor/>
-                </div>
-            </div>
-        </div>
-    </div> -->
