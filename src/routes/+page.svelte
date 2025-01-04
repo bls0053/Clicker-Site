@@ -34,6 +34,7 @@
 	import Monitor from '$lib/components/style/Monitor.svelte';
 	import MonitorLeft from '$lib/components/style/MonitorLeft.svelte';
 	import MonitorRight from '$lib/components/style/MonitorRight.svelte';
+	import KeyButton from '$lib/components/buttons/KeyButton.svelte';
 	import Enter from '$lib/components/buttons/Enter.svelte';
 	import { onMount } from 'svelte';
 	import NumDisplay from '$lib/components/displays/NumDisplay.svelte';
@@ -150,10 +151,11 @@
         </div>
 
         <div class="col-span-5 lg:col-span-2 row-span-1 relative bg-slate-0">
+            <KeyButton store={count_char} paused={paused}/>
         </div>
 
         <div class="col-span-5 lg:col-start-3 lg:col-span-2 row-start-6 lg:row-start-5 row-span-1 bg-slate-0">
-            <Enter ></Enter>
+            <Enter></Enter>
         </div>
 
         <div class="col-start-6 lg:col-start-5 col-span-7 lg:col-span-5 row-span-2 bg-slate-0">
