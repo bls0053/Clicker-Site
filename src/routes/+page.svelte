@@ -42,6 +42,7 @@
 	import Monitor3 from '$lib/components/displays/Monitor3.svelte';
 	import WaterDisplay from '$lib/components/displays/WaterDisplay.svelte';
 	import Upgrades from '$lib/components/displays/Upgrades.svelte';
+	import CoinDisplayTemp from '$lib/components/displays/CoinDisplayTemp.svelte';
 
     const pressedKeys = new Set<string>();
 
@@ -103,8 +104,7 @@
         }
     }
         
-   
-
+    
     onMount(() => {
         handleResize();
         handleResize();
@@ -129,51 +129,73 @@
 
 <!-- background: #e0e0e0; -->
 
+<div style="top: 0;" class="w-full h-[100px] bg-slate-400 sticky z-50"></div>
 
 <div class="flex flex-col h-[200vh] w-full">
     
-    <div class="h-[150px]"></div>
+    <div class="h-[12px]"></div>
+
+    <div class="grid grid-cols-12 grid-rows-12 h-3/4 w-11/12 lg:w-5/6 mx-auto ">
 
 
-
-    <div class="grid grid-cols-12 grid-rows-12 h-3/4 w-5/6 mx-auto ">
-
-
-        <div class="col-span-12 lg:col-span-9 row-span-4 relative bg-slate-0">
-            <div style="border-radius: 10%" class="w-full h-full max-h-[90%] bg-cyan-100">
-                <div class="flex flex-row w-[90%] ml-auto h-[90%] ">
+        <div class="col-span-12 lg:col-span-9 row-span-4 relative bg-slate-200 overflow-hidden">
+            <div style="border-radius: 10%" class="flex flex-col-reverse w-full h-full max-h-[90%] bg-cyan-100">
+                <div id="resizableDiv"
+                class="flex flex-row w-[80%] mx-auto mt-auto mb-12 ">
                     <CodeDisplay2/>
                 </div>
             </div>
+            
+            <div style="top:12%" class="flex flex-row justify-between absolute w-5/6 h-[45px] left-1/2 -translate-x-1/2 gap-1">
+                <Tab isLocked={false} id="code" text="code"></Tab>
+                <Tab isLocked={true} id="project1" text="p_1"></Tab>
+                <Tab isLocked={true} id="project2" text="p_2"></Tab>
+                <Tab isLocked={true} id="project3" text="p_3"></Tab>
+                <Tab isLocked={true} id="project4" text="p_4"></Tab>
+                <Tab isLocked={false} id="help" text="?"></Tab>
+            </div>
+
+            {#if ($active_tab) === "project1"}
+                <ProjectDisplay link="/projects/p1/i1.png"></ProjectDisplay>
+            {/if}
+            {#if ($active_tab) === "project2"}
+                <ProjectDisplay link="/projects/p2/i1.png"></ProjectDisplay>
+            {/if}
+            {#if ($active_tab) === "project3"}
+                <ProjectDisplay link="/projects/p3/i2.png"></ProjectDisplay>
+            {/if}
+            {#if ($active_tab) === "project4"}
+                <ProjectDisplay link="/projects/p4/i1.png"></ProjectDisplay>
+            {/if}
             
             <Monitor></Monitor>
             
         </div>
 
-        <div class="col-span-5 lg:col-span-2 row-span-1 relative bg-slate-0">
+        <div class="col-span-5 lg:col-span-2 row-span-1 relative bg-slate-200">
             <KeyButton store={count_char} paused={paused}/>
         </div>
 
-        <div class="col-span-5 lg:col-start-3 lg:col-span-2 row-start-6 lg:row-start-5 row-span-1 bg-slate-0">
+        <div class="col-span-5 lg:col-start-3 lg:col-span-2 row-start-6 lg:row-start-5 row-span-1 bg-slate-200">
             <Enter></Enter>
         </div>
 
-        <div class="col-start-6 lg:col-start-5 col-span-7 lg:col-span-5 row-span-2 bg-slate-0">
-            homie
+        <div class="col-start-6 lg:col-start-5 col-span-7 lg:col-span-5 row-span-2 bg-slate-200">
+           
         </div>
 
-        <div class="hidden lg:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-0">
+        <div class="hidden lg:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-200">
             <div class="flex flex-col h-full w-full overflow-y-auto overflow-x-hidden gap-2">
                 <Upgrades></Upgrades>
             </div>
         </div>
 
-        <div class="col-start-1 col-span-6 row-start-7 row-span-6 bg-slate-0">
-            
+        <div class="col-start-1 col-span-12 lg:col-span-7 row-start-7 row-span-6 bg-slate-200">
+            <CoinDisplay></CoinDisplay>
         </div>
 
-        <div class="col-start-7 col-span-6 row-start-7 row-span-6 bg-slate-0">
-            
+        <div class="col-start-8 col-span-5 row-start-7 row-span-6 bg-slate-200">
+            <!-- <CoffeeDisplay></CoffeeDisplay> -->
         </div>
     </div>
 

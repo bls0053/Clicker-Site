@@ -192,8 +192,8 @@
     }
 </style>
 
-<div class="overflow-y-hidden mx-auto flex flex-col-reverse rounded-md code">
+<div class="overflow-y-clip overflow-x-hidden mx-auto flex flex-col-reverse rounded-md code">
     {#if ($active_tab === "code")}
-        <pre style="font-size: 24px" class="python pixel-font whitespace-pre-wrap break-words select-none">{@html highlightedCode}<span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : ''}">&gt </span><span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
+        <pre style="font-size: 24px" class="python pixel-font whitespace-pre break-words select-none">{@html highlightedCode}<span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : ''}">&gt </span><span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
     {/if}
 </div>

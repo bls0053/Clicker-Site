@@ -66,7 +66,7 @@ export const overallRate_s = derived(state, ($state) => {
 
 
 export const unlocked = writable({
-    section1: false,
+    section1: true,
     section2: false,
     section3: false,
     section4: false,

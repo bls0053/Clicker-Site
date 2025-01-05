@@ -200,29 +200,28 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: repeat(5, 1fr);
-      
-      width: 250px;
-      height: 250px;
+      width: 400px;
+      height: 400px;
     }
   
     .cell {
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 80px;
         display: flex;
         align-items: center;
         justify-content: center;
         align-items: center;
         justify-content: center;
-        position: relative;
+        z-index: 5;
     }
 
-    .cell-row {
+    /* .cell-row {
         grid-row: 5 / 6;
         grid-column: 1 / span 4;
         display: flex;
         position: relative;
-        width: 190px;
-        height: 40px;
+        width: 310px;
+        height: 80px;
     }
 
     .cell-col {
@@ -230,77 +229,110 @@
         grid-row: 1 / span 4;
         display: flex;
         position: relative;
-        width: 40px;
-        height: 190px;
-    }
+        width: 80px;
+        height: 310px;
+    } */
 
     .node {
-        width: 20px;
-        height: 20px;
+        width: 40px;
+        height: 40px;
+        transform: translate(-5px, -8px);
         border-radius: 50%;
+        z-index: 0;
     }
 
     .window {
         position: absolute;
-        width: 30px;
-        height: 30px;
-        background: transparent;
+        width: 50px;
+        height: 50px;
+        background-image: url('/Bencoin/window4.png');
+        background-size: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
         z-index: 1;
-        border-radius: 8px;
         transform: translate(0px, 0px);
     }
 
-    .window::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
+    
+
+    .sprite {
         width: 100%;
         height: 100%;
-        
-        border: 2px solid transparent;
-        border-radius: 8px;
-        border-color: rgb(255, 255, 255);
-        opacity: 50%;
-        box-sizing: border-box;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        aspect-ratio: 1;
+        object-fit: contain;
+    }
+
+    .sprite2 {
+        width: 100%;
+        height: 100%;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        aspect-ratio: 4;
+        object-fit: contain;
     }
 
 </style>
   
-<div class="flex flex-row gap-6 w-full">
-    <div class="flex flex-col gap-4">
+<div class="flex flex-col-reverse lg:flex-row gap-6 w-full items-center lg:justify-center ">
+    <div class="flex flex-col gap-4 w-full lg:w-1/3 h-auto">
 
-        <div class="flex flex-row gap-4 w-full">
-            <button class="pixel-font neo aspect-square flex flex-grow justify-center items-center p-4" onclick={() => handleClick("topleft")}>Top<br>Left</button>
-            <button class="pixel-font neo aspect-square flex flex-grow justify-center items-center p-4" onclick={() => handleClick("topright")}>Top<br>Right</button>
-
+        <div class="flex flex-row gap-4">
+            <button
+                onclick={() => handleClick("topleft")}
+                class="flex w-full h-full select-none ">
+                <img src="/Bencoin/buttons/button_tl.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+            </button>
+            <button
+                onclick={() => handleClick("topright")}
+                class="flex w-full h-full select-none ">
+                <img src="/Bencoin/buttons/button_tr.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+            </button>
         </div>
         
-        <div class="flex flex-row gap-4 w-full">
-            <button class="pixel-font neo aspect-square flex flex-grow justify-center items-center p-4" onclick={() => handleClick("bottomleft")}>Bottom<br>Left</button>
-            <button class="pixel-font neo aspect-square flex flex-grow justify-center items-center p-4" onclick={() => handleClick("bottomright")}>Bottom<br>Right</button>
+        <div class="flex flex-row gap-4 w-full h-full">
+            <button
+                onclick={() => handleClick("bottomleft")}
+                class="flex w-full h-full select-none ">
+                <img src="/Bencoin/buttons/button_bl.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+            </button>
+            <button
+                onclick={() => handleClick("bottomright")}
+                class="flex w-full h-full select-none ">
+                <img src="/Bencoin/buttons/button_br.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+            </button>
         </div>
-        
-        <button class="pixel-font neo" onclick={() => handleClick("any")}>any</button>
+        <button
+            onclick={() => handleClick("any")}
+            class="flex w-full h-full select-none ">
+            <img src="/Bencoin/buttons/button_any.png" alt="Enter Button" class="sprite2  pointer-events-none" draggable="false"/>
+        </button>
+
         <div class="flex justify-between items-center pixel-font">
             <div class="">Active Windows</div>
             <div class="text-xs">{$state.bencoin.current_windows} / {$state.bencoin.windows}</div>
         </div>
         <SliderX bind:value={$state.bencoin.current_windows} bind:max={$state.bencoin.windows}/>
-            
-        
-        
-
     </div>
 
 
-    <div class="grid">
+    <div class="grid ">
+        <div class="col-span-4 row-span-4 relative">
+            <img src="/Bencoin/bencoin_bg.png" alt="Enter Button" class="sprite pointer-events-none absolute" draggable="false"/>
+            <img src="/Bencoin/bencoin_cover7.png" alt="Enter Button" class="sprite pointer-events-none absolute z-10" draggable="false"/>
+        </div>
+        
+        
         {#each Array(4) as _, rowIndex}
             {#each Array(4) as _, colIndex}
-                <div class="cell neo-inset">
+                <div class="cell absolute" 
+                style={`transform: translate(${colIndex * 80 + 5}px, ${rowIndex * 80 + 5}px);`}>
                     {#each $nodes as node}
                         {#if node.row === rowIndex && node.col === colIndex}
-                            <div class="node !bg-yellow-600"><IconCoin class="text-yellow-200"></IconCoin></div>
+                            <div class="flex justify-center items-center node !bg-yellow-600">
+                                <IconCoin class="text-yellow-200 size-8"></IconCoin>
+                            </div>
                         {/if}
                     {/each}
                 </div>
@@ -310,13 +342,19 @@
         {#each $windows as window}
             <div
             class="window"
-            style={`transform: translate(${window.col * 50 + 5}px, ${window.row * 50 + 5}px); 
+            style={`transform: translate(${window.col * 80 + 15}px, ${window.row * 80 + 13}px); 
             transition: transform ${$window_speed / 1000}s ease-in-out;`}
             ></div>
         {/each}
 
-        <div class="neo-inset cell-row"></div>
-        <div class="neo-inset cell-col"></div>
+        <div class="col-start-1 col-span-4 row-start-5 relative">
+            <img src="/Bencoin/bencoin_cover_wide.png" alt="Enter Button" class="sprite pointer-events-none absolute z-10" draggable="false"/>
+            <img src="/Bencoin/bencoin_bg_wide.png" alt="Enter Button" class="sprite pointer-events-none absolute" draggable="false"/>
+        </div>
+        <div class="col-start-5 row-span-4 relative">
+            <img src="/Bencoin/bencoin_cover_tall4.png" alt="Enter Button" class="sprite pointer-events-none absolute z-10" draggable="false"/>
+            <img src="/Bencoin/bencoin_bg_tall.png" alt="Enter Button" class="sprite pointer-events-none absolute" draggable="false"/>
+        </div>
     </div>
     
 </div>

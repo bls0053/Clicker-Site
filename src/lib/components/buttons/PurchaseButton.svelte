@@ -183,22 +183,30 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:click={handleClick} 
-id="{id}"
-class="flex hover:rotate-3 pr-6 pl-6 transiton-transform duration-200 pixel-font select-none button-bg w-11/12
-{locked ? '' : (canPurchase ? '!text-green-900' : '!text-red-400')}">
 
-    {label}
-    {#if (!locked)}
-        {#each Object.entries(cost) as [key, value]}
-            {#if value !== undefined}
-                <span>{key}: {value}</span>
-            {/if}
-        {/each}
-    {/if}
-    {#if (locked)}
-        MAX
-    {/if}
-    
+
+<div class="flex flex-col h-full items-center w-11/12 pixel-font select-none button-bg hover:rotate-3 p-6 transiton-transform duration-200">
+    <div on:click={handleClick} 
+    id="{id}"
+    class="flex h-full w-full
+    {locked ? '' : (canPurchase ? '!text-green-900' : '!text-red-400')}">
+
+        {label} 
+        {#if (!locked)}
+            {#each Object.entries(cost) as [key, value]}
+                {#if value !== undefined}
+                    <span>{key}: {value}</span>
+                {/if}
+            {/each}
+        {/if}
+        {#if (locked)}
+            MAX
+        {/if}
+    </div>
+
+    <div class="flex h-full w-full">
+        
+    </div>
+
+
 </div>
-
