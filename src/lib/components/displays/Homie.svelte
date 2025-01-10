@@ -53,7 +53,7 @@
   </style>
 
 <img
-    class="sprite h-[50%] sm:h-[100%]"
+    class="sprite h-[50%] sm:h-[100%] pl-8 "
     src={frames[currentFrameIndex]}
     alt="Animated Sprite"
 />

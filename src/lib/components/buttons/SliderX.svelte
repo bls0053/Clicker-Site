@@ -2,7 +2,7 @@
     export let min: number = 0;
     export let max: number = 100;
     export let value: number = 50;
-    export let step: number = .5;
+    export let step: number = 1;
 
     function updateValue(event: Event) {
         const target = event.target as HTMLInputElement;
@@ -17,13 +17,13 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 8px;
+        height: 30px;
     }
 
     .slider {
         -webkit-appearance: none;
-        width: 100%;
-        height: 10px;
+        width: 200px;
+        height: 15px;
         border-radius: 5px;
         outline: none;
         background: #ddd;

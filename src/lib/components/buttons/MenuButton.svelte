@@ -5,8 +5,8 @@
     export let link: string | undefined;
 
     let email = "simsben52@gmail.com";
-    let subject = "YOU HIRE NOW";
-    let body = "PLEASE, I NEED TO HIRE YOU. WORK FOR US, WE NEED HIRE YOU. \n\n My best,\n Employer" 
+    let subject = "";
+    let body = "" 
 
 
     function handleClick() {
@@ -29,10 +29,9 @@
 
 
 
-<div class="flex flex-row h-full p-2 neo">
-    <button on:click={handleClick} class="flex flex-col pixel-font items-center">
+<div class="flex flex-row h-full p-3 lg:p-4 pixel-font z-50  ">
+    <button on:click={handleClick} class="flex flex-col items-center hover:scale-110 active:scale-80 ">
         <slot></slot>
         <p>{text}</p>
     </button>
-
 </div>

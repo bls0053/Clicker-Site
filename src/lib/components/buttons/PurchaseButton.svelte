@@ -7,6 +7,7 @@
     export let label = "";
     export let id = "";
     export let cost = <CostState>{};
+    export let description = "";
     
     let canPurchase = false;
     let locked = false;
@@ -171,12 +172,13 @@
 <style>
 
     .button-bg {
-        background-image: url('/upgrade_header.png');
+        background-image: url('/Coffee/bean_display.png');
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
+        object-fit: contain;
     }
 
 </style>
@@ -185,27 +187,28 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 
 
-<div class="flex flex-col h-full items-center w-11/12 pixel-font select-none button-bg hover:rotate-3 p-6 transiton-transform duration-200">
-    <div on:click={handleClick} 
-    id="{id}"
-    class="flex h-full w-full
-    {locked ? '' : (canPurchase ? '!text-green-900' : '!text-red-400')}">
+<div class="flex flex-col h-full items-center w-11/12 pixel-font select-none pl-6 pt-4 pb-4 button-bg hover:rotate-3 transiton-transform duration-200">
+    <div on:click={handleClick} id="{id}" class="flex flex-row items-center h-full w-full {locked ? '' : (canPurchase ? '!text-green-900' : '!text-red-400')}">
 
-        {label} 
+        {label}&nbsp
+
         {#if (!locked)}
-            {#each Object.entries(cost) as [key, value]}
-                {#if value !== undefined}
-                    <span>{key}: {value}</span>
-                {/if}
-            {/each}
+        {#each Object.entries(cost) as [key, value]}
+        {#if value !== undefined}
+            <span>{key}: {value}</span>
         {/if}
+        {/each}
+        {/if}
+
         {#if (locked)}
             MAX
         {/if}
     </div>
 
     <div class="flex h-full w-full">
-        
+        {#if (description)}
+            description
+        {/if}
     </div>
 
 

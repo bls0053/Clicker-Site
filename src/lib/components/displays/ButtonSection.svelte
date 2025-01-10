@@ -58,6 +58,7 @@ style="{modalOpen ? '' : 'transform:scale(0)'}">
     {#each $buttons_store as button}
         {#if (button.section === section_num && canShowButton(button))}
         <PurchaseButton 
+        description={button.description}
         id={button.id}
         label={button.label}
         cost={button.cost}/>

@@ -25,22 +25,29 @@
 </script>
 
 <style>
+
+    input[type="range"] {
+        -webkit-appearance: none;
+        touch-action: manipulation;
+        appearance: inherit;
+    }
+
     .slider-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 300px;
+        height: 200px;
     }
 
     .slider {
-        -webkit-appearance: none;
-        width: 10px;
+        width: 15px;
         height: 100%;
         border-radius: 5px;
         outline: none;
         writing-mode: vertical-rl;
         z-index: 10;
+        direction: rtl;
     }
 
     .slider::-webkit-slider-thumb {

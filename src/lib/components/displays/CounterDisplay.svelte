@@ -5,9 +5,21 @@
 
 </script>
 
+<style>
+
+    .sprite-bg {
+        background-image: url("/tab.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        width: 90%;
+        height: 100%;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+    }
+</style>
 
 
-
-<div class="rounded-md p-2 pixel-font w-full h-1/4">
-    {text}{store}
+<div class="flex flex-row items-center justify-center rounded-md pixel-font w-full h-full z-10 sprite-bg !text-sm 2xl:!text-2xl">
+        {text}: {store}
 </div>

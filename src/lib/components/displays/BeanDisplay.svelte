@@ -88,95 +88,133 @@
         const btn20 = $buttons_store.find((button) => button.id === "btn20");
         btn20Cost = btn20?.cost?.bencoin ?? null;
     }
-
-    
-
-
 </script>
 
-<div class="flex flex-col w-full h-full gap-4 p-2">
-    <!-- {#each $buttons_store as button}
+
+<style>
+
+    .sprite {
+        object-fit: fill;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+    }
+
+    .sprite-2 {
+        background-image: url("/Coffee/bean_display2.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        width: 100%;
+        height: 100%;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+    }
+
+</style>
+
+
+
+
+
+<div class="flex flex-col p-2">
+    {#if (!$unlocked.auto_bean)}
+        <div class="flex flex-row items-center justify-center gap-2 h-[96px] w-[225px]">
+        {#each $buttons_store as button}
         {#if button.id === "btn20" && canShowButton(button)}
-            <PurchaseButton 
+            <PurchaseButton
                 id={button.id}
                 label={button.label}
-                cost={button.cost}
-            />
+                cost={button.cost}/>
         {/if}
-        {#if button.id === "btn21" && canShowButton(button) && !$unlocked.auto_bean}
-            <PurchaseButton 
-                id={button.id}
-                label={button.label}
-                cost={button.cost}
-            />
-        {/if}
-    {/each} -->
+        {/each}
+        </div>
+    {/if}
+
     {#if ($unlocked.auto_bean)}
 
-        <div class="flex flex-row w-full justify-evenly items-center gap-2">
-            <div class="neo-inset pixel-font p-2">If Beans</div>
-            <div class="">&lt</div>
-            <IncDisplay value={bean_thresh}></IncDisplay>
+        <div class="flex flex-row items-center justify-center gap-2 h-[32px]">
+            <div class="block min-w-[150px] sprite-2">
+                <span class=" pixel-font p-2">
+                    If Beans &lt
+                    <IncDisplay value={bean_thresh}></IncDisplay>
+                </span>
+            </div>
             <button 
-                class="h-full neo p-2"
+                class="h-full min-w-[32px]"
                 on:mousedown={() => startRapidChange(decrementBeanThresh)}
                 on:mouseup={stopRapidChange}
-                on:mouseleave={stopRapidChange}
-            >
-                <IconLeft />
+                on:mouseleave={stopRapidChange}>
+                <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full neo p-2"
+                class="h-full min-w-[32px]"
                 on:mousedown={() => startRapidChange(incrementBeanThresh)}
                 on:mouseup={stopRapidChange}
-                on:mouseleave={stopRapidChange}
-            >
-                <IconRight />
+                on:mouseleave={stopRapidChange}>
+                <img src="/Coffee/button_right.png" class="sprite" alt="">
             </button>
         </div>
 
-        <div class="flex flex-row w-full justify-center items-center gap-2">
-            <div class="neo-inset pixel-font p-2">If BenCoin</div>
-            <div class="">&gt</div>
-            <IncDisplay value={coin_thresh}></IncDisplay>
+        <div class="flex flex-row justify-center items-center gap-2 h-[32px]">
+            <div class="block min-w-[150px] sprite-2">
+                <span class=" pixel-font p-2">
+                    If Coins &gt
+                    <IncDisplay value={coin_thresh}></IncDisplay>
+                </span>
+            </div>
+            
             <button 
-                class="h-full neo p-2"
+                class="h-full min-w-[32px]"
                 on:mousedown={() => startRapidChange(decrementCoinThresh)}
                 on:mouseup={stopRapidChange}
-                on:mouseleave={stopRapidChange}
-            >
-                <IconLeft />
+                on:mouseleave={stopRapidChange}>
+                <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full neo p-2"
+                class="h-full min-w-[32px]"
                 on:mousedown={() => startRapidChange(incrementCoinThresh)}
                 on:mouseup={stopRapidChange}
-                on:mouseleave={stopRapidChange}
-            >
-                <IconRight />
+                on:mouseleave={stopRapidChange}>
+                <img src="/Coffee/button_right.png" class="sprite" alt="">
             </button>
         </div>
 
-        <div class="flex flex-row w-full justify-center items-center gap-2">
-            <div class="neo-inset pixel-font p-2">If Price</div>
-            <div class="">&lt</div>
-            <IncDisplay value={price_thresh}></IncDisplay>
+        <div class="flex flex-row justify-center items-center gap-2 h-[32px]">
+            <div class="block min-w-[150px] sprite-2">
+                <span class=" pixel-font p-2 w-full ">
+                    If Price &lt
+                    <IncDisplay value={price_thresh}></IncDisplay>
+                </span>
+            </div>
+            
             <button 
-                class="h-full neo p-2"
+                class="h-full min-w-[32px]"
                 on:mousedown={() => startRapidChange(decrementPriceThresh)}
                 on:mouseup={stopRapidChange}
-                on:mouseleave={stopRapidChange}
-            >
-                <IconLeft />
+                on:mouseleave={stopRapidChange}>
+                <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full neo p-2"
+                class="h-full min-w-[32px]"
                 on:mousedown={() => startRapidChange(incrementPriceThresh)}
                 on:mouseup={stopRapidChange}
-                on:mouseleave={stopRapidChange}
-            >
-                <IconRight />
+                on:mouseleave={stopRapidChange}>
+                <img src="/Coffee/button_right.png" class="sprite" alt="">
             </button>
         </div>
     {/if}
 </div>
+
+
+
+
+
+
+
+
+
+
+        

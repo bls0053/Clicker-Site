@@ -239,7 +239,7 @@
 
 
 
-<div class="flex flex-row gap-4 overflow-hidden p-4">
+<div class="flex flex-row gap-4 overflow-hidden p-4 ">
     
     <div class="flex flex-row relative justify-center items-center">
         <div

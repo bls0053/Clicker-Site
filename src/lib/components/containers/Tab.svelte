@@ -39,13 +39,17 @@
         aspect-ratio: 4;
         object-fit: fit;
     }
+
+    
+
+
 </style>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div on:click={handleClick} class="flex flex-row w-1/6 pixel-font items-center rounded-lg cursor-pointer relative select-none justify
     {isActive ? 'transform scale-105' : 'transform scale-95'}">
-    <div style="left:70%" class="{isLocked ? '' : 'hidden'} z-10 absolute">
+    <div style="left:75%" class="{isLocked ? '' : 'hidden'} z-10 absolute">
         <IconLocked></IconLocked>
     </div>
     <img src="/tab2.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>

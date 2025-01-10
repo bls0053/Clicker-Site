@@ -17,7 +17,7 @@
 
     const handleClick = () => {
         if (!paused) {
-            store.update((n) => n + 1);
+            store.update((n) => n + 3);
             
             
         }

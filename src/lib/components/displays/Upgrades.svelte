@@ -11,12 +11,12 @@
 
 <!-- <img src="/upgrades.png" alt="Enter Button" class="sprite pointer-events-none" draggable="false"/> -->
 
-<div class="flex flex-col h-full w-full">
+<div class="flex flex-col h-full w-full z-10">
     <ButtonSection section="section1" image="/ButtonSections/button_section1.png" section_num={1} />
     <ButtonSection section="section2" image="/ButtonSections/button_section2.png" section_num={2}/>
-    <ButtonSection section="section3" image="/ButtonSections/button_section3.png" section_num={3}/>
-    <ButtonSection section="section4" image="/ButtonSections/button_section4.png" section_num={4}/>
-    <ButtonSection section="section5" image="/ButtonSections/button_section5.png" section_num={5}/>
+    <ButtonSection section="section3" image="/ButtonSections/button_section3.png" section_num={4}/>
+    <ButtonSection section="section4" image="/ButtonSections/button_section4.png" section_num={5}/>
+    <!-- <ButtonSection section="section5" image="/ButtonSections/button_section5.png" section_num={5}/> -->
 </div>
   
     

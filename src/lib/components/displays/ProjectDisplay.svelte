@@ -1,6 +1,10 @@
 <script lang='ts'>
 
     export let link = "";
+    export let text: string = "";
+    export let title: string = "";
+    export let checkIt: string | null = null;
+    export let readMore: string | null = null;
 
 
 </script>
@@ -10,9 +14,9 @@
     .image {
         width: 100%;
         height: 100%;
+        object-fit: contain;
         aspect-ratio: 1;
-        object-fit: fill;
-        border-radius: 40px;
+        border-radius: 10%;
     }
 
     .sprite {
@@ -20,22 +24,37 @@
         height: 100%;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        aspect-ratio: 4;
-        object-fit: fill;
+        aspect-ratio: 1;
+        object-fit: contain;
     }
 
 </style>
 
 
 
-<div style="top:24%" class="flex flex-row justify-between absolute w-5/6 h-[300px] left-1/2 -translate-x-1/2 gap-4 pointer-events-none">
-    <div style="aspect-ratio: 1;" class=" relative h-full w-1/2">
+<div style="top:27%" class="flex flex-row justify-between absolute w-5/6 h-2/5 lg:h-1/2 left-1/2 -translate-x-1/2 gap-4 items-center lg:items-start">
+    <div style="aspect-ratio: 1;" class="flex flex-col relative h-full w-[150px] lg:w-auto pointer-events-none  ">
+
         <img class="image absolute" src={link} alt="">
-        <img class="sprite z-10 absolute w-full" src="/image_cover.png" alt="">
+        <img class="sprite z-10 absolute" src="/image_cover.png" alt="">
     </div>
-    <div class="w-full select-none pixel-font" draggable="false">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur dolorem nostrum aut culpa illum doloribus sequi maiores. 
-        Nulla earum enim sit aspernatur accusantium! Cum voluptate dolor molestias illum natus? Accusantium.
+
+    <div class="flex flex-col gap-4 pixel-font w-full">
+        <div class="hidden lg:!text-2xl lg:block">
+            {title}
+        </div>
+        
+        <div class="w-full select-none pixel-font !text-base lg:!text-xl" draggable="false">
+            {text}
+            {#if readMore}
+                Read more about the project <a href="{readMore}" target="_blank" class="text-blue-500">here</a>.
+            {/if}
+            {#if checkIt}
+                Try it out yourself <a href="{checkIt}" target="_blank" class="text-blue-500">here</a>.
+            {/if}
+        </div>
     </div>
+    
+    
 
 </div>

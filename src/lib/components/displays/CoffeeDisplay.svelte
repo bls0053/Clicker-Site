@@ -52,41 +52,30 @@
     .sprite {
         width: 32px;
         height: 40px;
-        background-image: url('/CoffeePot/CoffeePot.png');
+        background-image: url('/Coffee/machine.png');
+        background-repeat: no-repeat;
+        background-size: fill;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
         transform-origin: center left;
+        transform: scale(5);
     }
 
 </style>
 
 
 
-    <Section>
-        {#each $buttons_store as button}
-            {#if button.section == 5 && canShowButton(button)}
-                <PurchaseButton 
-                id = {button.id}
-                label = {button.label}
-                cost = {button.cost}
-                />
-            {/if}
-        {/each}
-    </Section>
-    <div class="flex flex-col gap-4">
-        <div class="flex flex-row  h-[340px] items-center justify-between relative">
-            <WaterDisplay></WaterDisplay>
-            <div class="flex flex-col absolute translate-x-20">
-                <div 
-                class="sprite " 
-                style="transform: scale(5); background-position: {pos.x}px {pos.y}px">
-                </div>
-            </div>
+    <div class="flex flex-row-reverse h-[340px] items-center relative">
+        <WaterDisplay></WaterDisplay>
+        <div style="" class="flex flex-col h-full justify-end ">
+            <div style="top:30%; left: 15%; background-position: {pos.x}px {pos.y}px;" class="sprite absolute"></div>
+            <BeanDisplay></BeanDisplay>    
         </div>
-        <BeanDisplay></BeanDisplay>    
     </div>
     
-        
+
+
+    
 
     
     
@@ -95,3 +84,9 @@
     
     
 
+ <!-- <div class="flex flex-col absolute translate-x-20">
+                <div 
+                class="sprite" 
+                style="transform: scale(5); background-position: {pos.x}px {pos.y}px;">
+                </div>
+            </div> -->

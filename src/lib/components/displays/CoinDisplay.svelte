@@ -5,6 +5,7 @@
     import IconCoin from '~icons/pixelarticons/bitcoin';
 	import Slider from '../buttons/SliderY.svelte';
 	import SliderX from '../buttons/SliderX.svelte';
+	import SliderY from '../buttons/SliderY.svelte';
 
     let timeout: number;
     let interval: number;
@@ -200,13 +201,13 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: repeat(5, 1fr);
-      width: 400px;
-      height: 400px;
+      width: 360px;
+      height: 360px;
     }
   
     .cell {
-        width: 80px;
-        height: 80px;
+        width: 72px;
+        height: 72px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -234,17 +235,17 @@
     } */
 
     .node {
-        width: 40px;
-        height: 40px;
-        transform: translate(-5px, -8px);
+        width: 35px;
+        height: 35px;
+        transform: translate(0px, -2px);
         border-radius: 50%;
         z-index: 0;
     }
 
     .window {
         position: absolute;
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         background-image: url('/Bencoin/window4.png');
         background-size: contain;
         image-rendering: pixelated;
@@ -270,64 +271,77 @@
         image-rendering: pixelated;
         image-rendering: crisp-edges;
         aspect-ratio: 4;
-        object-fit: contain;
+        object-fit: fit;
     }
 
 </style>
   
-<div class="flex flex-col-reverse lg:flex-row gap-6 w-full items-center lg:justify-center ">
-    <div class="flex flex-col gap-4 w-full lg:w-1/3 h-auto">
+<div class="flex flex-row flex-wrap gap-4 justify-center">
+    <div class="flex flex-row lg:flex-col w-auto justify-center">
+        <div class="flex flex-col w-auto h-full p-2">
+            <div class="flex flex-row gap-4 pb-4">
+                <button
+                    onclick={() => handleClick("topleft")}
+                    class="flex h-[110px] w-[110px] select-none ">
+                    <img src="/Bencoin/buttons/button_tl.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+                </button>
+                <button
+                    onclick={() => handleClick("topright")}
+                    class="flex h-[110px] w-[110px] select-none ">
+                    <img src="/Bencoin/buttons/button_tr.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+                </button>
+            </div>
+            
+            <div class="flex flex-row gap-4 pb-4">
+                <button
+                    onclick={() => handleClick("bottomleft")}
+                    class="flex h-[110px] w-[110px] select-none ">
+                    <img src="/Bencoin/buttons/button_bl.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+                </button>
+                <button
+                    onclick={() => handleClick("bottomright")}
+                    class="flex h-[110px] w-[110px] select-none ">
+                    <img src="/Bencoin/buttons/button_br.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+                </button>
+            </div>
+            <div class="flex flex-row pixel-font lg:hidden">
+                <SliderX bind:value={$state.bencoin.current_windows} bind:max={$state.bencoin.windows}/>
+            </div>
+            
+        </div>
 
-        <div class="flex flex-row gap-4">
-            <button
-                onclick={() => handleClick("topleft")}
-                class="flex w-full h-full select-none ">
-                <img src="/Bencoin/buttons/button_tl.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
-            </button>
-            <button
-                onclick={() => handleClick("topright")}
-                class="flex w-full h-full select-none ">
-                <img src="/Bencoin/buttons/button_tr.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
-            </button>
-        </div>
-        
-        <div class="flex flex-row gap-4 w-full h-full">
-            <button
-                onclick={() => handleClick("bottomleft")}
-                class="flex w-full h-full select-none ">
-                <img src="/Bencoin/buttons/button_bl.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
-            </button>
-            <button
-                onclick={() => handleClick("bottomright")}
-                class="flex w-full h-full select-none ">
-                <img src="/Bencoin/buttons/button_br.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
-            </button>
-        </div>
         <button
             onclick={() => handleClick("any")}
-            class="flex w-full h-full select-none ">
+            class="h-[55px] w-full select-none hidden lg:flex">
             <img src="/Bencoin/buttons/button_any.png" alt="Enter Button" class="sprite2  pointer-events-none" draggable="false"/>
         </button>
-
-        <div class="flex justify-between items-center pixel-font">
-            <div class="">Active Windows</div>
-            <div class="text-xs">{$state.bencoin.current_windows} / {$state.bencoin.windows}</div>
+        <div class="flex flex-col w-full h-full gap-3 lg:hidden">
+            <button
+                onclick={() => handleClick("any")}
+                class="h-[245px] w-[55px] select-none flex pt-2 pl-2">
+                <img src="/Bencoin/buttons/button_any_vert.png" alt="Enter Button" class="sprite2  pointer-events-none" draggable="false"/>
+            </button>
+            <div class="text-lg">{$state.bencoin.current_windows} / {$state.bencoin.windows}</div>
         </div>
-        <SliderX bind:value={$state.bencoin.current_windows} bind:max={$state.bencoin.windows}/>
+        <div class="hidden lg:flex flex-row pt-4 gap-4 pixel-font">
+            <SliderX bind:value={$state.bencoin.current_windows} bind:max={$state.bencoin.windows}/>
+            <div class="text-lg">{$state.bencoin.current_windows} / {$state.bencoin.windows}</div>
+        </div>
+
+      
     </div>
 
 
-    <div class="grid ">
+    <div class="grid">
         <div class="col-span-4 row-span-4 relative">
-            <img src="/Bencoin/bencoin_bg.png" alt="Enter Button" class="sprite pointer-events-none absolute" draggable="false"/>
-            <img src="/Bencoin/bencoin_cover7.png" alt="Enter Button" class="sprite pointer-events-none absolute z-10" draggable="false"/>
+            <img src="/Bencoin/bencoin_bg.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>
+            <img src="/Bencoin/bencoin_cover7.png" alt="" class="sprite pointer-events-none absolute z-10" draggable="false"/>
         </div>
-        
         
         {#each Array(4) as _, rowIndex}
             {#each Array(4) as _, colIndex}
                 <div class="cell absolute" 
-                style={`transform: translate(${colIndex * 80 + 5}px, ${rowIndex * 80 + 5}px);`}>
+                style={`transform: translate(${colIndex * 72}px, ${rowIndex * 72}px);`}>
                     {#each $nodes as node}
                         {#if node.row === rowIndex && node.col === colIndex}
                             <div class="flex justify-center items-center node !bg-yellow-600">
@@ -342,7 +356,7 @@
         {#each $windows as window}
             <div
             class="window"
-            style={`transform: translate(${window.col * 80 + 15}px, ${window.row * 80 + 13}px); 
+            style={`transform: translate(${window.col * 72 + 14}px, ${window.row * 72 + 12}px); 
             transition: transform ${$window_speed / 1000}s ease-in-out;`}
             ></div>
         {/each}

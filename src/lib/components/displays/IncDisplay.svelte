@@ -7,6 +7,4 @@
 
 
 
-<div class="flex flex-row rounded-md p-2 neo-inset pixel-font min-w-8 h-full justify-center items-center">
-    {value}
-</div>
+{value}

@@ -34,6 +34,7 @@ export interface Button {
   cost: CostState;
   type: UnlockType;
   cooldown: number;
+  description?: string;
   costScale: string;
 }
 
@@ -52,6 +53,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
+    description: "",
     costScale: "exp" },
   
 
@@ -68,13 +70,14 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
+    description: "",
     costScale: "exp" },
   
 
   { id: "btn1",
     label: "Purchase +.1 C/s",
     max: 1000,
-    cost: { lines: .1 },
+    cost: { lines: .01 },
     type: { lines: { type: "rate", amount: .1 } },
     amount: 0,
     section: 1,
@@ -85,6 +88,7 @@ export const buttons_store = writable<Button[]>([
       prereqs: [
         {id:"btn12", amount: 1} ]},
       cooldown: 0 ,
+      description: "",
       costScale: "exp" },
     
 
@@ -101,103 +105,109 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: [ {id:"btn1", amount: 3} ]},
     cooldown: 0 ,
+    description: "",
     costScale: "exp" },
   
 
-  { id: "btn3",
-    label: "Unlock Menu Bar",
-    max: 1,
-    cost: { lines: 10 },
-    type: { unlock: { type: "menu_bar" } },
-    amount: 0,
-    section: 2,
-    unlockCriteria: {
-      lines: 0,
-      coffee: 0,
-      bencoin: 0,
-      prereqs: [] },
-    cooldown: 0 ,
-    costScale: "exp" },
+  // { id: "btn3",
+  //   label: "Unlock Menu Bar",
+  //   max: 1,
+  //   cost: { lines: 10 },
+  //   type: { unlock: { type: "menu_bar" } },
+  //   amount: 0,
+  //   section: 2,
+  //   unlockCriteria: {
+  //     lines: 0,
+  //     coffee: 0,
+  //     bencoin: 0,
+  //     prereqs: [] },
+  //   cooldown: 0 ,
+  //   costScale: "exp" },
 
-  { id: "btn4",
-    label: "Unlock Resume",
-    max: 1,
-    cost: { lines: 15 },
-    type: { unlock: { type: "resume" },
-            unlock2: { type: "section3" },
-            unlock3: { type: "ben_coin"} },
-    amount: 0,
-    section: 2,
-    unlockCriteria: {
-      lines: 0,
-      coffee: 0,
-      bencoin: 0,
-      prereqs: [ {id:"btn3", amount: 1} ]},
-    cooldown: 0 ,
-    costScale: "exp" },
+  // { id: "btn4",
+  //   label: "Unlock Resume",
+  //   max: 1,
+  //   cost: { lines: 15 },
+  //   type: { unlock: { type: "resume" },
+  //           unlock2: { type: "section3" },
+  //           unlock3: { type: "ben_coin"} },
+  //   amount: 0,
+  //   section: 2,
+  //   unlockCriteria: {
+  //     lines: 0,
+  //     coffee: 0,
+  //     bencoin: 0,
+  //     prereqs: [ {id:"btn3", amount: 1} ]},
+  //   cooldown: 0 ,
+  //   description: "",
+  //   costScale: "exp" },
   
 
-  { id: "btn5",
-    label: "Unlock Email",
-    max: 1,
-    cost: { lines: 15 },
-    type: { unlock: { type: "email" } },
-    amount: 0,
-    section: 2,
-    unlockCriteria: {
-      lines: 0,
-      coffee: 0,
-      bencoin: 0,
-      prereqs: [ {id:"btn4", amount: 1} ]},
-    cooldown: 0 ,
-    costScale: "exp" },
+  // { id: "btn5",
+  //   label: "Unlock Email",
+  //   max: 1,
+  //   cost: { lines: 15 },
+  //   type: { unlock: { type: "email" } },
+  //   amount: 0,
+  //   section: 2,
+  //   unlockCriteria: {
+  //     lines: 0,
+  //     coffee: 0,
+  //     bencoin: 0,
+  //     prereqs: [ {id:"btn4", amount: 1} ]},
+  //   cooldown: 0 ,
+  //   description: "",
+  //   costScale: "exp" },
   
 
-  { id: "btn6",
-    label: "Unlock Linkedin",
-    max: 1,
-    cost: { lines: 15 },
-    type: { unlock: { type: "linkedin" } },
-    amount: 0,
-    section: 2,
-    unlockCriteria: {
-      lines: 0,
-      coffee: 0,
-      bencoin: 0,
-      prereqs: [ {id:"btn5", amount: 1} ]},
-    cooldown: 0 ,
-    costScale: "exp" },
+  // { id: "btn6",
+  //   label: "Unlock Linkedin",
+  //   max: 1,
+  //   cost: { lines: 15 },
+  //   type: { unlock: { type: "linkedin" } },
+  //   amount: 0,
+  //   section: 2,
+  //   unlockCriteria: {
+  //     lines: 0,
+  //     coffee: 0,
+  //     bencoin: 0,
+  //     prereqs: [ {id:"btn5", amount: 1} ]},
+  //   cooldown: 0 ,
+  //   description: "",
+  //   costScale: "exp" },
   
 
-  { id: "btn7",
-    label: "Unlock github",
-    max: 1,
-    cost: { lines: 15 },
-    type: { unlock: { type: "github" } },
-    amount: 0,
-    section: 2,
-    unlockCriteria: {
-      lines: 0,
-      coffee: 0,
-      bencoin: 0,
-      prereqs: [ {id:"btn6", amount: 1} ]},
-    cooldown: 0 ,
-    costScale: "exp" },
+  // { id: "btn7",
+  //   label: "Unlock github",
+  //   max: 1,
+  //   cost: { lines: 15 },
+  //   type: { unlock: { type: "github" } },
+  //   amount: 0,
+  //   section: 2,
+  //   unlockCriteria: {
+  //     lines: 0,
+  //     coffee: 0,
+  //     bencoin: 0,
+  //     prereqs: [ {id:"btn6", amount: 1} ]},
+  //   cooldown: 0 ,
+  //   description: "",
+  //   costScale: "exp" },
   
 
   { id: "btn8",
     label: "Unlock project1",
     max: 1,
     cost: { lines: 15 },
-    type: { unlock: { type: "project1" } },
+    type: { unlock: { type: "project1" }, unlock2: {type: "section3"}, unlock3: {type: "ben_coin"}},
     amount: 0,
-    section: 3,
+    section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
+    description: "",
     costScale: "exp" },
   
 
@@ -207,13 +217,14 @@ export const buttons_store = writable<Button[]>([
     cost: { lines: 15 },
     type: { unlock: { type: "project2" } },
     amount: 0,
-    section: 3,
+    section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn8", amount: 1} ]},
     cooldown: 0 ,
+    description: "",
     costScale: "exp" },
   
 
@@ -223,13 +234,14 @@ export const buttons_store = writable<Button[]>([
     cost: { lines: 15 },
     type: { unlock: { type: "project3" } },
     amount: 0,
-    section: 3,
+    section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn9", amount: 1} ]},
     cooldown: 0 ,
+    description: "",
     costScale: "exp" },
   
 
@@ -239,13 +251,14 @@ export const buttons_store = writable<Button[]>([
     cost: { lines: 15 },
     type: { unlock: { type: "project4" } },
     amount: 0,
-    section: 3,
+    section: 2,
     unlockCriteria: {
       lines: 0,
       coffee: 0,
       bencoin: 0,
       prereqs: [ {id:"btn10", amount: 1} ]},
     cooldown: 0 ,
+    description: "",
     costScale: "exp" },
   
 
@@ -253,7 +266,7 @@ export const buttons_store = writable<Button[]>([
     label: "Increase Calculations",
     max: 8,
     cost: { bencoin: 1 },
-    type: { bencoin: { type: "windows", amount: 1 } },
+    type: { bencoin: { type: "windows", amount: 1 }, unlock: {type: "section4"}, unlock2: {type: "coffee"} },
     amount: 1,
     section: 4,
     unlockCriteria: {
@@ -262,6 +275,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 1 ,
+    description: "",
     costScale: "exp" },
   
 
@@ -278,6 +292,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: [ {id:"btn14", amount: 1} ]},
     cooldown: 1 ,
+    description: "",
     costScale: "exp" },
   
 
@@ -294,6 +309,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: [ {id:"btn14", amount: 1} ]},
     cooldown: 1 ,
+  description: "",
     costScale: "exp" },
 
     { id: "btn17",
@@ -309,6 +325,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
+  description: "",
     costScale: "exp" },
 
     { id: "btn18",
@@ -324,6 +341,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
+  description: "",
     costScale: "exp" },
 
     { id: "btn19",
@@ -339,6 +357,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
+    description: "",
     costScale: "exp" },
     
     { id: "btn20",
@@ -354,6 +373,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
+    description: "",
     costScale: "rand" },
     
     { id: "btn21",
