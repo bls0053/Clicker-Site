@@ -177,6 +177,7 @@
         width: 100%;
         height: 100%;
     }
+    
 </style>
 
 {#if ($active_tab === "code")}
