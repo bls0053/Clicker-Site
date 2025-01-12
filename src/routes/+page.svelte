@@ -36,6 +36,7 @@
 	import { onMount } from 'svelte';
 	import WaterDisplay from '$lib/components/displays/WaterDisplay.svelte';
 	import Upgrades from '$lib/components/displays/Upgrades.svelte';
+	// import Help from '$lib/components/displays/Help.svelte';
 
     const pressedKeys = new Set<string>();
 
@@ -109,8 +110,8 @@
         }
     }
 
-    let divHeight = 500;
-    let newHeight = 500;
+    let divHeight = 400;
+    let newHeight = 400;
 
     function handleScroll() { 
         const container = document.querySelector('.scroll-container') as HTMLElement;
@@ -153,6 +154,15 @@
         background-repeat: no-repeat;
         object-fit: fill;
     }
+
+    /* .monitor-bg1 {
+        width: 100%;
+        height: 100%;
+        background-image: url('/Monitor/monitor_bg1.png');
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        object-fit: fill;
+    } */
 
     .sprite {
         width: 100%;
@@ -199,7 +209,7 @@
 
 <div class="fixed inset-full flex lg:hidden flex-row top-[81px] h-full w-[400px] z-50 transition-transform duration-500  {sidebar ? '-translate-x-[400px]' : '-translate-x-[65px]'}">
 
-    <div class="flex lg:hidden flex-col p-1 lg:p-2 pixel-font z-50 w-[70px] relative">
+    <div class="flex lg:hidden flex-col p-1 lg:p-2 pixel-font z-50 w-[70px] relative select-none">
         <button on:click={() => {sidebar = !sidebar}} class="flex flex-col items-center transition-transform w-full duration-500 {sidebar ? '-rotate-[180deg] translate-x-[75px] translate-y-[15px]' : '-translate-x-[10px]'} absolute">
             <img class="sprite pointer-events-none" src="/upgrade_open.png" alt="" />
         </button>
@@ -227,8 +237,9 @@
                 <div id="scroll-container"
                 style="height: {newHeight}px;"
                 class="block w-[80%] mx-auto mt-auto mb-20">
-                    <CodeDisplay2 bind:paused={paused}/>
+                    <CodeDisplay2 bind:paused={paused}/>  
                 </div>
+                <!-- <Help></Help> -->
             </div>
             
             <div style="top:12%" class="flex flex-row justify-between absolute w-5/6 h-[45px] left-1/2 -translate-x-1/2 gap-1">
@@ -280,9 +291,9 @@
             <div class="grid grid-gap2 grid-cols-6 grid-rows-2 absolute w-5/6 h-[60px] left-1/2 -translate-x-1/2 gap-1 -translate-y-[75px]">
                 <div class="col-start-1 col-span-6 lg:col-span-3 row-start-1 row-span-1 lg:row-span-2 w-full h-full">
                     <div class="flex flex-row w-full h-full ">
-                        <CounterDisplay text="Char/sec" store={formatCount(total_char)} ></CounterDisplay>
+                        <CounterDisplay text="C/sec" store={formatCount(total_char)} ></CounterDisplay>
                         <CounterDisplay text="Lines" store={formatCount($state.lines.amount)}></CounterDisplay>
-                        <CounterDisplay text="Bencoin" store={formatCount($state.bencoin.amount)}></CounterDisplay>
+                        <CounterDisplay text="BenCoin" store={formatCount($state.bencoin.amount)}></CounterDisplay>
                     </div>
                 </div>
                 <div class="col-start-1 lg:col-start-4 col-span-6 lg:col-span-3 row-start-2 lg:row-start-1 row-span-1 lg:row-span-2 w-full h-full">
@@ -322,7 +333,7 @@
 </div>
 
 {#if ($unlocked.ben_coin || $unlocked.coffee)}
-    <div class="flex flex-col w-full h-[190vh] pt-6">
+    <div class="flex flex-col w-full h-5/6 pt-6">
 
         <div class="flex flex-row flex-wrap w-11/12 lg:w-3/4 mx-auto gap-6 justify-center">
             {#if ($unlocked.ben_coin)}

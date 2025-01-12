@@ -149,24 +149,11 @@
                 count_char.set(prev_count);
                 actual_char.update((n) => n + new_snippet.length);
 
-                // if ($unlocked.auto_enter) {
-                //     handleAutoEnter();
-                // }
+                console.log(highlightedCode)
                     
             }
         }
     });
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 
@@ -192,8 +179,11 @@
     }
 </style>
 
-<div class="overflow-y-clip overflow-x-hidden mx-auto flex flex-col-reverse rounded-md code">
-    {#if ($active_tab === "code")}
-        <pre style="font-size: 24px" class="python pixel-font whitespace-pre-line break-words select-none">{@html highlightedCode}<span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : ''}">&gt </span><span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
-    {/if}
-</div>
+{#if ($active_tab === "code")}
+    <div class="overflow-y-clip overflow-x-hidden mx-auto flex flex-col-reverse rounded-md code ">
+            <pre style="font-size: 24px" class="python pixel-font whitespace-pre-line break-words select-none">{@html highlightedCode}<span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : ''}">&gt </span><span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
+    </div>
+{/if}
+
+
+<!-- bg-white bg-opacity-95 -->

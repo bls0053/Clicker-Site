@@ -48,7 +48,7 @@ export const state = writable({
     water: {
         amount: 0,
         pour: 80,
-        speed: 0
+        speed: 1
 
 
     }

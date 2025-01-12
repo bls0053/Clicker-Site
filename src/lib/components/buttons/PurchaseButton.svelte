@@ -182,53 +182,27 @@
         user-select: none;
     }
 
-    @keyframes rotateAnimation {
-        /* 0% {
-            transform: rotate(0deg);
-        }
-        10% {
-            transform: rotate(-1deg);
-        }
-        20% {
-            transform: rotate(-2deg);
-        }
-        30% {
-            transform: rotate(-3deg);
-        }
-        40% {
-            transform: rotate(-2deg);
-        }
-        50% {
-            transform: rotate(-1deg);
-        }
-        60% {
-            transform: rotate(0deg);
-        }
-        70% {
-            transform: rotate(1deg);
-        }
-        80% {
-            transform: rotate(2deg);
-        }
-        90% {
-            transform: rotate(1deg);
-        }
-        100% {
-            transform: rotate(0deg);
-        } */
+    .button-bg2 {
+        background-image: url('/upgrade_button.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        object-fit: contain;
+        user-select: none;
     }
 
     :hover.button-bg {
-        /* animation: rotateAnimation 300ms ease-in-out; */
         transform: scale(1.01) ;
         background-image: url('/upgrade_button_active.png');
     }
 
     :active.button-bg {
-        /* animation: rotateAnimation 300ms ease-in-out; */
         transform: scaleX(.95) scaleY(.90);
         transform-origin: bottom;
     }
+
 
 </style>
 
@@ -236,7 +210,8 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 
 
-<div class="flex flex-col h-full items-center w-11/12 pixel-font select-none pl-6 pt-4 pb-4 button-bg cursor-pointer rotate-btn">
+<button on:click={!locked ? handleClick:null} 
+class="flex flex-col h-full items-center w-11/12 pixel-font select-none pl-6 pt-4 pb-4 {locked || !canPurchase ? 'button-bg2' : 'button-bg'} cursor-pointer rotate-btn" >
     
     <div on:click={handleClick} id="{id}" class="flex flex-row items-center h-full w-full transform transition-transform">
 
@@ -258,10 +233,10 @@
     </div>
 
     <div class="flex h-full w-full">
-        {#if (description)}
-            description
+        {#if (description && !locked)}
+            &lt {description} &gt
         {/if}
     </div>
 
 
-</div>
+</button>

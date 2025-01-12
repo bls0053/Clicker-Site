@@ -1,29 +1,33 @@
 <script lang="ts">
-    let frames = [
-        '/Typing/Typing/Typing_0.png',
-        '/Typing/Typing/Typing_1.png',
-        '/Typing/Typing/Typing_2.png',
-        '/Typing/Typing/Typing_3.png',
-        
-    ];
+	import { onMount } from "svelte";
+
 
     export let rate: number;
     export let paused: boolean;
 
+    let spriteElement: HTMLDivElement;
     let intervalId: number | null;
     let index_count: number = 1;
+    let frameWidth: number = 0;
     let pos = {
         x: 0,
         y: 0
     }
 
+    function updateFrameWidth() {
+        if (spriteElement) {
+            pos.x = 0;
+            frameWidth = spriteElement.getBoundingClientRect().width;
+        }
+    }
+
     $: {
-        let intervalRate = Math.max(10,(500 / (1 + (5) * Math.log(1 + rate))))
+        let intervalRate = Math.max(10,(500 / (2 + (.5) * Math.log(1 + rate))))
 		if (rate > 0 && !paused) {
             
 			if (!intervalId) {
 				intervalId = setInterval(() => {
-					pos.x -= 32;
+					pos.x -= frameWidth;
 					if (index_count % 4 === 0) {
 						pos.x = 0;
 					}
@@ -40,21 +44,28 @@
 		}
 	}
 
+    onMount(() => {
+        updateFrameWidth();
+        window.addEventListener('resize', updateFrameWidth);
+    })
+
+    
+
 </script>
 
 <style>
     .sprite {
-        width: 32px;
-        height: 40px;
+        width: auto;
+        height: 90%;
         background-image: url('/typing.png');
         background-repeat: no-repeat;
-        background-size: fill;
+        background-size: cover;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
         transform-origin: center left;
-        transform: scale(6);
+        aspect-ratio: 32/40;
     }
 </style>
 
-<div style="top:54%; left: 5%; background-position: {pos.x}px {pos.y}px;" class="sprite absolute"></div>
+<div bind:this={spriteElement} style="top:8%; left: 5%; background-position: {pos.x}px {pos.y}px;" class="sprite absolute"></div>
 

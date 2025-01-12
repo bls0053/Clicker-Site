@@ -75,9 +75,9 @@ export const buttons_store = writable<Button[]>([
   
 
   { id: "btn1",
-    label: "Purchase +.1 C/s",
+    label: "Study",
     max: 1000,
-    cost: { lines: .01 },
+    cost: { lines: 1 },
     type: { lines: { type: "rate", amount: .1 } },
     amount: 0,
     section: 1,
@@ -88,12 +88,12 @@ export const buttons_store = writable<Button[]>([
       prereqs: [
         {id:"btn12", amount: 1} ]},
       cooldown: 0 ,
-      description: "",
+      description: "+1 Char/sec",
       costScale: "exp" },
     
 
   { id: "btn2",
-    label: "Purchase +1x C/s",
+    label: "Hire Tutor",
     max: 1000,
     cost: { lines: 10 },
     type: { lines: { type: "mult", amount: 1 }, unlock: {type: "section2", amount: 3} },
@@ -105,7 +105,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: [ {id:"btn1", amount: 3} ]},
     cooldown: 0 ,
-    description: "",
+    description: " +1X Char/sec",
     costScale: "exp" },
   
 
@@ -195,7 +195,7 @@ export const buttons_store = writable<Button[]>([
   
 
   { id: "btn8",
-    label: "Unlock project1",
+    label: "Unlock Project 1",
     max: 1,
     cost: { lines: 15 },
     type: { unlock: { type: "project1" }, unlock2: {type: "section3"}, unlock3: {type: "ben_coin"}},
@@ -212,7 +212,7 @@ export const buttons_store = writable<Button[]>([
   
 
   { id: "btn9",
-    label: "Unlock project2",
+    label: "Unlock Project 2",
     max: 1,
     cost: { lines: 15 },
     type: { unlock: { type: "project2" } },
@@ -229,7 +229,7 @@ export const buttons_store = writable<Button[]>([
   
 
   { id: "btn10",
-    label: "Unlock project3",
+    label: "Unlock Project3",
     max: 1,
     cost: { lines: 15 },
     type: { unlock: { type: "project3" } },
@@ -246,7 +246,7 @@ export const buttons_store = writable<Button[]>([
   
 
   { id: "btn11",
-    label: "Unlock project4",
+    label: "Unlock Project4",
     max: 1,
     cost: { lines: 15 },
     type: { unlock: { type: "project4" } },
@@ -263,7 +263,7 @@ export const buttons_store = writable<Button[]>([
   
 
   { id: "btn14",
-    label: "Increase Calculations",
+    label: "Parallel Miners",
     max: 8,
     cost: { bencoin: 1 },
     type: { bencoin: { type: "windows", amount: 1 }, unlock: {type: "section4"}, unlock2: {type: "coffee"} },
@@ -275,12 +275,12 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 1 ,
-    description: "",
+    description: "+1 Miner",
     costScale: "exp" },
   
 
   { id: "btn15",
-    label: "Multi-thread",
+    label: "Coin Splitting",
     max: 2,
     cost: { bencoin: 10 },
     type: { bencoin: { type: "nodes", amount: 1 } },
@@ -292,12 +292,12 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: [ {id:"btn14", amount: 1} ]},
     cooldown: 1 ,
-    description: "",
+    description: "+1 BenCoin",
     costScale: "exp" },
   
 
   { id: "btn16",
-    label: "Smarter Calculations",
+    label: "Overclock",
     max: 10,
     cost: { bencoin: 10 },
     type: { bencoin: { type: "speed", amount: 1 } },
@@ -309,7 +309,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: [ {id:"btn14", amount: 1} ]},
     cooldown: 1 ,
-  description: "",
+  description: "+ Mining Speed",
     costScale: "exp" },
 
     { id: "btn17",
@@ -325,11 +325,11 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
-  description: "",
+    description: "Easier Water-Fill",
     costScale: "exp" },
 
     { id: "btn18",
-    label: "Auto-Pour",
+    label: "Upgrade Coffee Machine",
     max: 1,
     cost: { bencoin: 10 },
     type: { unlock: { type: "auto_water" } },
@@ -341,7 +341,7 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
-  description: "",
+    description: "Unlocks Auto-Pour",
     costScale: "exp" },
 
     { id: "btn19",
@@ -355,14 +355,14 @@ export const buttons_store = writable<Button[]>([
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: []},
+      prereqs: [{id:"btn18", amount:1}]},
     cooldown: 0 ,
-    description: "",
+    description: "+ Fill Speed",
     costScale: "exp" },
     
     { id: "btn20",
-    label: "Buy Beans",
-    max: 10000,
+    label: "Order Beans",
+    max: 0,
     cost: { bencoin: 50 },
     type: { beans: { type: "beans", amount: 1 } },
     amount: 0,
@@ -373,11 +373,11 @@ export const buttons_store = writable<Button[]>([
       bencoin: 0,
       prereqs: []},
     cooldown: 0 ,
-    description: "",
+    description: "+1 Bean",
     costScale: "rand" },
     
     { id: "btn21",
-    label: "Auto-Bean",
+    label: "Premium Bean Subscription",
     max: 1,
     cost: { bencoin: 10 },
     type: { unlock: { type: "auto_bean" } },
@@ -387,8 +387,9 @@ export const buttons_store = writable<Button[]>([
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [  ]},
+      prereqs: []},
     cooldown: 0 ,
+    description:"Unlocks Auto-Buy" ,
     costScale: "exp" },
     
 
