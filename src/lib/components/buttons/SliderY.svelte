@@ -17,7 +17,6 @@
 
     $: {
         if (value > max - higher && value < max - lower) {
-            console.log("in there")
         }
     }
 

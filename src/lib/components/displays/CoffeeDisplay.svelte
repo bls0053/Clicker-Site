@@ -10,12 +10,10 @@
 	import { onDestroy } from "svelte";
 
     let intervalId: number | null;
-    let x_index: number = 0;
-    let y_index: number = 0;
     let index_count: number = 1;
     let pos = {
         x: 0,
-        y: -40
+        y: 0
     }
 
     $: {
@@ -29,7 +27,7 @@
 						pos.x = 0;
 					}
 					index_count += 1;
-				}, 150);
+				}, 100);
 			}
 		} 
 
@@ -38,7 +36,8 @@
 				clearInterval(intervalId);
 				intervalId = null;
                 pos.x = 0;
-                pos.y = -40;
+                pos.y = 0;
+                index_count = 1;
 			}
 		}
 	}
@@ -65,9 +64,10 @@
 
 
 
-    <div class="flex flex-row-reverse h-[340px] items-center relative">
+    <div class="flex flex-col-reverse lg:flex-row-reverse h-[400px] lg:h-[360px] items-center relative mt-2 gap-2">
+
         <WaterDisplay></WaterDisplay>
-        <div style="" class="flex flex-col h-full justify-end ">
+        <div style="" class="flex flex-col h-full justify-end">
             <div style="top:30%; left: 15%; background-position: {pos.x}px {pos.y}px;" class="sprite absolute"></div>
             <BeanDisplay></BeanDisplay>    
         </div>

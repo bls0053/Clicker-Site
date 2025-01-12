@@ -19,15 +19,14 @@ theme.subscribe((value) => {
     if (typeof window !== 'undefined') {
         document.documentElement.setAttribute('data-theme', value);
         localStorage.setItem('theme', value);
-        console.log(value)
     }
 });
 
 export const state = writable({
     lines: {
-        amount: 11110,
+        amount: 1000000,
         mult: 1,
-        rate: .01,
+        rate: 0,
     },
 
     coffee: {
@@ -35,7 +34,7 @@ export const state = writable({
     },
 
     bencoin: {
-        amount: 1111110,
+        amount: 1000000,
         windows: 1,
         nodes: 1,
         current_windows: 0,
@@ -48,8 +47,8 @@ export const state = writable({
 
     water: {
         amount: 0,
-        pour: 60,
-        speed: 1
+        pour: 80,
+        speed: 0
 
 
     }

@@ -111,9 +111,13 @@
     }
 
     function deductPrice(windows: number) {
-        if (($state.lines.amount - (windows)*(1)) > 0) {
+        while ($state.bencoin.current_windows > $state.lines.amount && $state.bencoin.current_windows > 0) {
+            $state.bencoin.current_windows = Math.floor($state.lines.amount);
+        }
+        if (($state.lines.amount - (windows)*(1)) >= 0) {
             $state.lines.amount -= (windows)*(1);
         }
+        
     }
 
     function moveWindows() {
@@ -183,7 +187,6 @@
     }
 
     $: {
-        console.log($window_speed)
         clearInterval(interval);
         interval = setInterval(moveWindows, $window_speed);
     }
@@ -235,8 +238,8 @@
     } */
 
     .node {
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
         transform: translate(0px, -2px);
         border-radius: 50%;
         z-index: 0;
@@ -246,11 +249,11 @@
         position: absolute;
         width: 45px;
         height: 45px;
-        background-image: url('/Bencoin/window4.png');
+        background-image: url('/Bencoin/window.png');
         background-size: contain;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        z-index: 1;
+        z-index: 5;
         transform: translate(0px, 0px);
     }
 
@@ -274,34 +277,39 @@
         object-fit: fit;
     }
 
+    :active.b {
+        transform: scaleX(.95) scaleY(.90);
+        transform-origin: bottom;
+    }
+
 </style>
   
-<div class="flex flex-row flex-wrap gap-4 justify-center">
+<div class="flex flex-row flex-wrap-reverse gap-4 justify-center select-none">
     <div class="flex flex-row lg:flex-col w-auto justify-center">
         <div class="flex flex-col w-auto h-full p-2">
             <div class="flex flex-row gap-4 pb-4">
                 <button
                     onclick={() => handleClick("topleft")}
-                    class="flex h-[110px] w-[110px] select-none ">
-                    <img src="/Bencoin/buttons/button_tl.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+                    class="flex h-[110px] w-[110px] select-none b">
+                    <img src="/Bencoin/buttons/button_tl.png" alt="" class="sprite  pointer-events-none" draggable="false"/>
                 </button>
                 <button
                     onclick={() => handleClick("topright")}
-                    class="flex h-[110px] w-[110px] select-none ">
-                    <img src="/Bencoin/buttons/button_tr.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+                    class="flex h-[110px] w-[110px] select-none b">
+                    <img src="/Bencoin/buttons/button_tr.png" alt="" class="sprite  pointer-events-none" draggable="false"/>
                 </button>
             </div>
             
             <div class="flex flex-row gap-4 pb-4">
                 <button
                     onclick={() => handleClick("bottomleft")}
-                    class="flex h-[110px] w-[110px] select-none ">
-                    <img src="/Bencoin/buttons/button_bl.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+                    class="flex h-[110px] w-[110px] select-none b">
+                    <img src="/Bencoin/buttons/button_bl.png" alt="" class="sprite  pointer-events-none" draggable="false"/>
                 </button>
                 <button
                     onclick={() => handleClick("bottomright")}
-                    class="flex h-[110px] w-[110px] select-none ">
-                    <img src="/Bencoin/buttons/button_br.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+                    class="flex h-[110px] w-[110px] select-none b">
+                    <img src="/Bencoin/buttons/button_br.png" alt="" class="sprite  pointer-events-none" draggable="false"/>
                 </button>
             </div>
             <div class="flex flex-row pixel-font lg:hidden">
@@ -312,14 +320,14 @@
 
         <button
             onclick={() => handleClick("any")}
-            class="h-[55px] w-full select-none hidden lg:flex">
-            <img src="/Bencoin/buttons/button_any.png" alt="Enter Button" class="sprite2  pointer-events-none" draggable="false"/>
+            class="h-[55px] w-full select-none hidden lg:flex b">
+            <img src="/Bencoin/buttons/button_any.png" alt="" class="sprite2 pointer-events-none" draggable="false"/>
         </button>
         <div class="flex flex-col w-full h-full gap-3 lg:hidden">
             <button
                 onclick={() => handleClick("any")}
                 class="h-[245px] w-[55px] select-none flex pt-2 pl-2">
-                <img src="/Bencoin/buttons/button_any_vert.png" alt="Enter Button" class="sprite2  pointer-events-none" draggable="false"/>
+                <img src="/Bencoin/buttons/button_any_vert.png" alt="" class="sprite2  pointer-events-none" draggable="false"/>
             </button>
             <div class="text-lg">{$state.bencoin.current_windows} / {$state.bencoin.windows}</div>
         </div>
@@ -332,10 +340,10 @@
     </div>
 
 
-    <div class="grid">
+    <div class="grid select-none">
         <div class="col-span-4 row-span-4 relative">
-            <img src="/Bencoin/bencoin_bg.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>
-            <img src="/Bencoin/bencoin_cover7.png" alt="" class="sprite pointer-events-none absolute z-10" draggable="false"/>
+            <img src="/Bencoin/bencoin_bg2.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>
+            <img src="/Bencoin/bencoin_cover8.png" alt="" class="sprite pointer-events-none absolute z-10" draggable="false"/>
         </div>
         
         {#each Array(4) as _, rowIndex}
@@ -344,8 +352,8 @@
                 style={`transform: translate(${colIndex * 72}px, ${rowIndex * 72}px);`}>
                     {#each $nodes as node}
                         {#if node.row === rowIndex && node.col === colIndex}
-                            <div class="flex justify-center items-center node !bg-yellow-600">
-                                <IconCoin class="text-yellow-200 size-8"></IconCoin>
+                            <div class="flex justify-center items-center node">
+                                <img src="/Bencoin/coin.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>
                             </div>
                         {/if}
                     {/each}
@@ -362,12 +370,12 @@
         {/each}
 
         <div class="col-start-1 col-span-4 row-start-5 relative">
-            <img src="/Bencoin/bencoin_cover_wide.png" alt="Enter Button" class="sprite pointer-events-none absolute z-10" draggable="false"/>
-            <img src="/Bencoin/bencoin_bg_wide.png" alt="Enter Button" class="sprite pointer-events-none absolute" draggable="false"/>
+            <img src="/Bencoin/bencoin_cover_wide.png" alt="" class="sprite pointer-events-none absolute z-10" draggable="false"/>
+            <img src="/Bencoin/bencoin_bg_wide.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>
         </div>
         <div class="col-start-5 row-span-4 relative">
-            <img src="/Bencoin/bencoin_cover_tall4.png" alt="Enter Button" class="sprite pointer-events-none absolute z-10" draggable="false"/>
-            <img src="/Bencoin/bencoin_bg_tall.png" alt="Enter Button" class="sprite pointer-events-none absolute" draggable="false"/>
+            <img src="/Bencoin/bencoin_cover_tall.png" alt="" class="sprite pointer-events-none absolute z-10" draggable="false"/>
+            <img src="/Bencoin/bencoin_bg_tall.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>
         </div>
     </div>
     

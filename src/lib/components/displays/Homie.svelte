@@ -7,54 +7,54 @@
         
     ];
 
-    let currentFrameIndex = 0;
-
-    let interval: any;
-    let animationSpeed: number = 100000;
     export let rate: number;
+    export let paused: boolean;
 
-    import { onMount, onDestroy } from 'svelte';
-
-    $: {
-        if (rate === 0) {
-            animationSpeed = 100000;
-        }
-        else if (rate > 0 && rate <= 150) {
-            animationSpeed = 200;
-        } 
-        else {
-            animationSpeed = 100;
-        }
-
-        if (interval) {
-            clearInterval(interval);
-        }
-
-        interval = setInterval(() => {
-            currentFrameIndex = (currentFrameIndex + 1) % frames.length;
-        }, animationSpeed);
+    let intervalId: number | null;
+    let index_count: number = 1;
+    let pos = {
+        x: 0,
+        y: 0
     }
 
-    onDestroy(() => {
-        if (interval) clearInterval(interval);
-    });
+    $: {
+        let intervalRate = Math.max(10,(500 / (1 + (5) * Math.log(1 + rate))))
+		if (rate > 0 && !paused) {
+            
+			if (!intervalId) {
+				intervalId = setInterval(() => {
+					pos.x -= 32;
+					if (index_count % 4 === 0) {
+						pos.x = 0;
+					}
+					index_count += 1;
+				}, intervalRate);
+			}
+		} 
+
+        else {	
+			if (intervalId) {
+				clearInterval(intervalId);
+				intervalId = null;
+			}
+		}
+	}
+
 </script>
 
 <style>
     .sprite {
-        width: auto;
-        height: 100%;
+        width: 32px;
+        height: 40px;
+        background-image: url('/typing.png');
+        background-repeat: no-repeat;
+        background-size: fill;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        transform: translate(0%, -0%);
-        aspect-ratio: 32/48;
-        object-fit: contain;
+        transform-origin: center left;
+        transform: scale(6);
     }
-  </style>
+</style>
 
-<img
-    class="sprite h-[50%] sm:h-[100%] pl-8 "
-    src={frames[currentFrameIndex]}
-    alt="Animated Sprite"
-/>
+<div style="top:54%; left: 5%; background-position: {pos.x}px {pos.y}px;" class="sprite absolute"></div>
 

@@ -33,14 +33,13 @@
 
 
 <div style="top:27%" class="flex flex-row justify-between absolute w-5/6 h-2/5 lg:h-1/2 left-1/2 -translate-x-1/2 gap-4 items-center lg:items-start">
-    <div style="aspect-ratio: 1;" class="flex flex-col relative h-full w-[150px] lg:w-auto pointer-events-none  ">
-
+    <div style="aspect-ratio: 1;" class="flex flex-col relative h-full w-[150px] lg:w-auto pointer-events-none select-none">
         <img class="image absolute" src={link} alt="">
         <img class="sprite z-10 absolute" src="/image_cover.png" alt="">
     </div>
 
     <div class="flex flex-col gap-4 pixel-font w-full">
-        <div class="hidden lg:!text-2xl lg:block">
+        <div class="hidden lg:!text-2xl lg:block select-none">
             {title}
         </div>
         

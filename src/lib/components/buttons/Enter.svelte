@@ -24,12 +24,17 @@
         aspect-ratio: 4;
         object-fit: contain;
     }
+
+    :active.b {
+        transform: scaleX(.95) scaleY(.90);
+        transform-origin: bottom;
+    }
 </style>
 
 <button
     on:click={handleClick}
     style="aspect-ratio: 4"
-    class="flex w-full h-full select-none "
+    class="flex w-full h-full select-none b"
 >
     <img src="/enter.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
 </button>

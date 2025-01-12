@@ -13,7 +13,6 @@
     let modalOpen: boolean;
 
     function handleClick() {
-        console.log(isLocked)
         if (!$unlocked[section as keyof typeof $unlocked]) { return }
         modalOpen = !modalOpen;
         

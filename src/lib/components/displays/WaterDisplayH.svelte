@@ -81,20 +81,13 @@
         }
     }
 
-    function getSliderBackground(num: number, axis: number): string {
+    function getSliderBackground(num: number): string {
 
         let percentage = ((num) / max)*100;
-        if (axis === 0) {
-            return `linear-gradient(to top, 
-            rgb(0, 130, 202) ${0}% ${percentage}%, 
-            rgb(221, 221, 221) ${percentage}%)`;
-        }
-        else {
-            return `linear-gradient(to right, 
-            rgb(0, 130, 202) ${0}% ${percentage}%, 
-            rgb(221, 221, 221) ${percentage}%)`;
-        }
-        
+
+        return `linear-gradient(to top, 
+        rgb(0, 130, 202) ${0}% ${percentage}%, 
+                white ${percentage}%)`;
     }
 
     Timer_ms.subscribe((time) => {
@@ -204,7 +197,6 @@
     }
     
     .slider-container {
-        
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -212,27 +204,16 @@
     }
 
     .slider {
-        
         -webkit-appearance: none;
-        width: 100%;
+        width: 20px;
         height: 100%;
         border-radius: 5px;
         outline: none;
+        writing-mode: vertical-rl;
         z-index: 10;
-    }
-
-    .slider-x {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 100%;
-        border-radius: 5px;
-        outline: none;
-        z-index: 10;
-        
     }
 
     .slider::-webkit-slider-thumb {
-        
         -webkit-appearance: none;
         appearance: none;
         background: #242424;
@@ -245,28 +226,6 @@
     }
 
     .slider::-moz-range-thumb {
-        
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        border-radius: 50%;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        
-    }
-
-    .slider-x::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        background: #242424;
-        width: 20px;
-        height: 40px;
-        cursor: pointer;
-        border-radius: 0%;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        
-    }
-
-    .slider-x::-moz-range-thumb {
         width: 20px;
         height: 20px;
         cursor: pointer;
@@ -280,28 +239,28 @@
 
 
 
-<div class="flex flex-row gap-4 overflow-hidden p-4">
+<div class="flex flex-row gap-4 overflow-hidden p-4 bg-green-300">
     
     <div class="flex flex-row relative justify-center items-center">
         <div
-            class="window hidden lg:flex"
+            class="window"
             style={`transform: translate(0px, ${window.y - offset}px); 
             transition: transform ${ease_amount}s ease-in-out;
             height: ${window_height}px;`}>
         </div>
 
+        
         <div
-            class="window lg:hidden"
+            class="window"
             style={`transform: translate(${window.y - offset}px, 0px); 
             transition: transform ${ease_amount}s ease-in-out;
-            width: ${window_height}px; height:40px`}>
+            height: ${window_height}px;`}>
         </div>
         
-
-        <div class="hidden lg:flex">
+        <div class="">
             <div 
             class="slider-container"
-            style="height:300px; width:20px">
+            style="height: {height}px">
                 <input
                     type="range"
                     min={min}
@@ -314,28 +273,7 @@
                     on:touchstart={startUserInteraction}
                     on:touchend={endUserInteraction}
                     class="slider {insidebool ? '' : ''}"
-                    style="background: {getSliderBackground($state.water.amount, 0)}; writing-mode: vertical-rl;"
-                />
-            </div>
-        </div>
-
-        <div class="flex lg:hidden">
-            <div 
-            class="slider-container"
-            style="height:20px; width:300px">
-                <input
-                    type="range"
-                    min={min}
-                    max={max}
-                    step={step}
-                    bind:value={value}
-                    on:input={updateValue}
-                    on:mousedown={startUserInteraction}
-                    on:mouseup={endUserInteraction}
-                    on:touchstart={startUserInteraction}
-                    on:touchend={endUserInteraction}
-                    class="slider-x {insidebool ? '' : ''}"
-                    style="background: {getSliderBackground($state.water.amount, 1)}; writing-mode: horizontal-tb;"
+                    style="background: {getSliderBackground($state.water.amount)}"
                 />
             </div>
         </div>

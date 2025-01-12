@@ -34,21 +34,19 @@
 	import KeyButton from '$lib/components/buttons/KeyButton.svelte';
 	import Enter from '$lib/components/buttons/Enter.svelte';
 	import { onMount } from 'svelte';
-	import NumDisplay from '$lib/components/displays/NumDisplay.svelte';
-	import Monitor2 from '$lib/components/displays/Monitor2.svelte';
-	import Monitor3 from '$lib/components/displays/Monitor3.svelte';
 	import WaterDisplay from '$lib/components/displays/WaterDisplay.svelte';
 	import Upgrades from '$lib/components/displays/Upgrades.svelte';
-	import CoinDisplayTemp from '$lib/components/displays/CoinDisplayTemp.svelte';
 
     const pressedKeys = new Set<string>();
 
     let paused = false;
     let previous_char = 0;
     let current_char = 0;
+    let running_char: number[] = [];
     let total_char = 0;
     let intervalId: number | undefined;
     let sidebar: boolean = false;
+
 
 	function formatCount(num: number): string {
         if (num < 1000) {
@@ -62,9 +60,13 @@
 
     setInterval(() => {
         current_char = $actual_char;
-        total_char = (current_char - previous_char);
+        running_char.push(current_char - previous_char);
+        if (running_char.length > 10) {
+            running_char.shift();
+        }
+        total_char = running_char.reduce((a, b) => a + b, 0);
         previous_char = current_char;
-    }, 1000)
+    }, 100);
     
     $: {
         $state.coffee;
@@ -76,7 +78,6 @@
                 else {
                     clearInterval(intervalId);
                     intervalId = undefined;
-                    console.log(intervalId)
                 }
             }, 1000);
         }
@@ -93,9 +94,7 @@
             event.preventDefault();
         }
         else {
-            console.log(!paused)
             if (!paused && !pressedKeys.has(event.key) && event.key !== "Enter") {
-                console.log("adding")
                 pressedKeys.add(event.key);
                 count_char.update((n) => n + 1);
             }
@@ -112,7 +111,6 @@
 
     let divHeight = 500;
     let newHeight = 500;
-    
 
     function handleScroll() { 
         const container = document.querySelector('.scroll-container') as HTMLElement;
@@ -120,8 +118,6 @@
         const scrollPosition = window.scrollY;
         newHeight = Math.max(0, divHeight-scrollPosition + 60);
     }
-
-
     
     onMount(() => {
         handleResize();
@@ -158,8 +154,6 @@
         object-fit: fill;
     }
 
-    
-
     .sprite {
         width: 100%;
         height: 100%;
@@ -175,7 +169,7 @@
 
 
 <div class="fixed inset-0 flex flex-row top-0 h-[80px] lg:h-[100px] mb-20 w-full z-50">
-    <div class="flex flex-row-reverse w-full h-full justify-center lg:justify-normal items-center mr-0 lg:mr-6">
+    <div class="flex flex-row-reverse w-full h-full justify-center lg:justify-normal items-center mr-0 lg:mr-6 pt-1">
         
         <!-- <div class="flex lg:hidden flex-row h-full p-3 lg:p-4 pixel-font z-50">
             <button on:click={() => {sidebar = !sidebar}} class="flex flex-col items-center hover:scale-110 active:scale-80 ">
@@ -203,15 +197,16 @@
 
 </div>
 
-<div class="fixed inset-full flex lg:hidden flex-row top-[80px] h-full w-[400px] z-50 transition-transform duration-500  {sidebar ? '-translate-x-[400px]' : '-translate-x-[50px]'}">
+<div class="fixed inset-full flex lg:hidden flex-row top-[81px] h-full w-[400px] z-50 transition-transform duration-500  {sidebar ? '-translate-x-[400px]' : '-translate-x-[65px]'}">
 
-    <div class="flex lg:hidden flex-col p-3 lg:p-4 pixel-font z-50 w-[50px]">
-        <button on:click={() => {sidebar = !sidebar}} class="flex flex-col items-center transition-transform duration-700 {sidebar ? '-rotate-[180deg]' : ''}">
-            <IconLeft font-size=28></IconLeft>
+    <div class="flex lg:hidden flex-col p-1 lg:p-2 pixel-font z-50 w-[70px] relative">
+        <button on:click={() => {sidebar = !sidebar}} class="flex flex-col items-center transition-transform w-full duration-500 {sidebar ? '-rotate-[180deg] translate-x-[75px] translate-y-[15px]' : '-translate-x-[10px]'} absolute">
+            <img class="sprite pointer-events-none" src="/upgrade_open.png" alt="" />
         </button>
     </div>
-    <div class="flex flex-col overflow-y-auto w-[350px]">
-        
+
+    <div class="flex flex-col overflow-y-auto w-[350px] pt-2 ">
+        <div class="h-[90px]"></div>
         <Upgrades></Upgrades>
         <img class="sprite absolute top-0 z-10 pointer-events-none" src="/upgrade_border.png" alt="" />
         <img class="sprite absolute top-0 -z-10 pointer-events-none" src="/upgrade_border2.png" alt="" />
@@ -304,7 +299,7 @@
         </div>
 
         <div class="col-span-6 lg:col-span-2 col-start-1 lg:col-start-8 row-start-7 lg:row-start-5 row-span-1 relative bg-slate-00">
-            <KeyButton store={count_char} paused={paused} />
+            <KeyButton store={state} paused={paused} />
         </div>
         
         <div class="col-span-6 lg:col-span-2 col-start-7 lg:col-start-8 row-start-7 lg:row-start-6 row-span-1 bg-slate-00">
@@ -312,33 +307,33 @@
         </div>
         
         <div class="col-start-1 col-span-12 lg:col-span-7 row-start-5 row-span-2 relative bg-slate-00 ">
-            <div class=""></div><Homie rate={$actual_char}></Homie>
-            <img class="sprite absolute top-0 transform -z-10" src="/homie_border.png" alt="" />
+            <div class=""></div><Homie rate={total_char} paused={paused}></Homie>
+            <img class="sprite absolute top-0 transform -z-10 select-none" src="/homie_border.png" alt="" />
         </div>
         
         <div class="hidden lg:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-00 relative">
             <div class="flex flex-col h-full w-full overflow-y-auto overflow-x-hidden gap-2">
                 <Upgrades></Upgrades>
             </div>
-            <img class="sprite absolute top-0 z-10 pointer-events-none" src="/upgrade_border.png" alt="" />
-            <img class="sprite absolute top-0 -z-10 pointer-events-none" src="/upgrade_border2.png" alt="" />
+            <img class="sprite absolute top-0 z-10 pointer-events-none select-none" src="/upgrade_border.png" alt="" />
+            <img class="sprite absolute top-0 -z-10 pointer-events-none select-none" src="/upgrade_border2.png" alt="" />
         </div>
-
     </div>
 </div>
 
-<div class="flex flex-col w-full h-[190vh] pt-6">
+{#if ($unlocked.ben_coin || $unlocked.coffee)}
+    <div class="flex flex-col w-full h-[190vh] pt-6">
 
-    <div class="flex flex-row flex-wrap w-11/12 lg:w-3/4 mx-auto gap-6 justify-center">
-        {#if ($unlocked.ben_coin)}
-            <CoinDisplay></CoinDisplay>
-        {/if}
-        {#if ($unlocked.coffee)}
-            <CoffeeDisplay></CoffeeDisplay>
-        {/if}
+        <div class="flex flex-row flex-wrap w-11/12 lg:w-3/4 mx-auto gap-6 justify-center">
+            {#if ($unlocked.ben_coin)}
+                <CoinDisplay></CoinDisplay>
+            {/if}
+            {#if ($unlocked.coffee)}
+                <CoffeeDisplay></CoffeeDisplay>
+            {/if}
+        </div>
     </div>
-</div>
-
+{/if}
 
 
 

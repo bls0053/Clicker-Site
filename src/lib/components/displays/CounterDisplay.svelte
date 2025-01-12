@@ -20,6 +20,6 @@
 </style>
 
 
-<div class="flex flex-row items-center justify-center rounded-md pixel-font w-full h-full z-10 sprite-bg !text-sm 2xl:!text-2xl">
+<div class="flex flex-row items-center justify-center rounded-md pixel-font w-full h-full z-10 sprite-bg !text-sm 2xl:!text-2xl select-none">
         {text}: {store}
 </div>

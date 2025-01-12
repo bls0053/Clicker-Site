@@ -100,6 +100,7 @@
         aspect-ratio: 1;
         image-rendering: crisp-edges;
         image-rendering: pixelated;
+        pointer-events: none;
     }
 
     .sprite-2 {
@@ -113,13 +114,18 @@
         image-rendering: pixelated;
     }
 
+    :active.arrow-button {
+        transform: scaleX(.95) scaleY(.90);
+        transform-origin: bottom;
+    }
+
 </style>
 
 
 
 
 
-<div class="flex flex-col p-2">
+<div class="flex flex-col p-2 select-none">
     {#if (!$unlocked.auto_bean)}
         <div class="flex flex-row items-center justify-center gap-2 h-[96px] w-[225px]">
         {#each $buttons_store as button}
@@ -143,14 +149,14 @@
                 </span>
             </div>
             <button 
-                class="h-full min-w-[32px]"
+                class="h-full min-w-[32px] arrow-button"
                 on:mousedown={() => startRapidChange(decrementBeanThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
                 <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full min-w-[32px]"
+                class="h-full min-w-[32px] arrow-button"
                 on:mousedown={() => startRapidChange(incrementBeanThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
@@ -167,14 +173,14 @@
             </div>
             
             <button 
-                class="h-full min-w-[32px]"
+                class="h-full min-w-[32px] arrow-button"
                 on:mousedown={() => startRapidChange(decrementCoinThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
                 <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full min-w-[32px]"
+                class="h-full min-w-[32px] arrow-button"
                 on:mousedown={() => startRapidChange(incrementCoinThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
@@ -191,14 +197,14 @@
             </div>
             
             <button 
-                class="h-full min-w-[32px]"
+                class="h-full min-w-[32px] arrow-button"
                 on:mousedown={() => startRapidChange(decrementPriceThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
                 <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full min-w-[32px]"
+                class="h-full min-w-[32px] arrow-button"
                 on:mousedown={() => startRapidChange(incrementPriceThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
