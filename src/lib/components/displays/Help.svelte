@@ -14,7 +14,7 @@
 </style>
 
 {#if ($active_tab === "help")}
-    <div class="overflow-y-scroll overflow-x-hidden mx-auto flex flex-col rounded-md code pixel-font select-none p-3 bg-green-500">
+    <div class="overflow-y-scroll overflow-x-hidden mx-auto flex flex-col rounded-md code pixel-font select-none p-3">
 
         <div class="text-3xl">Lines</div>
         <div class="">

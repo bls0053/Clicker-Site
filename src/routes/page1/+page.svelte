@@ -179,7 +179,7 @@
 
 
 
-<div class="fixed inset-0 flex flex-row top-0 h-[80px] lg:h-[100px] mb-20 w-full z-50">
+<div class="fixed inset-0 flex flex-row top-0 h-[80px] lg:h-[100px] mb-20 w-full z-50 select-none">
     <div class="flex flex-row-reverse w-full h-full justify-center lg:justify-normal items-center mr-0 lg:mr-6 pt-1">
         
         <!-- <div class="flex lg:hidden flex-row h-full p-3 lg:p-4 pixel-font z-50">
@@ -242,7 +242,7 @@
                 class="block w-[80%] mx-auto mt-auto mb-20">
                     <CodeDisplay2 bind:paused={paused}/>  
                 </div>
-                <div class="block w-[80%] h-[400px] lg:h-[320px] mx-auto mt-96">
+                <div style="margin-top: 148px;" class="block w-[80%] h-[60%] mx-auto">
                     <Help></Help> 
                 </div>
             </div>
