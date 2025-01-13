@@ -111,11 +111,11 @@
     }
 
     function deductPrice(windows: number) {
-        while ($state.bencoin.current_windows > $state.lines.amount && $state.bencoin.current_windows > 0) {
-            $state.bencoin.current_windows = Math.floor($state.lines.amount);
+        while ($state.bencoin.current_windows * 10 > $state.lines.amount && $state.bencoin.current_windows > 0) {
+            $state.bencoin.current_windows = Math.floor($state.lines.amount/10);
         }
-        if (($state.lines.amount - (windows)*(1)) >= 0) {
-            $state.lines.amount -= (windows)*(1);
+        if (($state.lines.amount - (windows)*(10)) >= 0) {
+            $state.lines.amount -= (windows)*(10);
         }
         
     }

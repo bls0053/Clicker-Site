@@ -24,9 +24,10 @@ theme.subscribe((value) => {
 
 export const state = writable({
     lines: {
-        amount: 1000000,
+        amount: 0,
         mult: 1,
-        rate: 0,
+        rate: 1,
+        exp: 0
     },
 
     coffee: {
@@ -34,7 +35,7 @@ export const state = writable({
     },
 
     bencoin: {
-        amount: 1000000,
+        amount: 0,
         windows: 1,
         nodes: 1,
         current_windows: 0,
@@ -49,19 +50,24 @@ export const state = writable({
         amount: 0,
         pour: 80,
         speed: 1
-
-
     }
 });
 
+export const proj = writable(0);
 
-export const overallRate_ms = derived(state, ($state) => {
-    return $state.lines.rate * $state.lines.mult * Math.pow(1.5, Math.sqrt($state.coffee.amount));
-});
+export const overallRate_ms = derived(
+    [state, proj], 
+    ([$state, $proj]) => {
+        return (($state.lines.rate * $state.lines.mult) * Math.pow(1.3, Math.sqrt($proj))) * Math.pow(1.5, Math.sqrt($state.coffee.amount));
+    }
+);
 
-export const overallRate_s = derived(state, ($state) => {
-    return $state.lines.rate * $state.lines.mult * Math.pow(1.5, Math.sqrt($state.coffee.amount)) * 100;
-});
+export const overallRate_s = derived(
+    [state, proj], 
+    ([$state, $proj]) => {
+        return (($state.lines.rate * $state.lines.mult) * Math.pow(1.3, Math.sqrt($proj))) * Math.pow(1.5, Math.sqrt($state.coffee.amount) * 100);
+    }
+);
 
 
 export const unlocked = writable({
@@ -111,3 +117,4 @@ export const window_speed = derived(state, ($state) => {
     return progress;
 });
 
+export const skipped = writable(false);

@@ -14,14 +14,15 @@
         state
     } from '$lib/stores/stores';
 
+    export let paused = false;
+
     let filePath = "/code.txt"; 
     let code_source = "";
     let new_snippet = "";
     let code_to_write = "";
     let index = 0;
-    export let paused = false;
+    let preText: boolean = true;
     
-
     let prev_count = 0;
     let char_limit = 2000;
     let code_length = 0;
@@ -44,6 +45,15 @@
             paused = false;
         }
     }
+
+    $: {
+        if (preText && index > 282) {
+            preText = false;
+            $state.lines.rate -= 1;
+        }
+
+    }
+
 
     const update_char = () => {
         count_char.update((n) => n + $overallRate_ms);
@@ -136,9 +146,9 @@
                 
 
                 if (index >= code_length) {
-                    index = 185;
-                    prev_count = 185;
-                    count_char.set(185);
+                    index = 0;
+                    prev_count = 0;
+                    count_char.set(0);
                 }
 
                 trim_snippet();
@@ -149,8 +159,6 @@
                 count_char.set(prev_count);
                 actual_char.update((n) => n + new_snippet.length);
 
-                console.log(highlightedCode)
-                    
             }
         }
     });
@@ -182,7 +190,7 @@
 
 {#if ($active_tab === "code")}
     <div class="overflow-y-clip overflow-x-hidden mx-auto flex flex-col-reverse rounded-md code ">
-            <pre style="font-size: 24px" class="python pixel-font whitespace-pre-line break-words select-none">{@html highlightedCode}<span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : ''}">&gt </span><span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
+            <pre style="font-size: 24px" class="python pixel-font whitespace-break-spaces break-words select-none">{@html highlightedCode}<span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : ''}">&gt </span><span style="font-size: 24px" class="pixel-font {paused ? 'flashing-text' : 'opacity-0'}">ENTER</span></pre>
     </div>
 {/if}
 

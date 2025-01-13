@@ -17,6 +17,7 @@
     <ButtonSection section="section3" image="/ButtonSections/button_section3.png" section_num={4}/>
     <ButtonSection section="section4" image="/ButtonSections/button_section4.png" section_num={5}/>
     <!-- <ButtonSection section="section5" image="/ButtonSections/button_section5.png" section_num={5}/> -->
+
 </div>
   
     

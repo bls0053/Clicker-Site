@@ -49,23 +49,23 @@
         window.addEventListener('resize', updateFrameWidth);
     })
 
-    
-
 </script>
 
 <style>
     .sprite {
         width: auto;
-        height: 90%;
+        height: 100%;
         background-image: url('/typing.png');
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: 400%;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
         transform-origin: center left;
         aspect-ratio: 32/40;
     }
+
 </style>
 
-<div bind:this={spriteElement} style="top:8%; left: 5%; background-position: {pos.x}px {pos.y}px;" class="sprite absolute"></div>
-
+<div class="h-5/6 relative">
+    <div bind:this={spriteElement} style="top:18%; left: 5%; background-position: {pos.x}px {pos.y}px;" class="sprite absolute h-full w-full"></div>
+</div>
