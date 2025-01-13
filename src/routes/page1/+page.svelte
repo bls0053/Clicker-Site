@@ -242,7 +242,8 @@
                 class="block w-[80%] mx-auto mt-auto mb-20">
                     <CodeDisplay2 bind:paused={paused}/>  
                 </div>
-                <div style="margin-top: 1024px;" class="block w-[80%] h-[60%] mx-auto">
+                <div class="block w-[80%] h-[60%] mx-auto">
+                    <div class="h-[40%]"></div>
                     <Help></Help> 
                 </div>
             </div>
