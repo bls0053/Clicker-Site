@@ -38,11 +38,20 @@
         object-fit: contain;
     }
 
+    :hover.button-bg {
+        transform: scale(1.01) ;
+    }
+
+    :active.button-bg {
+        transform: scaleX(.95) scaleY(.90);
+        transform-origin: bottom;
+    }
+
 </style>
 
 
 
-<button on:click={handleClick} class="flex w-full h-auto select-none p-2 relative">
+<button on:click={handleClick} class="flex w-full h-auto select-none p-2 relative {isLocked ? '' : 'button-bg'}">
    <img src="{image}" alt="" class="sprite pointer-events-none" draggable="false"/>
    <div style=" left: 87%; top:32%" class="{isLocked ? '' : 'hidden'} absolute">
         <IconLocked></IconLocked>

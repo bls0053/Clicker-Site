@@ -242,7 +242,9 @@
                 class="block w-[80%] mx-auto mt-auto mb-20">
                     <CodeDisplay2 bind:paused={paused}/>  
                 </div>
-                <Help></Help>
+                <div class="block w-[80%] h-[400px] lg:h-[320px] mx-auto mt-36">
+                    <Help></Help> 
+                </div>
             </div>
             
             <div style="top:12%" class="flex flex-row justify-between absolute w-5/6 h-[45px] left-1/2 -translate-x-1/2 gap-1">
