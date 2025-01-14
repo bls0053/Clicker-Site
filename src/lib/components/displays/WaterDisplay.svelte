@@ -63,7 +63,7 @@
         
         if (!high_jump && !low_jump) {
             if (jumpdecider == 0) { low_jump = true; }
-            if (jumpdecider > 1 && jumpdecider <= 3) { high_jump = true; }
+            if (jumpdecider > 1 && jumpdecider <= 2) { high_jump = true; }
 
             let decider = Math.floor(Math.random() * (2));
             if (decider == 1 && window.y >= min+5) { window.y -= 5 }

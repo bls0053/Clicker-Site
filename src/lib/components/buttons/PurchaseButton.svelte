@@ -1,8 +1,9 @@
 <script lang='ts'>
 
     import { buttons_store } from "$lib/stores/buttons";
-    import { nodes, state, unlocked, windows } from "$lib/stores/stores";
+    import { nodes, skipped, state, unlocked, windows } from "$lib/stores/stores";
     import type { CostState } from "$lib/stores/buttons";
+	import { onMount } from "svelte";
 
     export let label = "";
     export let id = "";
@@ -13,6 +14,18 @@
     let locked = false;
     let isCooldown = false;
     
+    onMount(() => {
+        
+    })
+
+    $: {
+        skipped;
+        let btn = $buttons_store.find((button) => button.id === id);
+        if (btn) { 
+        if (btn.amount >= btn.max && btn.max > 0) {
+            locked = true;
+        }}
+    }
 
     $:  {
         buttons_store.update((buttons) => {

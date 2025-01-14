@@ -33,6 +33,15 @@
 	import Upgrades from '$lib/components/displays/Upgrades.svelte';
 	import Help from '$lib/components/displays/Help.svelte';
 
+    import { buttons_store, type Button } from "$lib/stores/buttons";
+
+    let coffee: Button | undefined;
+    let coin: Button | undefined;
+    let project1: Button | undefined; 
+    let project2: Button | undefined; 
+    let project3: Button | undefined; 
+    let project4: Button | undefined; 
+
     const pressedKeys = new Set<string>();
 
     let paused = false;
@@ -121,13 +130,16 @@
         const scrollPosition = window.scrollY;
         newHeight = Math.max(0, divHeight-scrollPosition + 60);
     }
-
-
-    $: {
-       
-    }
     
     onMount(() => {
+
+        coffee = $buttons_store.find((button) => button.id === "btn23");
+        coin = $buttons_store.find((button) => button.id === "btn22");
+        project1 = $buttons_store.find((button) => button.id === "btn8");
+        project2 = $buttons_store.find((button) => button.id === "btn9");
+        project3 = $buttons_store.find((button) => button.id === "btn10");
+        project4 = $buttons_store.find((button) => button.id === "btn11");
+
         handleResize();
         handleResize();
         handleScroll();
@@ -242,7 +254,7 @@
 
 
         <div class="col-span-12 lg:col-span-9 row-span-4 relative overflow-hidden">
-            <div style="border-radius: 10%" class="flex flex-col-reverse w-full h-full max-h-[90%] bg-cyan-100">
+            <div style="border-radius: 10%" class="flex flex-col-reverse w-full h-full max-h-[90%] monitor-bg1">
                 <div id="scroll-container"
                 style="height: {newHeight}px;"
                 class="block w-[80%] mx-auto mt-auto mb-20">
