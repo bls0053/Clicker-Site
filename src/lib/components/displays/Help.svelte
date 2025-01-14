@@ -31,7 +31,7 @@
         <div class="text-3xl">BenCoin</div>
         <div class=""><span style="color: #007acc;">BenCoin</span> can be mined at the mining rig to purchase <span style="color: #007acc;">Coffee</span> 
             and cosmetics. It takes 10 <span style="color: #007acc;">Lines</span>/sec to run each miner, so
-            make sure you have enough <span style="color: #007acc;">Lines</span> to supply it.
+            make sure you have enough <span style="color: #007acc;">Lines</span> to supply it. You can also make the miner more efficient by manually selecting quadrant.
         </div><br>
 
         <div class="text-3xl">Coffee</div>

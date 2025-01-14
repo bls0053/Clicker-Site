@@ -179,6 +179,8 @@
         object-fit: fit;
     }
 
+    
+
 </style>
 
 <!-- background: #e0e0e0; -->
@@ -186,14 +188,10 @@
 
 
 <div class="fixed inset-0 flex flex-row top-0 h-[80px] lg:h-[100px] mb-20 w-full z-50 select-none">
+
+    <!-- svelte-ignore a11y_consider_explicit_label -->
+    
     <div class="flex flex-row-reverse w-full h-full justify-center lg:justify-normal items-center mr-0 lg:mr-6 pt-1">
-        
-        <!-- <div class="flex lg:hidden flex-row h-full p-3 lg:p-4 pixel-font z-50">
-            <button on:click={() => {sidebar = !sidebar}} class="flex flex-col items-center hover:scale-110 active:scale-80 ">
-                <IconMenu font-size=28></IconMenu>
-                <p>Unlocks</p>
-            </button>
-        </div> -->
 
         {#if $unlocked.resume} 
             <MenuButton link="/Resume.pdf" type="link" text="Resume"><IconResume font-size=28></IconResume></MenuButton>

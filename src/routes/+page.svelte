@@ -16,6 +16,7 @@
     let project4: Button | undefined; 
     let bean: Button | undefined; 
 
+
     $: {
         coffee = $buttons_store.find((button) => button.id === "btn23");
         coin = $buttons_store.find((button) => button.id === "btn22");
@@ -47,6 +48,11 @@
             $unlocked.auto_bean = true;
             $unlocked.ben_coin = true;
             $unlocked.coffee = true;
+
+            $unlocked.project1 = true;
+            $unlocked.project2 = true;
+            $unlocked.project3 = true;
+            $unlocked.project4 = true;
             
             $unlocked.section2 = true;
             $unlocked.section3 = true;
@@ -56,6 +62,7 @@
             $state.bencoin.amount = 1000000;
     }
 
+       
     onMount(() => {
         unlocked.update((u) => {
         Object.keys(u).forEach((key) => {
@@ -101,6 +108,15 @@
         aspect-ratio: 2;
     }
 
+    :hover.button-base {
+        transform: scale(1.01) ;
+    }
+
+    :active.button-base {
+        transform: scaleX(.95) scaleY(.90);
+        transform-origin: bottom;
+    }
+
     .play {
         background-image: url('/OpenPage/play_button.png');
     }
@@ -109,30 +125,60 @@
         background-image: url('/OpenPage/skip_button.png');
     }
 
+    :hover.skip {
+        background-image: url('/OpenPage/skip_button_active.png');
 
+    }
+
+    /* :hover.play {
+        background-image: url('/OpenPage/play_button_active.png');
+
+    } */
+
+    .bg {
+        background-image: url("displays/open_page.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        object-fit: contain;
+        user-select: none;
+
+    }
 
 </style>
 
 
 
 
-<div class="flex flex-col h-5/6 w-full justify-center items-center ">
-    <div class="h-full"></div>
-    <div class="flex flex-row h-auto w-3/4 mx-auto bg-slate-00 gap-4">
+<div class="flex flex-col h-[90%] w-[390px] md:w-[400px] mx-auto justify-center ">
+    <div class="pixel-font !text-7xl "> Hey, I'm <span style="color: #007acc;">Ben</span>.</div>
+    <div class="flex flex-col-reverse items-center w-full gap-8">
 
-        <div class="w-1/2">
-            <!-- svelte-ignore a11y_consider_explicit_label -->
-            <a href="/page1">
-                <button class="bg-green-00 w-full p-2 play button-base"></button>
-            </a>
+        <div class="flex flex-row w-[85%] md:w-3/4 justify-center mx-auto gap-4 pb-12">
+
+            <div class="w-[150px] ">
+                <!-- svelte-ignore a11y_consider_explicit_label -->
+                <a href="/page1">
+                    <button class="bg-green-00 w-full p-2 play button-base"></button>
+                </a></div>
+
+            <div class="w-[150px] ">
+                <!-- svelte-ignore a11y_consider_explicit_label -->
+                <a href="/page1">
+                    <button on:click={handleClick} class="bg-green-00 w-full  p-2 skip button-base"></button>
+                </a></div>
+
         </div>
-
-        <div class="w-1/2">
-            <!-- svelte-ignore a11y_consider_explicit_label -->
-            <a href="/page1">
-                <button on:click={handleClick} class="bg-green-00 w-full  p-2 skip button-base"></button>
-            </a>
+        
+        <div class="flex flex-col h-full ">
+            
+            <div class="h-full pixel-font mt-8 !text-2xl">Welcome to my interactive portfolio.<br><br> To begin, press <span style="color: #4b692f;">PLAY</span>. 
+                If you'd just like to see my info, feel free to <span style="color: #ac3232;">SKIP</span>.
+            </div>
         </div>
-
+       
+            
     </div>
 </div>
