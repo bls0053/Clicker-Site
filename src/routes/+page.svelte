@@ -118,7 +118,7 @@
 
 <div class="flex flex-col h-5/6 w-full justify-center items-center ">
     <div class="h-full"></div>
-    <div class="flex flex-row h-auto w-[600px] mx-auto bg-slate-00 gap-4">
+    <div class="flex flex-row h-auto w-[400px] lg:w-[600px] mx-auto bg-slate-00 gap-4">
 
         <div class="w-1/2">
             <!-- svelte-ignore a11y_consider_explicit_label -->
