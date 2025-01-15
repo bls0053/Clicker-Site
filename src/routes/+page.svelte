@@ -153,7 +153,7 @@
 
 
 <div class="flex flex-col h-[90%] w-[390px] md:w-[400px] mx-auto justify-center ">
-    <div class="pixel-font !text-7xl "> Hey, I'm <span style="color: #007acc;">Ben</span>.</div>
+    <div style="text-align: justify; text-align-last: justify" class="pixel-font !text-7xl "> Hey, I'm <span style="color: #007acc;">Ben</span>.</div>
     <div class="flex flex-col-reverse items-center w-full gap-8">
 
         <div class="flex flex-row w-[85%] md:w-3/4 justify-center mx-auto gap-4 pb-12">
@@ -172,12 +172,12 @@
 
         </div>
         
-        <div class="flex flex-col h-full ">
-            
-            <div class="h-full pixel-font mt-8 !text-2xl">Welcome to my interactive portfolio.<br><br> To begin, press <span style="color: #4b692f;">PLAY</span>. 
-                If you'd just like to see my info, feel free to <span style="color: #ac3232;">SKIP</span>.
-            </div>
+        <div class="h-full w-full pixel-font mt-8 !text-2xl" style="text-align: justify; text-align-last: justify">
+            Welcome to my interactive portfolio.<br><br> To begin, press <span style="color: #4b692f;">PLAY</span>. 
+            If you'd just like to see my info, feel free to <span style="color: #ac3232;">SKIP</span>.
         </div>
+        
+        
        
             
     </div>
