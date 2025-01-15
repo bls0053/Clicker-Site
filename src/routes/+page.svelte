@@ -152,7 +152,7 @@
 
 
 
-<div class="flex flex-col h-[90%] w-[390px] md:w-[400px] mx-auto justify-center ">
+<div class="flex flex-col h-[90%] w-[390px] md:w-[400px] mx-auto justify-center select-none">
     <div style="text-align: justify; text-align-last: justify" class="pixel-font !text-7xl "> Hey, I'm <span style="color: #007acc;">Ben</span>.</div>
     <div class="flex flex-col-reverse items-center w-full gap-8">
 
