@@ -190,7 +190,9 @@
 <div class="fixed inset-0 flex flex-row top-0 h-[80px] lg:h-[100px] mb-20 w-full z-50 select-none">
 
     <!-- svelte-ignore a11y_consider_explicit_label -->
-    
+    <div class="flex flex-row justify-center items-center pixel-font z-50 !text-2xl lg:!text-6xl pl-8">
+        simsben.com
+    </div>
     <div class="flex flex-row-reverse w-full h-full justify-center lg:justify-normal items-center mr-0 lg:mr-6 pt-1">
 
         {#if $unlocked.resume} 
@@ -208,7 +210,7 @@
         
     </div>
     
-    <img src="/header.png" alt="" class="pointer-events-none header-img absolute z-10" draggable="false"/>
+    <img src="displays/header.png" alt="" class="pointer-events-none header-img absolute z-10" draggable="false"/>
 
 </div>
 
@@ -216,7 +218,7 @@
 
     <div class="flex lg:hidden flex-col p-1 lg:p-2 pixel-font z-50 w-[70px] relative select-none">
         <button on:click={() => {sidebar = !sidebar}} class="flex flex-col items-center transition-transform w-full duration-500 {sidebar ? '-rotate-[180deg] translate-x-[72px] translate-y-[5px]' : '-translate-x-[10px]'} absolute">
-            <img class="sprite pointer-events-none" src="/upgrade_open.png" alt="" />
+            <img class="sprite pointer-events-none" src="ButtonSections/upgrade_open.png" alt="" />
         </button>
     </div>
 
@@ -329,15 +331,15 @@
         
         <div class="col-start-1 col-span-12 lg:col-span-7 row-start-5 row-span-2 relative bg-slate-00 ">
             <div class="flex flex-col h-full w-full"><Homie rate={total_char} paused={paused}></Homie></div>
-            <img class="sprite absolute top-0 transform -z-10 select-none" src="/homie_border.png" alt="" />
+            <img class="sprite absolute top-0 transform -z-10 select-none" src="displays/homie_border.png" alt="" />
         </div>
         
         <div class="hidden lg:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-00 relative">
             <div class="flex flex-col h-full w-full overflow-y-auto overflow-x-hidden gap-2">
                 <Upgrades></Upgrades>
             </div>
-            <img class="sprite absolute top-0 z-10 pointer-events-none select-none" src="/upgrade_border.png" alt="" />
-            <img class="sprite absolute top-0 -z-10 pointer-events-none select-none" src="/upgrade_border2.png" alt="" />
+            <img class="sprite absolute top-0 z-10 pointer-events-none select-none" src="displays/upgrade_border.png" alt="" />
+            <img class="sprite absolute top-0 -z-10 pointer-events-none select-none" src="displays/upgrade_border2.png" alt="" />
         </div>
     </div>
 </div>

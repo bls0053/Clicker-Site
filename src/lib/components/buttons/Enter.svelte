@@ -36,5 +36,5 @@
     style="aspect-ratio: 4"
     class="flex w-full h-full select-none b"
 >
-    <img src="/enter.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
+    <img src="ButtonSections/enter.png" alt="Enter Button" class="sprite  pointer-events-none" draggable="false"/>
 </button>
