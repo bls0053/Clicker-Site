@@ -160,14 +160,14 @@
 
             <div class="w-[150px] ">
                 <!-- svelte-ignore a11y_consider_explicit_label -->
-                <a href="/page1">
-                    <button class="bg-green-00 w-full p-2 play button-base"></button>
+                <a href="/play">
+                    <button class="bg-green-00 w-full p-2 play button-base select-none pointer-events-none"></button>
                 </a></div>
 
             <div class="w-[150px] ">
                 <!-- svelte-ignore a11y_consider_explicit_label -->
-                <a href="/page1">
-                    <button on:click={handleClick} class="bg-green-00 w-full  p-2 skip button-base"></button>
+                <a href="/play">
+                    <button on:click={handleClick} class="bg-green-00 w-full  p-2 skip button-base select-none pointer-events-none"></button>
                 </a></div>
 
         </div>
