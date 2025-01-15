@@ -8,7 +8,7 @@
 <style>
 
     .sprite-bg {
-        background-image: url("displays/tab.png");
+        background-image: url("/displays/tab.png");
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;

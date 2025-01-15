@@ -52,6 +52,6 @@
     <div style="left:75%" class="{isLocked ? '' : 'hidden'} z-10 absolute">
         <IconLocked></IconLocked>
     </div>
-    <img src="displays/tab2.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>
+    <img src="/displays/tab2.png" alt="" class="sprite pointer-events-none absolute" draggable="false"/>
     <div class="flex z-10 ml-auto w-4/5">{text} </div>
 </div>

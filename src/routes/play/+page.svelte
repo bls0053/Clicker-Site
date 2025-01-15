@@ -210,7 +210,7 @@
         
     </div>
     
-    <img src="displays/header.png" alt="" class="pointer-events-none header-img absolute z-10" draggable="false"/>
+    <img src="/displays/header.png" alt="" class="pointer-events-none header-img absolute z-10" draggable="false"/>
 
 </div>
 
@@ -331,15 +331,15 @@
         
         <div class="col-start-1 col-span-12 lg:col-span-7 row-start-5 row-span-2 relative bg-slate-00 ">
             <div class="flex flex-col h-full w-full"><Homie rate={total_char} paused={paused}></Homie></div>
-            <img class="sprite absolute top-0 transform -z-10 select-none" src="displays/homie_border.png" alt="" />
+            <img class="sprite absolute top-0 transform -z-10 select-none" src="/displays/homie_border.png" alt="" />
         </div>
         
         <div class="hidden lg:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-00 relative">
             <div class="flex flex-col h-full w-full overflow-y-auto overflow-x-hidden gap-2">
                 <Upgrades></Upgrades>
             </div>
-            <img class="sprite absolute top-0 z-10 pointer-events-none select-none" src="displays/upgrade_border.png" alt="" />
-            <img class="sprite absolute top-0 -z-10 pointer-events-none select-none" src="displays/upgrade_border2.png" alt="" />
+            <img class="sprite absolute top-0 z-10 pointer-events-none select-none" src="/displays/upgrade_border.png" alt="" />
+            <img class="sprite absolute top-0 -z-10 pointer-events-none select-none" src="/displays/upgrade_border2.png" alt="" />
         </div>
     </div>
 </div>

@@ -55,7 +55,7 @@
     .sprite {
         width: auto;
         height: 100%;
-        background-image: url('Typing/typing.png');
+        background-image: url('/Typing/typing.png');
         background-repeat: no-repeat;
         background-size: 400%;
         image-rendering: pixelated;

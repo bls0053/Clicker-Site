@@ -136,7 +136,7 @@
     } */
 
     .bg {
-        background-image: url("displays/open_page.png");
+        background-image: url("/displays/open_page.png");
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center;
