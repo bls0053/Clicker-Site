@@ -185,7 +185,7 @@
 <style>
 
     .button-bg {
-        background-image: url('/upgrade_button.png');
+        background-image: url('/displays/upgrade_button.png');
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center;
@@ -196,7 +196,7 @@
     }
 
     .button-bg2 {
-        background-image: url('/upgrade_button.png');
+        background-image: url('/displays/upgrade_button.png');
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center;
@@ -208,7 +208,7 @@
 
     :hover.button-bg {
         transform: scale(1.01) ;
-        background-image: url('/upgrade_button_active.png');
+        background-image: url('/displays/upgrade_button_active.png');
     }
 
     :active.button-bg {
