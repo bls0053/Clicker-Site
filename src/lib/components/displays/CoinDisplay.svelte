@@ -63,51 +63,51 @@
     // }
 
     $: {
-        state.subscribe(($state) => {
-            const requiredWindows = $state.bencoin.windows;
-            const index = $windows.length;
-            windows.update(($windows) => {
-                if ($windows.length < requiredWindows) {
-                    windowBool[index] = true;
-                    $windows.push({ row: locations[index].row, col: locations[index].col });
-                }
-                return [...$windows]
-            })
 
+        const requiredWindows = $state.bencoin.windows;
+        const index = $windows.length;
+        windows.update(($windows) => {
+            if ($windows.length < requiredWindows) {
+                windowBool[index] = true;
+                $windows.push({ row: locations[index].row, col: locations[index].col });
+
+            }
+            return [...$windows]
         })
+
     }
 
     $: {
-        state.subscribe(($state) => {
-            const requiredWindows = $state.bencoin.current_windows;
-            windows.update(($windows) => {
-                $windows.forEach((window, index) => {
-                    if (index < $windows.length - requiredWindows) {
-                        windowBool[index] = true;
-                    }
-                    else {
-                        windowBool[index] = false;
-                    }
-                });
-                return [...$windows];
+
+        const requiredWindows = $state.bencoin.current_windows;
+        windows.update(($windows) => {
+            $windows.forEach((window, index) => {
+                if (index < $windows.length - requiredWindows) {
+                    windowBool[index] = true;
+                }
+                else {
+                    windowBool[index] = false;
+                }
             });
+            return [...$windows];
         });
+
     }
 
 
     $: {
-        state.subscribe(($state) => {
-            const requiredNodes = $state.bencoin.nodes;
-            nodes.update(($nodes) => {
-                while ($nodes.length < requiredNodes) {
-                    $nodes.push({ row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) });
-                }
-                while ($nodes.length > requiredNodes) {
-                    $nodes.pop();
-                }
-                return [...$nodes];
-            });
+        
+        const requiredNodes = $state.bencoin.nodes;
+        nodes.update(($nodes) => {
+            while ($nodes.length < requiredNodes) {
+                $nodes.push({ row: Math.floor(Math.random() * 4), col: Math.floor(Math.random() * 4) });
+            }
+            while ($nodes.length > requiredNodes) {
+                $nodes.pop();
+            }
+            return [...$nodes];
         });
+
     }
 
     function deductPrice(windows: number) {

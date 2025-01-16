@@ -227,8 +227,8 @@
         <div class="flex flex-col h-full overflow-y-auto">
             <Upgrades></Upgrades>
         </div>
-        <img class="sprite absolute top-0 z-10 pointer-events-none" src="/upgrade_border.png" alt="" />
-        <img class="sprite absolute top-0 -z-10 pointer-events-none" src="/upgrade_border2.png" alt="" />
+        <img class="sprite absolute top-0 z-10 pointer-events-none" src="/displays/upgrade_border.png" alt="" />
+        <img class="sprite absolute top-0 -z-10 pointer-events-none" src="/displays/upgrade_border2.png" alt="" />
     </div>
     
 </div>
