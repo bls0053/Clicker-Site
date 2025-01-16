@@ -190,7 +190,7 @@
 <div class="fixed inset-0 flex flex-row top-0 h-[80px] lg:h-[100px] mb-20 w-full z-50 select-none">
 
     <!-- svelte-ignore a11y_consider_explicit_label -->
-    <div class="flex flex-row justify-center items-center pixel-font z-50 !text-2xl lg:!text-6xl pl-8">
+    <div class="hidden flex-row justify-center items-center pixel-font z-50 !text-2xl sm:flex lg:!text-6xl pl-8">
         simsben.com
     </div>
     <div class="flex flex-row-reverse w-full h-full justify-center lg:justify-normal items-center mr-0 lg:mr-6 pt-1">
