@@ -152,13 +152,13 @@
 
 
 
-<div class="flex flex-col h-[90%] w-[390px] md:w-[400px] mx-auto justify-center select-none">
-    <div style="text-align: justify; text-align-last: justify" class="pixel-font !text-7xl "> Hey, I'm <span style="color: #007acc;">Ben</span>.</div>
+<div class="flex flex-col h-[90%] w-[350px] md:w-[400px] mx-auto justify-center select-none">
+    <div style="text-align: justify; text-align-last: justify" class="pixel-font !text-6xl md:!text-7xl ">Hey, I'm <span style="color: #007acc;">Ben</span>.</div>
     <div class="flex flex-col-reverse items-center w-full gap-8">
 
         <div class="flex flex-row w-[85%] md:w-3/4 justify-center mx-auto gap-4 pb-12">
 
-            <div class="w-[150px] ">
+            <div class="w-[150px]">
                 <!-- svelte-ignore a11y_consider_explicit_label -->
                 <a href="/play">
                     <button class="bg-green-00 w-full p-2 play button-base select-none"></button>
