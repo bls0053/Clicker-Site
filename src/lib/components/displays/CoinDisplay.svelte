@@ -70,7 +70,7 @@
             if ($windows.length < requiredWindows) {
                 windowBool[index] = true;
                 $windows.push({ row: locations[index].row, col: locations[index].col });
-
+                console.log($state.lines.rate)
             }
             return [...$windows]
         })
