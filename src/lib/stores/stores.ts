@@ -24,7 +24,7 @@ theme.subscribe((value) => {
 
 export const state = writable({
     lines: {
-        amount: 0,
+        amount: 1111110,
         mult: 1,
         rate: 1,
         exp: 0
@@ -35,7 +35,7 @@ export const state = writable({
     },
 
     bencoin: {
-        amount: 0,
+        amount: 111110,
         windows: 1,
         nodes: 1,
         current_windows: 0,

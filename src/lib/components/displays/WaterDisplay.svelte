@@ -169,7 +169,7 @@
         }
 
         node_speed = $state.water.speed;
-        if ($unlocked.auto_water) {
+        if ($unlocked.auto_water && auto_water == false) {
             $unlocked.auto_water = true;
             auto_water = true;
         }
