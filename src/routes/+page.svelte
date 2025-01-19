@@ -58,8 +58,8 @@
             $unlocked.section3 = true;
             $unlocked.section4 = true;
 
-            $state.lines.amount = 1000000;
-            $state.bencoin.amount = 1000000;
+            $state.lines.amount = 5000000;
+            $state.bencoin.amount = 5000000;
     }
 
        

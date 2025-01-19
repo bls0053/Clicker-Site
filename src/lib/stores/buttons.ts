@@ -439,7 +439,21 @@ export const buttons_store = writable<Button[]>([
     description:"Unlocks Auto-Buy" ,
     costScale: "exp" },
     
-
+    // { id: "btn25",
+    // label: "bg_1",
+    // max: 0,
+    // cost: { lines: 1 },
+    // type: { bg: { type: "mult", amount: 1 } },
+    // amount: 0,
+    // section: 4,
+    // unlockCriteria: {
+    //   lines: 0,
+    //   coffee: 0,
+    //   bencoin: 0,
+    //   prereqs: [ {id:"btn16", amount: 3} ]},
+    // cooldown: 1 ,
+    // description: "",
+    // costScale: "exp" },
 
 ]);
 
