@@ -178,7 +178,7 @@
                             return [...currentNodes];
                         });
 
-                        $state["bencoin"].amount += 1;
+                        $state["bencoin"].amount += (1 * $state.bencoin.mult);
                         nodeProcessing[nodeIndex] = false;
                     }, $window_speed);
                 }

@@ -327,6 +327,22 @@ export const buttons_store = writable<Button[]>([
     description: "+ Mining Speed",
     costScale: "exp" },
 
+    { id: "btn24",
+    label: "Market Price",
+    max: 0,
+    cost: { lines: 1000 },
+    type: { bencoin: { type: "mult", amount: 1 } },
+    amount: 0,
+    section: 4,
+    unlockCriteria: {
+      lines: 0,
+      coffee: 0,
+      bencoin: 0,
+      prereqs: [ {id:"btn16", amount: 3} ]},
+    cooldown: 1 ,
+    description: "+1 Coin Value",
+    costScale: "exp" },
+
     { id: "btn23",
     label: "Coffee Machine",
     max: 1,

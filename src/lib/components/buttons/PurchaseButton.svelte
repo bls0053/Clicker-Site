@@ -136,6 +136,11 @@
                                     if (!amount) {return}
                                     $state.bencoin.speed += amount;
                                 }
+
+                                else if (type === "mult") {
+                                    if (!amount) {return}
+                                    $state.bencoin.mult += amount;
+                                }
                             }
 
                             else if (button_type === "coffee") {

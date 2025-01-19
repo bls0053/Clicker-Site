@@ -39,7 +39,8 @@ export const state = writable({
         windows: 1,
         nodes: 1,
         current_windows: 0,
-        speed: 0
+        speed: 0,
+        mult: 1
     },
 
     beans: {
