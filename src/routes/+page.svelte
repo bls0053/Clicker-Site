@@ -84,6 +84,7 @@
 
         if (coffee) { coffee.amount = 0; }
         if (coin) { coin.amount = 0; }
+        if (bean) { bean.amount = 0; }
         if (project1) { project1.amount = 0; }
         if (project2) { project2.amount = 0; }
         if (project3) { project3.amount = 0; }

@@ -223,13 +223,14 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 
 
-<button on:click={!locked ? handleClick:null} 
-class="flex flex-col h-full items-center w-11/12 pixel-font select-none pl-6 pt-4 pb-4 {locked || !canPurchase ? 'button-bg2' : 'button-bg'} cursor-pointer rotate-btn" >
+<button on:click={!locked ? handleClick:null} id="{id}" style="text-align: left;"
+class="flex flex-col items-start h-full w-11/12 pixel-font select-none {locked || !canPurchase ? 'button-bg2' : 'button-bg'} cursor-pointer rotate-btn pt-4 pb-3 pl-7 pr-6" >
     
-    <div on:click={handleClick} id="{id}" class="flex flex-row items-center h-full w-full transform transition-transform">
+    
+    {label}
+    
 
-        {label}&nbsp
-        <div class="{locked ? '' : (canPurchase && !isCooldown? '!text-green-700' : '!text-red-600')}">
+    <div class="{locked ? '' : (canPurchase && !isCooldown? '!text-green-700' : '!text-red-600')}">
         {#if (!locked)}
         {#each Object.entries(cost) as [key, value]}
         {#if value !== undefined}
@@ -241,8 +242,6 @@ class="flex flex-col h-full items-center w-11/12 pixel-font select-none pl-6 pt-
         {#if (locked)}
             MAX
         {/if}
-        </div>
-        
     </div>
 
     <div class="flex h-full w-full">

@@ -72,7 +72,7 @@ style="{modalOpen ? '' : 'transform:scale(0)'}">
         cost={button.cost}/>
         {/if}
     {/each}
+    
 
 </div>
-
 

@@ -29,7 +29,7 @@
 
 
 
-<div class="flex flex-row h-full p-3 lg:p-4 pixel-font z-50  ">
+<div class="flex flex-row h-full p-3 xl:p-4 pixel-font z-50  ">
     <button on:click={handleClick} class="flex flex-col items-center hover:scale-110 active:scale-80 ">
         <slot></slot>
         <p>{text}</p>

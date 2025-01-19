@@ -119,6 +119,12 @@
         transform-origin: bottom;
     }
 
+    .disabled-button {
+        opacity: 0.7;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
 </style>
 
 
@@ -149,14 +155,14 @@
                 </span>
             </div>
             <button 
-                class="h-full min-w-[32px] arrow-button"
+                class="h-full min-w-[32px] arrow-button {$unlocked.auto_bean ? '' : 'disabled-button'}"
                 on:mousedown={() => startRapidChange(decrementBeanThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
                 <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full min-w-[32px] arrow-button"
+                class="h-full min-w-[32px] arrow-button {$unlocked.auto_bean ? '' : 'disabled-button'}"
                 on:mousedown={() => startRapidChange(incrementBeanThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
@@ -173,14 +179,14 @@
             </div>
             
             <button 
-                class="h-full min-w-[32px] arrow-button"
+                class="h-full min-w-[32px] arrow-button {$unlocked.auto_bean ? '' : 'disabled-button'}"
                 on:mousedown={() => startRapidChange(decrementCoinThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
                 <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full min-w-[32px] arrow-button"
+                class="h-full min-w-[32px] arrow-button {$unlocked.auto_bean ? '' : 'disabled-button'}"
                 on:mousedown={() => startRapidChange(incrementCoinThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
@@ -197,14 +203,14 @@
             </div>
             
             <button 
-                class="h-full min-w-[32px] arrow-button"
+                class="h-full min-w-[32px] arrow-button {$unlocked.auto_bean ? '' : 'disabled-button'}"
                 on:mousedown={() => startRapidChange(decrementPriceThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>
                 <img src="/Coffee/button_left.png" class="sprite" alt="">
             </button>
             <button 
-                class="h-full min-w-[32px] arrow-button"
+                class="h-full min-w-[32px] arrow-button {$unlocked.auto_bean ? '' : 'disabled-button'}"
                 on:mousedown={() => startRapidChange(incrementPriceThresh)}
                 on:mouseup={stopRapidChange}
                 on:mouseleave={stopRapidChange}>

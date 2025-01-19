@@ -187,13 +187,13 @@
 
 
 
-<div class="fixed inset-0 flex flex-row top-0 h-[80px] lg:h-[100px] mb-20 w-full z-50 select-none">
+<div class="fixed inset-0 flex flex-row top-0 h-[80px] xl:h-[100px] mb-20 w-full z-50 select-none">
 
     <!-- svelte-ignore a11y_consider_explicit_label -->
-    <div class="hidden flex-row justify-center items-center pixel-font z-50 !text-2xl sm:flex lg:!text-6xl pl-8">
+    <div class="hidden flex-row justify-center items-center pixel-font z-50 !text-4xl sm:flex xl:!text-6xl pl-8">
         simsben.com
     </div>
-    <div class="flex flex-row-reverse w-full h-full justify-center lg:justify-normal items-center mr-0 lg:mr-6 pt-1">
+    <div class="flex flex-row-reverse w-full h-full justify-center sm:justify-normal items-center mr-0 xl:mr-6 pt-1">
 
         {#if $unlocked.resume} 
             <MenuButton link="/Resume.pdf" type="link" text="Resume"><IconResume font-size=28></IconResume></MenuButton>
@@ -214,9 +214,9 @@
 
 </div>
 
-<div class="fixed inset-full flex lg:hidden flex-row top-[81px] h-2/3 w-[450px] z-50 transition-transform duration-500  {sidebar ? '-translate-x-[450px]' : '-translate-x-[65px]'}">
+<div class="fixed inset-full flex xl:hidden flex-row top-[81px] h-2/3 w-[450px] z-50 transition-transform duration-500  {sidebar ? '-translate-x-[450px]' : '-translate-x-[65px]'}">
 
-    <div class="flex lg:hidden flex-col p-1 lg:p-2 pixel-font z-50 w-[70px] relative select-none">
+    <div class="flex xl:hidden flex-col p-1 xl:p-2 pixel-font z-50 w-[70px] relative select-none">
         <button on:click={() => {sidebar = !sidebar}} class="flex flex-col items-center transition-transform w-full duration-500 {sidebar ? '-rotate-[180deg] translate-x-[72px] translate-y-[5px]' : '-translate-x-[10px]'} absolute">
             <img class="sprite pointer-events-none" src="ButtonSections/upgrade_open.png" alt="" />
         </button>
@@ -234,14 +234,14 @@
 </div>
 
 
-<div class="h-[100px] lg:h-[150px]"></div>
+<div class="h-[100px] xl:h-[150px]"></div>
 
-<div class="flex flex-col w-full h-[100vh] lg:h-[75vh]">
+<div class="flex flex-col w-full h-[100vh] xl:h-[75vh]">
     
-    <div class="grid grid-gap1 grid-cols-12 grid-rows-7 lg:grid-rows-6 h-full w-11/12 lg:w-3/4 mx-auto">
+    <div class="grid grid-gap1 grid-cols-12 grid-rows-7 xl:grid-rows-6 h-full w-11/12 xl:w-3/4 mx-auto">
 
 
-        <div class="col-span-12 lg:col-span-9 row-span-4 relative overflow-hidden">
+        <div class="col-span-12 xl:col-span-9 row-span-4 relative overflow-hidden">
             <div style="border-radius: 10%" class="flex flex-col-reverse w-full h-full max-h-[90%] bg-cyan-100">
                 <div id="scroll-container"
                 style="height: {newHeight}px;"
@@ -301,14 +301,14 @@
             
 
             <div class="grid grid-gap2 grid-cols-6 grid-rows-2 absolute w-5/6 h-[60px] left-1/2 -translate-x-1/2 gap-1 -translate-y-[75px]">
-                <div class="col-start-1 col-span-6 lg:col-span-3 row-start-1 row-span-1 lg:row-span-2 w-full h-full">
+                <div class="col-start-1 col-span-6 xl:col-span-3 row-start-1 row-span-1 xl:row-span-2 w-full h-full">
                     <div class="flex flex-row w-full h-full ">
                         <CounterDisplay text="C/sec" store={formatCount(total_char)} ></CounterDisplay>
                         <CounterDisplay text="Lines" store={formatCount($state.lines.amount)}></CounterDisplay>
                         <CounterDisplay text="BenCoin" store={formatCount($state.bencoin.amount)}></CounterDisplay>
                     </div>
                 </div>
-                <div class="col-start-1 lg:col-start-4 col-span-6 lg:col-span-3 row-start-2 lg:row-start-1 row-span-1 lg:row-span-2 w-full h-full">
+                <div class="col-start-1 xl:col-start-4 col-span-6 xl:col-span-3 row-start-2 xl:row-start-1 row-span-1 xl:row-span-2 w-full h-full">
                     <div class="flex flex-row w-full h-full ">
                         <CounterDisplay text="Coffee" store={formatCount($state.coffee.amount)}></CounterDisplay>
                         <CounterDisplay text="Water" store={formatCount($state.water.amount)}></CounterDisplay>
@@ -321,23 +321,25 @@
             
         </div>
 
-        <div class="col-span-6 lg:col-span-2 col-start-1 lg:col-start-8 row-start-7 lg:row-start-5 row-span-1 relative bg-slate-00">
+        <div class="col-span-6 xl:col-span-2 col-start-1 xl:col-start-8 row-start-7 xl:row-start-5 row-span-1 relative bg-slate-00">
             <KeyButton store={state} paused={paused} />
         </div>
         
-        <div class="col-span-6 lg:col-span-2 col-start-7 lg:col-start-8 row-start-7 lg:row-start-6 row-span-1 bg-slate-00">
+        <div class="col-span-6 xl:col-span-2 col-start-7 xl:col-start-8 row-start-7 xl:row-start-6 row-span-1 bg-slate-00">
             <Enter />
         </div>
         
-        <div class="col-start-1 col-span-12 lg:col-span-7 row-start-5 row-span-2 relative bg-slate-00 ">
+        <div class="col-start-1 col-span-12 xl:col-span-7 row-start-5 row-span-2 relative bg-slate-00 ">
             <div class="flex flex-col h-full w-full"><Homie rate={total_char} paused={paused}></Homie></div>
             <img class="sprite absolute top-0 transform -z-10 select-none" src="/displays/homie_border.png" alt="" />
         </div>
         
-        <div class="hidden lg:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-00 relative">
-            <div class="flex flex-col h-full w-full overflow-y-auto overflow-x-hidden gap-2">
+        <div class="hidden xl:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-00 relative">
+            <div class="flex flex-col h-full w-full overflow-hidden overflow-x-hidden gap-2">
                 <Upgrades></Upgrades>
+                <div class="h-[20px] w-[100px]"></div>
             </div>
+            
             <img class="sprite absolute top-0 z-10 pointer-events-none select-none" src="/displays/upgrade_border.png" alt="" />
             <img class="sprite absolute top-0 -z-10 pointer-events-none select-none" src="/displays/upgrade_border2.png" alt="" />
         </div>
@@ -347,7 +349,7 @@
 {#if ($unlocked.ben_coin || $unlocked.coffee)}
     <div class="flex flex-col w-full h-5/6 pt-6">
 
-        <div class="flex flex-row flex-wrap w-11/12 lg:w-3/4 mx-auto gap-6 justify-center">
+        <div class="flex flex-row flex-wrap w-11/12 xl:w-3/4 mx-auto gap-6 justify-center">
             {#if ($unlocked.ben_coin)}
                 <CoinDisplay></CoinDisplay>
             {/if}
