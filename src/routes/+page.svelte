@@ -15,6 +15,8 @@
     let project3: Button | undefined; 
     let project4: Button | undefined; 
     let bean: Button | undefined; 
+    let fireplace: Button | undefined; 
+    let chandlier: Button | undefined; 
 
 
     $: {
@@ -24,6 +26,8 @@
         project2 = $buttons_store.find((button) => button.id === "btn9");
         project3 = $buttons_store.find((button) => button.id === "btn10");
         project4 = $buttons_store.find((button) => button.id === "btn11");
+        fireplace = $buttons_store.find((button) => button.id === "btn25");
+        chandlier = $buttons_store.find((button) => button.id === "btn26");
 
     }
 
@@ -35,6 +39,7 @@
             project3 = $buttons_store.find((button) => button.id === "btn10");
             project4 = $buttons_store.find((button) => button.id === "btn11");
             bean = $buttons_store.find((button) => button.id === "btn21");
+            fireplace = $buttons_store.find((button) => button.id === "btn25");
 
             if (coffee) { coffee.amount = 1; }
             if (coin) { coin.amount = 1; }
@@ -43,7 +48,6 @@
             if (project2) { project2.amount = 1; }
             if (project3) { project3.amount = 1; }
             if (project4) { project4.amount = 1; }
-            if (bean) { bean.amount = 1; }
 
             $unlocked.auto_bean = true;
             $unlocked.ben_coin = true;
@@ -57,6 +61,7 @@
             $unlocked.section2 = true;
             $unlocked.section3 = true;
             $unlocked.section4 = true;
+            $unlocked.section5 = true;
 
             $state.lines.amount = 5000000;
             $state.bencoin.amount = 5000000;
@@ -76,6 +81,8 @@
         $unlocked.github = true;
         $unlocked.linkedin = true;
         $unlocked.resume = true;
+        $unlocked.section5 = true;
+        $unlocked.item3 = false;
 
         $state.lines.amount = 0;
         $state.bencoin.amount = 0;
@@ -89,6 +96,9 @@
         if (project2) { project2.amount = 0; }
         if (project3) { project3.amount = 0; }
         if (project4) { project4.amount = 0; }
+        
+        if (fireplace) { fireplace.amount = 0; }
+        if (chandlier) { chandlier.amount = 0; }
     })
 
 

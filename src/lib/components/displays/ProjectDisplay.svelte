@@ -16,7 +16,7 @@
         height: 100%;
         object-fit: contain;
         aspect-ratio: 1;
-        border-radius: 10%;
+        border-radius: 20%;
     }
 
     .sprite {
@@ -32,18 +32,18 @@
 
 
 
-<div style="top:27%" class="flex flex-row justify-between absolute w-5/6 h-2/5 lg:h-1/2 left-1/2 -translate-x-1/2 gap-4 items-center lg:items-start">
-    <div style="aspect-ratio: 1;" class="flex flex-col relative h-full w-[150px] lg:w-auto pointer-events-none select-none">
+<div style="top:25%" class="flex flex-row justify-between absolute w-5/6 h-2/5 xl:h-1/2 left-1/2 -translate-x-1/2 gap-4 items-center xl:items-start">
+    <div style="aspect-ratio: 1;" class="flex flex-col relative h-full w-[150px] xl:w-auto pointer-events-none select-none">
         <img class="image absolute" src={link} alt="">
         <img class="sprite z-10 absolute" src="/displays/image_cover.png" alt="">
     </div>
 
     <div class="flex flex-col gap-4 pixel-font w-full">
-        <div class="hidden lg:!text-2xl lg:block select-none">
+        <div class="hidden sm:!text-2xl sm:block select-none">
             {title}
         </div>
         
-        <div class="w-full select-none pixel-font !text-base lg:!text-xl" draggable="false">
+        <div class="w-full select-none pixel-font !text-base xl:!text-xl" draggable="false">
             {text}
             {#if readMore}
                 Read more about the project <a href="{readMore}" target="_blank" class="text-blue-500">here</a>.

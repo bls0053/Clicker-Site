@@ -32,6 +32,10 @@
 	import { onMount } from 'svelte';
 	import Upgrades from '$lib/components/displays/Upgrades.svelte';
 	import Help from '$lib/components/displays/Help.svelte';
+	import Item1 from '$lib/components/displays/Item1.svelte';
+	import Item2 from '$lib/components/displays/Item2.svelte';
+	import Item3 from '$lib/components/displays/Item3.svelte';
+	import Item4 from '$lib/components/displays/Item4.svelte';
 
     const pressedKeys = new Set<string>();
 
@@ -162,6 +166,15 @@
         object-fit: fill;
     }
 
+    .homie-bg1 {
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('/displays/homie_border.png');
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+    }
+
     .monitor-bg1 {
         width: 100%;
         height: 100%;
@@ -236,13 +249,13 @@
 
 <div class="h-[100px] xl:h-[150px]"></div>
 
-<div class="flex flex-col w-full h-[100vh] xl:h-[75vh]">
+<div class="flex flex-col mx-auto w-full h-[700px] xl:h-[750px]">
     
-    <div class="grid grid-gap1 grid-cols-12 grid-rows-7 xl:grid-rows-6 h-full w-11/12 xl:w-3/4 mx-auto">
+    <div class="grid grid-gap1 grid-cols-12 grid-rows-6 h-full w-11/12 xl:w-4/5 max-w-[1400px] mx-auto">
 
 
         <div class="col-span-12 xl:col-span-9 row-span-4 relative overflow-hidden">
-            <div style="border-radius: 10%" class="flex flex-col-reverse w-full h-full max-h-[90%] bg-cyan-100">
+            <div style="border-radius: 10%" class="flex flex-col-reverse w-full h-full max-h-[90%] bg-cyan-100 select-none">
                 <div id="scroll-container"
                 style="height: {newHeight}px;"
                 class="block w-[80%] mx-auto mt-auto mb-20">
@@ -321,17 +334,24 @@
             
         </div>
 
-        <div class="col-span-6 xl:col-span-2 col-start-1 xl:col-start-8 row-start-7 xl:row-start-5 row-span-1 relative bg-slate-00">
+        <div class="col-span-6 xl:col-span-2 md:col-start-9 xl:col-start-8 md:row-start-5 xl:row-start-5 row-span-1 relative bg-slate-00">
             <KeyButton store={state} paused={paused} />
         </div>
         
-        <div class="col-span-6 xl:col-span-2 col-start-7 xl:col-start-8 row-start-7 xl:row-start-6 row-span-1 bg-slate-00">
+        <div class="col-span-6 xl:col-span-2 md:col-start-9 xl:col-start-8 md:row-start-6 xl:row-start-6 row-span-1 bg-slate-00">
             <Enter />
         </div>
         
-        <div class="col-start-1 col-span-12 xl:col-span-7 row-start-5 row-span-2 relative bg-slate-00 ">
-            <div class="flex flex-col h-full w-full"><Homie rate={total_char} paused={paused}></Homie></div>
-            <img class="sprite absolute top-0 transform -z-10 select-none" src="/displays/homie_border.png" alt="" />
+        <div class="col-start-1 col-span-12 md:col-span-8 xl:col-span-7 row-start-5 row-span-2 bg-slate-00 homie-bg1">
+            
+                <div class="flex flex-col w-full h-full justify-end relative overflow-hidden">
+                    <div class="flex flex-row justify-between h-4/6 xl:h-5/6 w-full relative">
+                        <Homie rate={total_char} paused={paused}></Homie>
+                    </div>
+                    {#if $unlocked.item1}<Item1></Item1>{/if}
+                    {#if $unlocked.item2}<Item2></Item2>{/if}
+                    {#if $unlocked.item3}<Item3></Item3>{/if}
+                </div>
         </div>
         
         <div class="hidden xl:block col-start-10 col-span-3 row-start-1 row-span-6 bg-slate-00 relative">

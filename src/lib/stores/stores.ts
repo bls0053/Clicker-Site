@@ -76,7 +76,7 @@ export const unlocked = writable({
     section2: false,
     section3: false,
     section4: false,
-    section5: false,
+    section5: true,
     menu_bar: false,
     resume: true,
     email: true,
@@ -90,7 +90,11 @@ export const unlocked = writable({
     ben_coin: false,
     coffee: false,
     auto_water: false,
-    auto_bean: false
+    auto_bean: false,
+    item1: false,
+    item2: false,
+    item3: false,
+    item4: false
 
 });
 

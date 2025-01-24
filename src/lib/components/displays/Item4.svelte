@@ -53,18 +53,17 @@
 
 <style>
     .sprite {
-        width: auto;
-        height: 100%;
-        background-image: url('/Typing/typing.png');
+        background-image: url('/Homie/item4.png');
         background-repeat: no-repeat;
-        background-size: 400% 100%;
+        background-size: 400%;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
         transform-origin: center left;
-        aspect-ratio: 32/40;
+        aspect-ratio: .3;
     }
 
 </style>
 
-    <div bind:this={spriteElement} style="bottom:3%; left: 2%; background-position: {pos.x}px {pos.y}px;" class="sprite absolute h-full w-full"></div>
+
+    <div bind:this={spriteElement} style="background-position: {pos.x}px {pos.y}px;" class="sprite"></div>
 
