@@ -338,7 +338,7 @@ export const buttons_store = writable<Button[]>([
       lines: 0,
       coffee: 0,
       bencoin: 0,
-      prereqs: [ {id:"btn16", amount: 3} ]},
+      prereqs: [ {id:"btn16", amount: 1} ]},
     cooldown: 1 ,
     description: "+1 Coin Value",
     costScale: "exp" },
